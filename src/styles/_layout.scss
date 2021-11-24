@@ -1,0 +1,76 @@
+body{
+  min-height: 100vh;
+  background: var(--brand-bg-light);
+}
+
+.header{
+  background: var(--white);
+  &__logo{}
+  &__options{}
+  &__option{
+    padding: .7rem 1.6rem;
+    border-left: 1px solid var(--line);
+  }
+}
+
+.theme-switch{
+  width: 5.7rem;
+  height: 3rem;
+  position: relative;
+  border-radius: 3.7rem;
+
+  background: var(--brand-bg);
+  transition: var(--qSpeed);
+
+  &.active{
+    background: var(--brand-dark);
+  }
+
+  &__day-icon, &__night-icon, &__caret {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &__day-icon, &__night-icon {
+    svg{
+      fill: var(--brand-dark);
+      transition: var(--mSpeed);
+    }
+  }
+  &__night-icon {
+    left: .5rem;
+  }
+  &__day-icon {
+    right: .5rem;
+  }
+  &__caret {
+    width: 2.2rem;
+    height: 2.2rem;
+    left: .5rem;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 2px var(--line);
+    transition: var(--qSpeed);
+  }
+}
+
+.active .theme-switch{
+  &__day-icon, &__night-icon{
+    svg {
+      fill: var(--white);
+    }
+  }
+  &__caret{
+    transform: translate(115%, -50%);
+  }
+}
+
+.lang-switch{
+  width: 3.5rem;
+}
+
+.divider{
+  height: 1px;
+  background: var(--line);
+}

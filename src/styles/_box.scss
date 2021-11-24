@@ -1,0 +1,57 @@
+.box{
+  --mw: none;
+  --mh: none;
+
+  --w: auto;
+  --h: auto;
+
+  --m: 0;
+  --p: 0;
+
+  --ta: left;
+  --pos: unset;
+  --br: 0;
+
+  max-width: var(--mw);
+  max-height: var(--mh);
+
+  width: var(--w);
+  height: var(--h);
+
+  position: var(--pos);
+  z-index: 1;
+
+  margin: var(--m);
+  padding: var(--p);
+  box-sizing: border-box;
+
+  text-align: var(--ta);
+  border-radius: var(--br);
+
+  &.stretch{
+    --h: 100%;
+  }
+  img{
+    max-width: 100%;
+  }
+}
+
+.absolute{
+  --t: none;
+  --r: none;
+  --b: none;
+  --l: none;
+
+  --transform: none;
+
+  position: absolute;
+
+  top: var(--t);
+  right: var(--r);
+  bottom: var(--b);
+  left: var(--l);
+
+  transform: var(--transform);
+
+  z-index: 0;
+}

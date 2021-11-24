@@ -1,0 +1,127 @@
+.cabinet-layout{
+  min-height: calc(100vh - 7.2rem);
+  &__menu{
+    max-width: 25rem;
+    width: 100%;
+    min-height: inherit;
+    padding: 8.1rem 1.5rem 2rem;
+    box-sizing: border-box;
+    border-top: 1px solid var(--line);
+    background: var(--white);
+  }
+  &__menu-item{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1.5rem 1.7rem 1.4rem 2.5rem;
+    border-radius: .8rem;
+    color: var(--font-primary);
+    transition: var(--mSpeed);
+    &:hover{
+      background: var(--brand-bg-light);
+    }
+    svg{
+      margin-right: 1.6rem;
+      fill: var(--font-primary);
+    }
+    &.active{
+      color: var(--brand);
+      &:hover{
+        cursor: default;
+        background: transparent;
+      }
+      svg{
+        fill: var(--brand);
+      }
+      span{
+        font-weight: 700;
+      }
+    }
+  }
+  &__content{
+    flex: 1;
+
+    min-height: inherit;
+    padding: 2rem 4rem 4rem 2rem;
+    box-sizing: border-box;
+  }
+}
+
+.empty-layout{
+  height: calc(100vh - 7.2rem);
+  display: flex;
+  align-items: center;
+  &__content{
+    margin: 0 8rem;
+  }
+}
+
+.view-change{
+  &__btn{
+    padding: 1.5rem;
+    transition: var(--qSpeed);
+    background: transparent;
+    &:hover{
+      background: var(--bg-secondary);
+    }
+    svg{
+      fill: var(--font-disabled);
+      transition: var(--qSpeed);
+    }
+    &.active svg{
+      fill: var(--brand);
+    }
+  }
+}
+
+.settings{
+  &__interface-divider{
+    width: .2rem;
+    height: 4.8rem;
+    margin: 0 2.75rem;
+    background: var(--line);
+  }
+}
+
+.permission{
+  &:not(:last-child){
+    margin-bottom: 1.3rem;
+  }
+
+  &__key{
+    flex: 1;
+    padding: 1.2rem 1.6rem;
+    background: var(--brand-bg-light);
+    border: 1px solid transparent;
+    border-radius: .8rem;
+    transition: var(--qSpeed);
+    &.shown{
+      border-color: var(--font-disabled);
+      background: transparent;
+    }
+  }
+
+  &__qr{
+    margin-left: 2rem;
+  }
+
+  &__btn{
+    width: fit-content;
+    display: block;
+    margin: .3rem auto 0;
+  }
+}
+
+.status-dot{
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  &.success{
+    background: var(--success);
+  }
+  &.error{
+    background: var(--error);
+  }
+}

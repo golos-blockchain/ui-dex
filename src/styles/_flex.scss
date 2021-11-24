@@ -1,0 +1,63 @@
+.flex{
+  display: flex;
+  &.justify{
+    &-start{
+      justify-content: flex-start;
+    }
+    &-center{
+      justify-content: center;
+    }
+    &-space-between{
+      justify-content: space-between;
+    }
+    &-end{
+      justify-content: flex-end;
+    }
+  }
+  &.align{
+    &-start{
+      align-items: flex-start;
+    }
+    &-center{
+      align-items: center;
+    }
+    &-end{
+      align-items: flex-end;
+    }
+    &-stretch{
+      align-items: stretch;
+    }
+  }
+  &.direction{
+    &-column{
+      flex-direction: column;
+    }
+    &-column-reverse{
+      flex-direction: column-reverse;
+    }
+  }
+  &.flex-wrap{
+    flex-wrap: wrap;
+  }
+}
+
+.row{
+  flex-wrap: wrap;
+  margin: 0 -.5rem;
+  > .col{
+    width: 100%;
+    padding: 0 .5rem;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+  }
+}
+
+@each $breakpoint, $value in $breakpoints{
+  @for $i from 1 to 12 {
+    .flex > .#{$breakpoint}-#{$i}{
+      @media screen and (min-width: #{$value}){
+        width: percentage($i / 12);
+      }
+    }
+  }
+}

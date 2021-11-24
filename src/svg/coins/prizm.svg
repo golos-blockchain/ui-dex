@@ -1,0 +1,35 @@
+<svg width="54" height="55" viewBox="0 0 54 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#prizmCoinWrapper)">
+        <path d="M27 0.5C41.9102 0.5 54 12.5898 54 27.5C54 42.4102 41.9102 54.5 27 54.5C12.0898 54.5 0 42.4102 0 27.5C0 12.5898 12.0898 0.5 27 0.5Z" fill="url(#prizmCoinGradient)"/>
+        <path d="M52.8091 27.5C52.8091 41.7524 41.2524 53.3091 27 53.3091C12.7476 53.3091 1.19092 41.7524 1.19092 27.5C1.19092 13.2476 12.7476 1.69092 27 1.69092C41.2524 1.69092 52.8091 13.2476 52.8091 27.5Z" fill="url(#prizmCoinGradient2)"/>
+        <path d="M51.0898 27.5C51.0898 40.8023 40.307 51.5894 27.0005 51.5894C13.6982 51.5894 2.91113 40.8066 2.91113 27.5C2.91113 14.1978 13.6982 3.41071 27.0005 3.41071C40.3027 3.41071 51.0898 14.1978 51.0898 27.5Z" fill="url(#prizmCoinGradient3)"/>
+        <path d="M51.0898 27.5C51.0898 40.8023 40.307 51.5894 27.0005 51.5894C13.6982 51.5894 2.91113 40.8066 2.91113 27.5C2.91113 14.1978 13.6982 3.41071 27.0005 3.41071C40.3027 3.41071 51.0898 14.1978 51.0898 27.5Z" fill="black"/>
+        <path d="M49.4471 27.4957C49.4471 15.1006 39.3995 5.05731 27.0087 5.05731C14.6136 5.05731 4.57031 15.1049 4.57031 27.4957C4.57031 39.8907 14.6179 49.9341 27.0087 49.9341C39.3995 49.9341 49.4471 39.8865 49.4471 27.4957Z" fill="url(#paint3_radial_117_7250)"/>
+        <path d="M18.8008 16.7043L22.1844 22.7664H25.7529L24.1664 19.9203H36.8065L26.9137 37.6895L15.228 16.7043H11.6639L16.3459 25.1139L10.4858 28.6222L12.0336 31.4082L17.8936 27.8999L18.5342 29.0521L12.7559 32.7066L14.3037 35.4926L20.1121 31.894L26.9137 44.1042L33.3971 32.4572L38.2898 35.4883L39.8376 32.7023L34.9707 29.6282L35.6242 28.4545L40.5599 31.4082L42.112 28.6222L37.1763 25.6685L42.1635 16.7043H18.8008V16.7043Z" fill="url(#prizmCoinGradient5)" stroke="white" stroke-width="0.0601758"/>
+    </g>
+    <defs>
+        <radialGradient id="prizmCoinGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.0038 16.0471) rotate(106.248) scale(36.0242)">
+            <stop offset="0.3281" stop-color="#A524CA"/>
+            <stop offset="1" stop-color="#590073"/>
+        </radialGradient>
+        <radialGradient id="prizmCoinGradient2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.0003 38.4493) rotate(-73.7518) scale(34.4344)">
+            <stop offset="0.3281" stop-color="#A524CA"/>
+            <stop offset="1" stop-color="#590073"/>
+        </radialGradient>
+        <linearGradient id="prizmCoinGradient3" x1="11.8512" y1="9.01784" x2="41.9611" y2="45.752" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2F353A"/>
+            <stop offset="1" stop-color="#1C1F22"/>
+        </linearGradient>
+        <radialGradient id="prizmCoinGradient4" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.0033 17.9758) rotate(73.7518) scale(29.9405)">
+            <stop offset="0.3281" stop-color="#A524CA"/>
+            <stop offset="1" stop-color="#590073"/>
+        </radialGradient>
+        <radialGradient id="prizmCoinGradient5" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(25.1995 25.1065) rotate(57.7003) scale(16.7482 14.0716)">
+            <stop offset="0.3333" stop-color="white"/>
+            <stop offset="1" stop-color="#F8F8F8"/>
+        </radialGradient>
+        <clipPath id="prizmCoinWrapper">
+            <rect width="54" height="54" fill="white" transform="translate(0 0.5)"/>
+        </clipPath>
+    </defs>
+</svg>

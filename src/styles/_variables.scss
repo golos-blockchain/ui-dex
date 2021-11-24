@@ -1,0 +1,39 @@
+:root{
+  //brand
+  --brand: #7C45D6;
+  --brand-dark: #2E0571;
+  --brand-bg: #D3D2F9;
+  --brand-bg-light: #F0F3FF;
+
+  //neutral
+  --font-active: #120F28;
+  --font-primary: #2C1B48;
+  --font-secondary: #A4A4A4;
+  --font-disabled: #B3ADBD;
+
+  --bg-primary: #FCFCFC;
+  --bg-secondary: #F7F9FC;
+
+  --line: #EDEDED;
+  --white: #FFFFFF;
+
+  //accent
+  --success: #50A39A;
+  --success-light: #D7FAEB;
+  --error: #DE5E57;
+  --error-light: #FEEAEA;
+  --warning: #FAC300;
+  --warning-light: #FFFCDE;
+
+  //animation speed
+  --qSpeed: .15s;
+  --mSpeed: .3s;
+  --lSpeed: .45s;
+
+  //font-family
+  --ff: 'Nunito Sans', sans-serif;
+}
+
+.dark-theme{
+
+}

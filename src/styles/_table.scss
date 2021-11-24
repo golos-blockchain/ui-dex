@@ -1,0 +1,42 @@
+.table{
+  width: 100%;
+  table-layout: auto;
+
+  &__cell:not(:last-child){
+    padding-right: 2rem;
+  }
+
+  &__header{
+    .table__cell{
+      padding-bottom: .8rem;
+      white-space: nowrap;
+    }
+    span{
+      white-space: nowrap;
+    }
+  }
+
+  &__row:not(:last-child){
+    .table__cell{
+      padding-bottom: 1.4rem;
+    }
+  }
+
+  &__cell{
+    max-width:100%;
+    width: 1px;
+    box-sizing: border-box;
+    white-space:nowrap;
+  }
+
+  .align-right{
+    text-align: right;
+  }
+  .align-center{
+    text-align: center;
+  }
+  .fit-content{
+    width: auto;
+    white-space: nowrap;
+  }
+}

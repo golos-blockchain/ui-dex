@@ -1,0 +1,223 @@
+{
+  "global": {
+    "text": "%(text)s"
+  },
+  "trade": {
+    "title": "Торговля"
+  },
+  "cabinet": {
+    "title": "Личный кабинет"
+  },
+  "login": {
+    "title": "Вход",
+    "desc": "Если у вас нет аккаунта, пройдите %(regLink)s",
+    "reg": "регистрацию"
+  },
+  "dashboard": {
+    "title": "Дэшборд"
+  },
+  "wallet": {
+    "title": "Кошелек"
+  },
+  "orders": {
+    "title": "Сделки"
+  },
+  "history": {
+    "title": "История"
+  },
+  "settings": {
+    "title": "Настройки",
+    "security": "Безопасность",
+    "passwordChange": "Изменение пароля",
+    "passwordChangeWarning": "1. Не теряйте свой пароль.\n2. Это серьёзно, запишите сгенерированный пароль.\n3. Мы не сможем восстановить его.\n4. Если вы легко можете запомнить пароль, значит не так он и безопасен.\n5. Лучше используйте сгенерированные случайным образом пароли.\n6. Никому не говорите свой пароль.\n7. Всегда надёжно храните свой пароль.",
+    "generateNewPassword": "Сгенерировать новый пароль",
+    "updatePassword": "Обновить пароль",
+    "permissions": {
+      "title": "Разрешения",
+      "showKey": "Показать приватный ключ",
+      "hideKey": "Скрыть приватный ключ",
+      "posting": {
+        "title": "Постинг ключ",
+        "desc": "Posting-ключ используется для авторизации на сайте, написания постов, голосования, отправки донатов."
+      },
+      "active": {
+        "title": "Активный ключ",
+        "desc": "Active-ключ используется для переводов, голосования за делегатов и заказов на внутренней бирже."
+      },
+      "owner": {
+        "title": "Ключ владельца",
+        "desc": "Owner-ключ это главный ключ ко всему аккаунту, он необходим для изменения других ключей. Приватный ключ владельца (если вы его получали) и главный пароль лучше хранить в оффлайне."
+      },
+      "memo": {
+        "title": "Ключ заметок",
+        "desc": "Memo-ключ для зашифрованных заметок и обмена сообщениями через мессенджер."
+      }
+    },
+    "interface": "Интерфейс",
+    "theme": "Цветовая тема",
+    "lightTheme": "Светлая",
+    "darkTheme": "Темная",
+    "nodes": "Ноды",
+    "addNode": "Добавить ноду",
+    "connected": "Подключена",
+    "nodesList": "Доступны",
+    "connectNode": "Подключить",
+    "editNode": "Редактировать",
+    "deleteNode": "Удалить"
+  },
+  "tableHeading": {
+    "currency": "Валюта",
+    "balance": "Баланс",
+    "balanceUsd": "Баланс ($)",
+    "name": "Имя",
+    "address": "Адрес",
+    "status": "Статус",
+    "ping": "Отклик",
+    "actions": "Действия"
+  },
+  "fields": {
+    "test": "Test",
+    "name": "Имя пользователя",
+    "priv": "Пароль или активный ключ",
+    "currentPassword": "Текущий пароль",
+    "generatedPassword": "Сгенерированный пароль"
+  },
+  "selects": {
+    "language": "Язык"
+  },
+  "checkboxes": {
+    "passwordRestoreWarning": "Я понимаю, что GOLOS не сможет восстановить потерянные пароли",
+    "passwordSaveWarning": "Я надежно сохранил сгенерированный пароль"
+  },
+  "errors": {
+    "required": "Обязательное поле",
+    "loginError": "Логин или пароль были введены неверно!",
+    "passwordIsWrong": "Пароль введен неверно!"
+  },
+  "fieldMessages": {
+    "success": "This is a SUCCESS message"
+  },
+  "historyTable": {
+    "account_create": {
+      "title": "Account Creation",
+      "description": "%(registrar)s registered the account %(user)s"
+    },
+    "send": {
+      "title": "Send",
+      "description": "%(sender)s send %(quantity)s to %(receiver)s. %(memo)s"
+    },
+    "receive": {
+      "title": "Receive",
+      "description": "%(receiver)s received %(quantity)s from %(sender)s. %(memo)s"
+    },
+    "limit_order_create": {
+      "title": "Create Order",
+      "description": "%(creator)s placed order #%(id)s at %(marketLink)s to buy %(buy)s for %(sell)s"
+    },
+    "limit_order_cancel": {
+      "title": "Cancel Order",
+      "description": "%(user)s cancelled order #%(id)s"
+    },
+    "fill_order": {
+      "title": "Order Filled",
+      "description": "%(user)s bought %(receives)s for %(pays)s at %(marknodesetLink)s for order #%(id)s"
+    },
+    "account_update": {
+      "title": "Account Updated",
+      "description": "%(user)s updated account data"
+    },
+    "account_upgrade": {
+      "title": "Account Upgraded",
+      "description": "%(user)s upgraded account to lifetime member"
+    },
+    "worker_create": {
+      "title": "Worker Created",
+      "description": "%(user)s created a worker proposal with daily pay of %(dailyPay)s"
+    },
+    "proposal_create": {
+      "title": "Proposal Create",
+      "description": ""
+    },
+    "transfer": {
+      "title": "Transfer",
+      "description": "",
+      "memo": "\nThis operation include encrypted memo. %(memoBtn)s",
+      "memoBtn": "Click here to decrypt it."
+    },
+    "asset_fund_fee_pool": {
+      "title": "Fund Asset Fee Pool",
+      "description": "%(from)s funded %(symbol)s fee pool with %(amount)s"
+    },
+    "account_whitelist": {
+      "title": "Account Whitelist",
+      "description": "%(issuer)s %(status)s the account %(listed)s"
+    },
+    "asset_create": {
+      "title": "Asset Create",
+      "description": "%(issuer)s created the asset %(assetName)s"
+    },
+    "asset_issue": {
+      "title": "Issue Asset",
+      "description": "%(issuer)s issued %(assetAmount)s to %(receiver)s"
+    },
+    "asset_update": {
+      "title": "Update Asset",
+      "description": "%(issuer)s updated asset %(asset)s"
+    },
+    "asset_update_bitasset": {
+      "title": "Update BitAsset",
+      "description": "%(issuer)s updated smart params of asset %(asset)s"
+    },
+    "asset_claim_pool": {
+      "title": "Claim asset fee pool",
+      "description": "%(issuer)s claimed %(claimed)s from %(asset)s fee pool"
+    },
+    "asset_update_issuer": {
+      "title": "Update asset issuer",
+      "description": "%(issuer)s transferred rights for %(asset)s to %(newOwner)s"
+    },
+    "asset_update_feed_producers": {
+      "title": "Update asset feed producers",
+      "description": "%(issuer)s updated the feed producers for the asset %(asset)s"
+    },
+    "bid_collateral": {
+      "title": "Collateral bid",
+      "description": "bidder: %(bidder)s, debt cover: %(debt)s, additional collateral: %(collateral)s"
+    },
+    "execute_bid ": {
+      "title": "Execute bid",
+      "description": "bidder: %(bidder)s, debt cover: %(debt)s, additional collateral: %(collateral)s"
+    },
+    "asset_publish_feed": {
+      "title": "Publish feed",
+      "description": "%(publisher)s published feed price of %(price)s %(pair)s"
+    },
+    "call_order_update": {
+      "title": "Update margin",
+      "description": "%(funder)s changed %(debtSymbol)s debt by %(debt)s and collateral by %(collateral)s"
+    },
+    "asset_settle": {
+      "title": "Asset settlement",
+      "description": "%(user)s requested settlement of %(asset)s"
+    },
+    "asset_settle_cancel": {
+      "title": "Cancel asset settlement",
+      "description": "%(user)s cancelled settlement of %(asset)s"
+    },
+    "witness_create": {
+      "title": "Create witness",
+      "description": "%(witness)s was upgraded to become a witness"
+    },
+    "proposal_update": {
+      "title": "Update proposal",
+      "description": "%(user)s updated a proposal #%(proposal)s.\n%(additionalInfo)s",
+      "active_approvals_to_add": "Active approval(s) added: %(keys)s",
+      "active_approvals_to_remove": "Active approval(s) removed: %(keys)s",
+      "key_approvals_to_add": "Key approval(s) added: %(keys)s",
+      "key_approvals_to_remove": "Key approval(s) removed: %(keys)s",
+      "owner_approvals_to_add": "Owner approval(s) added: %(keys)s",
+      "owner_approvals_to_remove": "Owner approval(s) removed: %(keys)s"
+
+    }
+  }
+}

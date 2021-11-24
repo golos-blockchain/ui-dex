@@ -1,0 +1,50 @@
+.clr{
+  &--brand{
+    color: var(--brand);
+  }
+  &--brand-dark{
+    color: var(--brand-dark);
+  }
+  &--font-active{
+    color: var(--font-active);
+  }
+  &--font-primary{
+    color: var(--font-primary);
+  }
+  &--font-secondary{
+    color: var(--font-secondary);
+  }
+  &--success{
+    color: var(--success);
+  }
+  &--error{
+    color: var(--error);
+  }
+  &--error{
+    color: var(--error);
+  }
+}
+
+.bg{
+  &--brand{
+    color: var(--brand-bg);
+  }
+  &--brand-light{
+    color: var(--brand-bg-light);
+  }
+  &--primary{
+    color: var(--bg-primary);
+  }
+  &--secondary{
+    color: var(--bg-secondary);
+  }
+  &--success{
+    color: var(--success-light);
+  }
+  &--error{
+    color: var(--error-light);
+  }
+  &--warning{
+    color: var(--warning-light);
+  }
+}

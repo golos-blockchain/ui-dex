@@ -1,0 +1,10 @@
+<svg width="54" height="55" viewBox="0 0 54 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#eosCoinWrapper)">
+        <path d="M26.928 0.5L14.292 17.888L9 43.592L26.928 54.5L44.856 43.592L39.456 17.78L26.928 0.5ZM11.916 42.404L15.912 22.856L24.984 50.396L11.916 42.404ZM17.208 18.428L26.928 5.036L36.648 18.428L26.928 47.804L17.208 18.428ZM28.764 50.396L37.836 22.856L41.832 42.404L28.764 50.396Z" fill="black"/>
+    </g>
+    <defs>
+        <clipPath id="eosCoinWrapper">
+            <rect width="54" height="54" fill="white" transform="translate(0 0.5)"/>
+        </clipPath>
+    </defs>
+</svg>

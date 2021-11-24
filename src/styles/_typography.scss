@@ -1,0 +1,41 @@
+@mixin setTypo($fz: 1.4rem, $fw: normal, $lh: 1.25){
+  font-size: $fz;
+  font-weight: $fw;
+  line-height: $lh;
+  margin: 0;
+  padding: 0;
+
+  white-space: break-spaces;
+}
+
+h1{
+  @include setTypo(3.3rem, 600, 5.1rem);
+}
+
+h2{
+  @include setTypo(2.6rem, 700, 4.1rem);
+}
+
+.subheading-bold{
+  @include setTypo(2rem, 700, 3.2rem);
+}
+
+.subheading{
+  @include setTypo(2rem, 600, 3.2rem);
+}
+
+.body-bold{
+  @include setTypo(1.6rem, 700, 2.7rem);
+}
+
+.body{
+  @include setTypo(1.6rem, 400, 2.7rem);
+}
+
+.metadata-bold{
+  @include setTypo(1.3rem, 700, 2.2rem);
+}
+
+.metadata{
+  @include setTypo(1.3rem, 400, 2.2rem);
+}

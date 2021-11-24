@@ -1,0 +1,26 @@
+{
+  "global": {
+    "text": "%(text)s"
+  },
+  "trade": {
+    "title": "Trade"
+  },
+  "cabinet": {
+    "title": "Cabinet"
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "wallet": {
+    "title": "Wallet"
+  },
+  "orders": {
+    "title": "Orders"
+  },
+  "history": {
+    "title": "History"
+  },
+  "settings": {
+    "title": "Settings"
+  }
+}

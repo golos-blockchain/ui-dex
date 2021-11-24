@@ -1,0 +1,39 @@
+
+.checkbox{
+  display: flex;
+  &:hover{
+    cursor: pointer;
+  }
+  &__input {
+    display: none;
+  }
+  &__icon{
+    margin-top: .1rem;
+    margin-right: 1rem;
+  }
+
+  svg{
+    fill: var(--font-disabled);
+    transition: var(--qSpeed);
+  }
+  span{
+    transition: var(--qSpeed);
+  }
+
+  &.success{
+    svg{
+      fill: var(--success);
+    }
+    span{
+      color: var(--success);
+    }
+  }
+  &.error{
+    svg{
+      fill: var(--error);
+    }
+    span{
+      color: var(--error);
+    }
+  }
+}
