@@ -20,7 +20,17 @@
     "title": "Кошелек"
   },
   "orders": {
-    "title": "Сделки"
+    "title": "Сделки",
+    "addOrder": "Добавить сделку",
+    "types": {
+      "all": "Все",
+      "buy": "Покупка",
+      "sell": "Продажа"
+    },
+    "statuses": {
+      "opened": "Открыта",
+      "closed": "Закрыта"
+    }
   },
   "history": {
     "title": "История"
@@ -73,7 +83,13 @@
     "address": "Адрес",
     "status": "Статус",
     "ping": "Отклик",
-    "actions": "Действия"
+    "actions": "Действия",
+    "creationDate": "Дата создания",
+    "pair": "Пара",
+    "type": "Тип",
+    "amount": "Количество",
+    "price": "Цена",
+    "completed": "% выполнения"
   },
   "fields": {
     "test": "Test",

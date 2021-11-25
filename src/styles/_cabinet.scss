@@ -74,6 +74,35 @@
   }
 }
 
+.orders-filter{
+  margin-right: 2rem;
+  padding: .4rem 1rem;
+  color: var(--font-disabled);
+  transition: var(--qSpeed);
+  border-radius: .8rem;
+  &.active, &:hover{
+    color: var(--brand);
+    background: var(--brand-bg-light);
+  }
+}
+
+.order-type{
+  display: block;
+  width: 7.6rem;
+  margin: 0 auto;
+  padding: 0 .8rem;
+  border: 1px solid transparent;
+  border-radius: .4rem;
+  &.buy{
+    color: var(--success);
+    border-color: var(--success);
+  }
+  &.sell{
+    color: var(--error);
+    border-color: var(--error);
+  }
+}
+
 .settings{
   &__interface-divider{
     width: .2rem;

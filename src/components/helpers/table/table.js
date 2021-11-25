@@ -3,7 +3,7 @@ import {Body} from "../global";
 import {useClassSetter} from "../../../utils";
 import {TableHeading} from "./tableHeading";
 
-export const Table = ({tableHead, rows = [], defaultSortKey}) => {
+export const Table = ({tableHead, rows = [], reloadData, defaultSortKey}) => {
     const [baseClass, setClass] = useClassSetter("table");
     const sortState = useState({key: defaultSortKey, type: "abc"});
 
@@ -30,7 +30,7 @@ export const Table = ({tableHead, rows = [], defaultSortKey}) => {
 
                             const className = `${setClass("cell")} ${col.className ? col.className : ''}`;
                             const item = row[col.key];
-                            const content = col.handleItem ? col.handleItem(item, row) : item;
+                            const content = col.handleItem ? col.handleItem(item, row, reloadData) : item;
 
                             return (
                                 <td key={id} className={className}>

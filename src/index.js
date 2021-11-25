@@ -10,7 +10,7 @@ import {history, initStore} from "./utils";
 
 import "./styles/style.scss";
 
-golos.config.set('websocket','wss://golos.lexai.host/ws');
+golos.config.set('websocket','wss://api.golos.id/ws');
 
 export const isProd = process.env.NODE_ENV === 'production';
 export const store = initStore();

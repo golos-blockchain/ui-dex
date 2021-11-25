@@ -1,10 +1,9 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {DefaultRoutes, Header} from "./components/layout";
+import {DefaultRoutes, Header, Modal} from "./components/layout";
 import {initLocale} from "./utils/locale";
 import {getStorage, initSettings} from "./utils";
 import {setUserData} from "./redux/actions/userData";
 import {handleUserAuth} from "./utils/dataHandlers";
-
 
 const appInit = async () => {
     //base app initialising
@@ -31,6 +30,7 @@ function App() {
                 <main>
                     <DefaultRoutes />
                 </main>
+                <Modal />
             </Fragment>
         );
 }
