@@ -25,7 +25,7 @@ const CabinetLayout = () => {
     };
 
     return(
-        <FlexBox className={baseClass} align="start">
+        <FlexBox className={baseClass} align="stretch">
             <aside className={setClass("menu")}>
                 {cabinetMenu.map(({icon: IC, tag, link}, id) => {
                     return (

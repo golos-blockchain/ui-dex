@@ -23,6 +23,9 @@
   &--error{
     color: var(--error);
   }
+  &--disabled{
+    color: var(--font-disabled);
+  }
 }
 
 .bg{

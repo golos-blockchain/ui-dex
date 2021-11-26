@@ -48,6 +48,7 @@ export { ReactComponent as SearchIcon } from './search.svg';
 export { ReactComponent as LogoutIcon } from './logout.svg';
 export { ReactComponent as SortIcon } from './sort.svg';
 export { ReactComponent as TableActionsIcon } from './table-actions.svg';
+export { ReactComponent as ArrowIcon } from './arrow.svg';
 export { ReactComponent as ArrowRightIcon } from './arrow-right.svg';
 export { ReactComponent as BackspaceIcon } from './backspace.svg';
 export { ReactComponent as CrossIcon } from './cross.svg';

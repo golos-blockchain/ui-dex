@@ -3,6 +3,7 @@ import {getUserData} from "../../redux/actions/userData";
 
 export const handleUserOrders = (res) => {
     const createdOrders = [];
+    const cancelledOrders = [];
     const filledOrders = {};
 
     res.forEach(item => {
@@ -21,6 +22,8 @@ export const handleUserOrders = (res) => {
             if (!filledOrders[id]) filledOrders[id] = 0;
 
             filledOrders[id] += bought;
+        } else if (["limit_order_cancel", "limit_order_cancel_ex"].includes(type)){
+            cancelledOrders.push(operation.orderid);
         }
     });
 
@@ -32,8 +35,9 @@ export const handleUserOrders = (res) => {
         const sellObj = balanceToObject(amount_to_sell);
         const buyObj = balanceToObject(min_to_receive);
 
-        const filledSum = filledOrders[id];
+        const isCancelled = cancelledOrders.includes(id);
 
+        const filledSum = filledOrders[id];
         const percent = filledSum ? filledSum / buyObj.amount : 0;
 
         let base = buyObj;
@@ -49,6 +53,9 @@ export const handleUserOrders = (res) => {
         const {amount: baseAmount, symbol: baseSymbol} = base;
         const {amount: quoteAmount, symbol: quoteSymbol} = quote;
 
-        return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol};
+
+        return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol, isCancelled};
+    }).sort((prev, next) => {
+        return prev.timestamp > next.timestamp ? 1 : -1;
     });
 };

@@ -41,7 +41,7 @@ const tableHead = [
     {
         key: 'percent',
         translateTag: 'status',
-        handleItem: (item) => <Body content={`orders.statuses.${item === 1 ? "closed" : "opened"}`} />
+        handleItem: (item, row) => <Body content={`orders.statuses.${item === 1 ? "closed" : row.isCancelled ? "cancelled" : "opened"}`} />
     },
     {
         key: 'baseAmount',
@@ -58,7 +58,7 @@ const tableHead = [
     {
         key: 'percent',
         translateTag: 'completed',
-        handleItem: (item) => `${item * 100}%`,
+        handleItem: (item) => `${+(item * 100).toFixed(2)}%`,
         className: 'align-center',
         isSortable: true
     },
@@ -78,6 +78,12 @@ const tableHead = [
         className: 'align-center'
     }
 ];
+
+export const OrdersTable = ({rows, reloadData}) => {
+    return rows.length
+        ? <Table tableHead={tableHead} rows={rows} reloadData={reloadData} />
+        : "No orders";
+};
 
 export const Orders = () => {
     const i18n = translateStr("orders");
@@ -104,13 +110,13 @@ export const Orders = () => {
                             </button>
                         ))}
                     </FlexBox>
-                    <BrandTextBtn content={i18n("addOrder")} onClick={generateModal(<span>asdasdasd</span>)} />
+                    <BrandTextBtn content={i18n("closeAllOrders")} onClick={generateModal(<span>asdasdasd</span>)} />
                 </FlexBox>
             </Card>
             <Card mt={2}>
                 {isLoading
                     ? "Loading"
-                    : <Table tableHead={tableHead} rows={rows} reloadData={reloadData} />
+                    : <OrdersTable rows={rows} reloadData={reloadData} />
                 }
             </Card>
         </Fragment>

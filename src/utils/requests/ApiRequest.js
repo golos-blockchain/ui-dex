@@ -26,12 +26,12 @@ export class ApiRequest extends Request{
         return this.asyncRequest("getAccountsBalances", [name]).then(res => res && res[0]);
     };
 
-    getHistoryByName = (name) => {
-        return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order' ]}).catch(err => console.error(err));
-    };
-
     getUserOrdersByName = name => {
-        return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order' ]}).catch(err => console.error(err));
+        return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order', "limit_order_cancel", "limit_order_cancel_ex" ]}).catch(err => console.error(err));
+    }
+
+    getUserHistoryByName = name => {
+        return this.asyncRequest("getAccountHistory", name, -1, 10000).catch(err => console.error(err));
     }
 
     getTicker = ticker => {

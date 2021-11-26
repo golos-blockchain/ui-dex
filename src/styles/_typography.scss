@@ -39,3 +39,7 @@ h2{
 .metadata{
   @include setTypo(1.3rem, 400, 2.2rem);
 }
+
+.bold{
+  font-weight: 700;
+}

@@ -1,25 +1,31 @@
 import React from "react";
-import {Card, FlexBox, H2, MetadataBold} from "../helpers/global";
-import {wallet} from "../routing/";
-import {Link} from "react-router-dom";
-import {TabsWrapper} from "../helpers/tabs";
+import {Box, Card, H2} from "../helpers/global";
+import {ApiRequest} from "../../utils/requests";
+import {getUserData} from "../../redux/actions/userData";
+import {handleUserOrders} from "../../utils/dataHandlers";
+import {LoadData, translateStr} from "../../utils";
+import {OrdersTable} from "./orders";
+
+const OpenOrders = () => {
+    const fn = () => new ApiRequest().getUserOrdersByName(getUserData().name).then(handleUserOrders);
+    const [data, isLoading, reloadData] = LoadData(fn);
+
+    if(isLoading) return "Loading";
+
+    const rows = data.filter(el => el.percent !== 1 && !el.isCancelled);
+
+    return <OrdersTable rows={rows} reloadData={reloadData} />;
+};
 
 export const Dashboard = () => {
+    const i18n = translateStr("dashboard");
     return(
         <div>
-            <Card p={4}>
-                <FlexBox mb={.4} justify="space-between">
-                    <H2 text="Баланс" />
-                    <MetadataBold
-                        text="В кошелек"
-                        component={Link}
-                        to={wallet.link}
-                    />
-                </FlexBox>
-                <TabsWrapper headingList={[{text: "first"},{text: "second"}]}>
-                    <div>first tab</div>
-                    <div>second tab</div>
-                </TabsWrapper>
+            <Card py={1.5} px={2}>
+                <H2 content={i18n("orders")} />
+                <Box mt={1.5}>
+                    <OpenOrders />
+                </Box>
             </Card>
         </div>
     )
