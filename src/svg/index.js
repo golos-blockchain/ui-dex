@@ -29,6 +29,13 @@ export { ReactComponent as CheckInactiveIcon } from './check-inactive.svg';
 export { ReactComponent as PasswordShowIcon } from './password-show.svg';
 export { ReactComponent as PasswordHideIcon } from './password-hide.svg';
 
+//history icons
+export { ReactComponent as HistoryReceiveIcon } from './history-receive.svg';
+export { ReactComponent as HistorySendIcon } from './history-send.svg';
+export { ReactComponent as HistoryPlusIcon } from './history-plus.svg';
+export { ReactComponent as HistoryFillIcon } from './history-fill.svg';
+export { ReactComponent as HistoryDeleteIcon } from './history-delete.svg';
+
 //coins icon
 export { ReactComponent as GolosIcon } from './coins/golos.svg';
 export { ReactComponent as SbdIcon } from './coins/sbd.svg';

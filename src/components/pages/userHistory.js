@@ -3,7 +3,14 @@ import {ApiRequest} from "../../utils/requests";
 import {getUserData} from "../../redux/actions/userData";
 import {balanceToObject, handleUserOrders} from "../../utils/dataHandlers";
 import {LoadData} from "../../utils";
-import {ArrowIcon} from "../../svg";
+import {
+    ArrowIcon,
+    HistoryDeleteIcon,
+    HistoryFillIcon,
+    HistoryPlusIcon,
+    HistoryReceiveIcon,
+    HistorySendIcon
+} from "../../svg";
 import {Body, BodyBold, Box, Card, FlexBox, Metadata} from "../helpers/global";
 import {Table} from "../helpers/table";
 
@@ -61,6 +68,15 @@ const formOrderSumm = (sell, buy) => {
     )
 };
 
+const icons = {
+    receive: <HistoryReceiveIcon />,
+    send: <HistorySendIcon />,
+    limit_order_create: <HistoryPlusIcon />,
+    buy: <HistoryFillIcon />,
+    sell: <HistoryFillIcon />,
+    limit_order_cancel: <HistoryDeleteIcon />,
+};
+
 const opHandlers = {
     transfer: ({ amount: amountRaw, from, memo, to }) => {
         const userIsSender = from === getUserData().name;
@@ -101,17 +117,32 @@ const opHandlers = {
 
         return { summ, descData };
     },
-    fill_order: ({ current_owner, current_orderid, current_pays, open_pays, }) => {
+    fill_order: ({ current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays, }) => {
+        // const userIsBuyer = open_owner === getUserData().name;
+        const userIsBuyer = open_owner === "gusaru";
 
-        const summ = formOrderSumm(current_pays, open_pays);
+        console.log(current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays);
+
+        const opType = userIsBuyer ? "buy" : "sell";
+
+        const summ = userIsBuyer ? formOrderSumm(open_pays, current_pays) : formOrderSumm(current_pays, open_pays);
+
+        const additionalData = userIsBuyer
+            ? {
+                current_owner: highlightText(`@${current_owner}`),
+                current_orderid: highlightText(`#${current_orderid}`)
+            } : {
+                open_owner: highlightText(`@${open_owner}`),
+                open_orderid: highlightText(`#${open_orderid}`)
+            };
+
         const descData = {
-            current_owner: highlightText(`@${current_owner}`),
-            current_orderid: highlightText(`#${current_orderid}`),
+            ...additionalData,
             current_pays: highlightText(current_pays),
             open_pays: highlightText(open_pays)
-        };
+        }
 
-        return { summ, descData };
+        return { opType, summ, descData };
     }
 };
 
@@ -134,28 +165,29 @@ const handleUserHistory = (res) => {
         const [type, operation] = el[1].op;
         const fn = opHandlers[type];
 
+        console.log(type, operation);
+
         let opType = type;
-        let summ, descData;
+        let summ, descData, icon;
 
         if(fn){
             const data = fn(operation);
 
             opType = data.opType || type;
+            icon = icons[opType];
             summ = data.summ;
             descData = data.descData;
         }
 
-        return { timestamp, type: opType, summ, descData }
+        return { icon, timestamp, type: opType, summ, descData }
     }).reverse();
 };
 
 const tableHead = [
-    // {
-    //     key: 'timestamp',
-    //     translateTag: '',
-    //     handleItem: (item) => new Date(item).toLocaleString(),
-    //     isSortable: true
-    // },
+    {
+        key: 'icon',
+        translateTag: ''
+    },
     {
         key: 'timestamp',
         translateTag: 'dateAndTime',

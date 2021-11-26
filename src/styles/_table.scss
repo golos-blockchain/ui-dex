@@ -2,13 +2,15 @@
   width: 100%;
   table-layout: auto;
 
-  &__cell:not(:last-child){
-    padding-right: 2rem;
+  &__cell{
+    &:not(:last-child){
+      padding-right: 3.1rem;
+      border-color: transparent;
+    }
   }
 
   &__header{
     .table__cell{
-      padding-bottom: .8rem;
       white-space: nowrap;
     }
     span{
@@ -16,9 +18,16 @@
     }
   }
 
-  &__row:not(:last-child){
-    .table__cell{
-      padding-bottom: 1.4rem;
+  &__row{
+    .table__cell {
+      padding-top: 1.6rem;
+      padding-bottom: 1.6rem;
+      border-bottom: 1px solid var(--line);
+    }
+    &:last-child{
+      .table__cell{
+        border-color: transparent;
+      }
     }
   }
 

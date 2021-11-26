@@ -141,9 +141,13 @@
       "title": "Отмена группы ордеров",
       "description": "Пользователь %(owner)s отменил следующие ордера: %(orderid)s"
     },
-    "fill_order": {
-      "title": "Выполнение ордера",
-      "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s в ордере %(orderid)s"
+    "buy": {
+      "title": "Покупка",
+      "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s в ордере %(current_orderid)s"
+    },
+    "sell": {
+      "title": "Продажа",
+      "description": "Пользователь %(open_owner)s купил %(current_pays)s за %(open_pays)s в ордере %(open_orderid)s"
     }
   }
 }
