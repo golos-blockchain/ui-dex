@@ -143,11 +143,11 @@
     },
     "buy": {
       "title": "Покупка",
-      "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s в ордере %(current_orderid)s"
+      "description": "Пользователь %(open_owner)s купил %(open_pays)s за %(current_pays)s (ордер %(open_orderid)s)"
     },
     "sell": {
       "title": "Продажа",
-      "description": "Пользователь %(open_owner)s купил %(current_pays)s за %(open_pays)s в ордере %(open_orderid)s"
+      "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s (ордер %(current_orderid)s)"
     }
   }
 }

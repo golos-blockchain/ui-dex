@@ -118,10 +118,9 @@ const opHandlers = {
         return { summ, descData };
     },
     fill_order: ({ current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays, }) => {
-        // const userIsBuyer = open_owner === getUserData().name;
-        const userIsBuyer = open_owner === "gusaru";
+        const userIsBuyer = open_owner === getUserData().name;
 
-        console.log(current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays);
+        // console.log(current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays);
 
         const opType = userIsBuyer ? "buy" : "sell";
 
@@ -129,18 +128,20 @@ const opHandlers = {
 
         const additionalData = userIsBuyer
             ? {
-                current_owner: highlightText(`@${current_owner}`),
-                current_orderid: highlightText(`#${current_orderid}`)
-            } : {
                 open_owner: highlightText(`@${open_owner}`),
                 open_orderid: highlightText(`#${open_orderid}`)
+            } : {
+                current_owner: highlightText(`@${current_owner}`),
+                current_orderid: highlightText(`#${current_orderid}`)
             };
 
         const descData = {
             ...additionalData,
             current_pays: highlightText(current_pays),
             open_pays: highlightText(open_pays)
-        }
+        };
+
+        console.log(descData);
 
         return { opType, summ, descData };
     }
@@ -215,7 +216,7 @@ const tableHead = [
 ]
 
 export const UserHistory = () => {
-    const fn = () => new ApiRequest().getUserHistoryByName("gusaru").then(handleUserHistory);
+    const fn = () => new ApiRequest().getUserHistoryByName(getUserData().name).then(handleUserHistory);
     const [data, isLoading, reloadData] = LoadData(fn);
 
     console.log(data);
