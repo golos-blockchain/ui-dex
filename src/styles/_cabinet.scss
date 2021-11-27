@@ -55,6 +55,31 @@
   }
 }
 
+.dashboard-history{
+  max-height: 34.3rem;
+  margin-top: 1.5rem;
+  margin-left: -.5rem;
+  &__scroll-wrapper{}
+  &__item{
+    margin: 2rem 0;
+    padding-right: 1.5rem;
+    &:first-child{
+      margin-top: 0;
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  &__icon{
+    width: 2.8rem;
+    margin: 0 2.5rem 0 .6rem;
+  }
+  &__info{}
+  &__date{
+    text-align: right;
+  }
+}
+
 .view-change{
   &__btn{
     padding: 1.5rem;

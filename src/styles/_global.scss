@@ -66,22 +66,25 @@ a{
     padding-right: 1.5rem;
   }
   > div, > textarea, .ReactVirtualized__List{
+    max-height: inherit;
+    overflow-y: scroll;
+    padding-right: 1.5rem;
     /* width */
     &::-webkit-scrollbar {
-      width: 6px;
+      width: 2px;
       z-index: 10;
     }
 
     /* Track */
     &::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: transparent;
       z-index: 10;
     }
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background: var(--grey-light);
-      //border-radius: 4px;
+      background: var(--brand);
+      border-radius: 2px;
       transition: var(--qSpeed);
       z-index: 10;
     }
