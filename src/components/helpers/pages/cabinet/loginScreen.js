@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import {EmptyLayout} from "../../../layout";
-import {Card, BodyBold, Box, H2} from "../../global";
+import {Card, BodyBold, Box, Heading} from "../../global";
 import {handleUserAuth} from "../../../../utils/dataHandlers";
 import {setUserData} from "../../../../redux/actions/userData";
 import {Input, Form} from "../../form/helpers";
@@ -49,7 +49,7 @@ export const LoginScreen = () => {
     return(
         <EmptyLayout>
             <Card p={4}>
-                <H2 content={i18n("title")} />
+                <Heading content={i18n("title")} />
                 <Box mt={.2}>
                     <BodyBold content={i18n("desc")} additionalData={{regLink}} />
                 </Box>

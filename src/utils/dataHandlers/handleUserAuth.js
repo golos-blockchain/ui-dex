@@ -1,6 +1,6 @@
 import {ApiRequest, AuthRequest} from "../requests";
 import {setStorage} from "../storage";
-import {balanceToObject} from "./handleBalances";
+import {amountToObject, lastTradeToRate} from "./handleBalances";
 
 export const handleUserAuth = (userData) => new AuthRequest().login(userData).then(async keys => {
     setStorage("user", userData);
@@ -11,34 +11,40 @@ export const handleUserAuth = (userData) => new AuthRequest().login(userData).th
     const accData = await apiReq.getAccByName(name);
     const secondaryBalances = await apiReq.getBalanceByName(name);
 
-    const GOLOS = balanceToObject(accData.balance);
-    const GBG = balanceToObject(accData.sbd_balance);
+    const GOLOS = amountToObject(accData.balance);
+    const GBG = amountToObject(accData.sbd_balance);
 
     const balances = { GOLOS, GBG };
 
     for(let key in secondaryBalances){
-        balances[key] = balanceToObject(secondaryBalances[key].balance);
+        balances[key] = amountToObject(secondaryBalances[key].balance);
     }
 
-    // for(let key in balances){
-    //     await apiReq.getTicker([balances[key].symbol, "sbd"]).then(console.log).catch(err => console.error(err));
-    //     // balances[key] = balanceToObject(secondaryBalances[key].balance);
-    // }
+    let totalBalance = 0;
 
-    // console.log(balances);
+    for(let key in balances){
+        const amount = balances[key].amount;
+        let amountInGolos = 0;
 
-    // const sbd = {amount: accData.balance.split(" ")[0], symbol: "golos"};
+        if(key === "GOLOS") {
+            amountInGolos = amount;
+        } else {
+            const golosRate = await apiReq.getLastTradeToGolos(balances[key].symbol).then(lastTradeToRate).catch(err => console.error(err));
+            amountInGolos = amount * golosRate;
+        }
 
-    // const history = await apiReq.getHistoryByName(name);
+        totalBalance += amountInGolos;
+        balances[key].amountInGolos = +(amountInGolos).toFixed(5);
+    }
 
-    // console.log(history);
+    totalBalance = +(totalBalance).toFixed(5);
 
     return {
         name,
         accData,
         keys,
-        balances,
-        // history
+        totalBalance,
+        balances
     };
 }).catch(err => {
     throw new Error("loginError")

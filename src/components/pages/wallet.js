@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {Card, BodyBold, Body, Box, Col, FlexBox, H1, Row} from "../helpers/global";
+import {connect} from "react-redux";
+import {Card, BodyBold, Body, Box, Col, FlexBox, Row, HeadingBold, Heading} from "../helpers/global";
 import {ViewChange} from "../helpers/pages/cabinet";
 import {TabsWrapper} from "../helpers/tabs";
 import {connectUserData} from "../../redux/actions/userData";
-import {connect} from "react-redux";
 import {mixDataToBalance} from "../../utils/dataHandlers";
 import {Table} from "../helpers/table";
 
@@ -22,9 +22,9 @@ const WalletCardDisplay = ({ balances }) => {
                                     </Box>
                                 )}
                                 <div>
-                                    <BodyBold text={balance.fullName} />
-                                    <H1 text={`${balance.amount} ${balance.symbol}`} />
-                                    <BodyBold text="$ 223 111,41" color="font-secondary" />
+                                    <Body text={balance.fullName} />
+                                    <Heading text={`${balance.amount} ${balance.symbol}`} />
+                                    <Body text={`${balance.amountInGolos} GOLOS`} color="font-secondary" />
                                 </div>
                             </FlexBox>
                         </Card>
@@ -63,8 +63,8 @@ const WalletTableDisplay = ({ balances }) => {
             isSortable: true
         },
         {
-            key: 'amountUsdt',
-            translateTag: 'balanceUsd',
+            key: 'amountInGolos',
+            translateTag: 'balanceInGolos',
             handleItem: (item) => <Body text={item} color="font-secondary" />,
             className: 'align-right',
             isSortable: true
@@ -80,7 +80,7 @@ const WalletTableDisplay = ({ balances }) => {
 
 
 const Display = (props) => {
-    const rawBalances = props.userData.balances;
+    const {totalBalance, balances: rawBalances} = props.userData;
     const balances = mixDataToBalance(rawBalances);
 
     const cardViewState = useState(false);
@@ -94,8 +94,8 @@ const Display = (props) => {
                 <Card pt={1.3} pr={1.5} pb={1} pl={2.4}>
                     <FlexBox justify="space-between">
                         <div>
-                            <Body text="Общий баланс" color="font-secondary" />
-                            <H1 text="$ 7718.31" color="brand" />
+                            <Body content="wallet.totalBalance" color="font-secondary" />
+                            <HeadingBold text={`${totalBalance} GOLOS`} color="brand" />
                         </div>
                         <ViewChange cardViewState={cardViewState} />
                     </FlexBox>

@@ -1,6 +1,10 @@
 {
   "global": {
-    "text": "%(text)s"
+    "text": "%(text)s",
+    "commission": "Комиссия:",
+    "buy": "Купить",
+    "sell": "Продать",
+    "send": "Отправить"
   },
   "trade": {
     "title": "Торговля"
@@ -16,6 +20,10 @@
   "dashboard": {
     "title": "Дэшборд",
     "more": "Подробнее",
+    "balance": "Баланс",
+    "toWallet": "В кошелек",
+    "currencies": "Валюты %(defaultCurrency)s",
+    "defaultCurrency": "в %(defaultCurrency)s",
     "operations": "Операции",
     "buy": "Купить",
     "sell": "Продать",
@@ -24,7 +32,8 @@
     "orders": "Открытые сделки"
   },
   "wallet": {
-    "title": "Кошелек"
+    "title": "Кошелек",
+    "totalBalance": "Общий баланс"
   },
   "orders": {
     "title": "Сделки",
@@ -87,7 +96,7 @@
   "tableHeading": {
     "currency": "Валюта",
     "balance": "Баланс",
-    "balanceUsd": "Баланс ($)",
+    "balanceInGolos": "Баланс (GOLOS)",
     "name": "Имя",
     "address": "Адрес",
     "status": "Статус",
@@ -108,10 +117,18 @@
     "name": "Имя пользователя",
     "priv": "Пароль или активный ключ",
     "currentPassword": "Текущий пароль",
-    "generatedPassword": "Сгенерированный пароль"
+    "generatedPassword": "Сгенерированный пароль",
+    "sellAmount": "Продать",
+    "buyAmount": "Купить",
+    "from": "От кого",
+    "to": "Кому",
+    "summ": "Сумма",
+    "memo": "Мемо"
   },
   "selects": {
-    "language": "Язык"
+    "language": "Язык",
+    "currencyToSell": "Валюта",
+    "currencyToBuy": "Валюта"
   },
   "checkboxes": {
     "passwordRestoreWarning": "Я понимаю, что GOLOS не сможет восстановить потерянные пароли",

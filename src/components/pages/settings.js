@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Card, Box, Col, FlexBox, H1, MetadataBold, Row} from "../helpers/global";
+import {Card, Box, Col, FlexBox, H1, MetadataBold, Row, Heading} from "../helpers/global";
 import {translateStr, useClassSetter} from "../../utils";
 import {TabsWrapper} from "../helpers/tabs";
 import {LanguageChange, Nodes, Permissions, ThemeChange} from "../helpers/pages/settings";
@@ -59,7 +59,7 @@ export const Settings = () => {
         <Row className={baseClass}>
            <Col md={6}>
                <Card className={setClass("security")}>
-                   <H1 content={i18n("security")} />
+                   <Heading content={i18n("security")} />
                    <Box mt={1}>
                        <TabsWrapper headingList={headingList}>
                            <PasswordChange />
@@ -70,7 +70,7 @@ export const Settings = () => {
            </Col>
            <Col md={6}>
                <Card className={setClass("interface")}>
-                   <H1 content={i18n("interface")} />
+                   <Heading content={i18n("interface")} />
                    <FlexBox mt={1} justify="space-between" align="center">
                        <LanguageChange />
                        <div className={setClass("interface-divider")} />

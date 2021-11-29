@@ -42,7 +42,7 @@ button{
 
 .btn{
   --bg: var(--brand);
-  --hover-bg: var(--brand);
+  --hover-bg: var(--bg);
   --active-bg: var(--brand-dark);
   --disabled-bg: var(--disabled-bg);
 
@@ -96,8 +96,14 @@ button{
   }
 
   &--brand{}
-  &--green{}
-  &--red{}
+  &--green{
+    --bg: var(--success);
+    --active-bg: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), var(--success);
+  }
+  &--red{
+    --bg: var(--error);
+    --active-bg: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), var(--error);
+  }
 
   &--bordered{
     --bg: transparent;

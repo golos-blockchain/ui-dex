@@ -1,4 +1,4 @@
-import {balanceToObject} from "./handleBalances";
+import {amountToObject} from "./handleBalances";
 import {getUserData} from "../../redux/actions/userData";
 
 export const handleUserOrders = (res) => {
@@ -17,7 +17,7 @@ export const handleUserOrders = (res) => {
 
             const userIsBuyer = current_owner === getUserData().name;
             const id = userIsBuyer ? current_orderid : open_orderid;
-            const bought = balanceToObject(userIsBuyer ? open_pays : current_pays).amount;
+            const bought = amountToObject(userIsBuyer ? open_pays : current_pays).amount;
 
             if (!filledOrders[id]) filledOrders[id] = 0;
 
@@ -32,8 +32,8 @@ export const handleUserOrders = (res) => {
 
         const {orderid: id, timestamp, amount_to_sell, min_to_receive} = el;
 
-        const sellObj = balanceToObject(amount_to_sell);
-        const buyObj = balanceToObject(min_to_receive);
+        const sellObj = amountToObject(amount_to_sell);
+        const buyObj = amountToObject(min_to_receive);
 
         const isCancelled = cancelledOrders.includes(id);
 

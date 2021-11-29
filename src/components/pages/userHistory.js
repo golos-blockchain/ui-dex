@@ -1,9 +1,9 @@
 import React from "react";
 import {ApiRequest} from "../../utils/requests";
 import {getUserData} from "../../redux/actions/userData";
-import {balanceToObject, handleUserHistory, handleUserOrders} from "../../utils/dataHandlers";
+import {handleUserHistory} from "../../utils/dataHandlers";
 import {LoadData} from "../../utils";
-import {Body, BodyBold, Box, Card, FlexBox, Metadata} from "../helpers/global";
+import {Body, Card, Metadata} from "../helpers/global";
 import {Table} from "../helpers/table";
 
 const tableHead = [
@@ -35,7 +35,7 @@ const tableHead = [
         handleItem: (item, row) => <Metadata content={`historyTable.${row.type}.description`} additionalData={item} />,
         className: "fit-content"
     }
-]
+];
 
 export const UserHistory = () => {
     const fn = () => new ApiRequest().getUserHistoryByName(getUserData().name).then(handleUserHistory);
@@ -45,7 +45,7 @@ export const UserHistory = () => {
 
     return(
         <Card>
-            { !isLoading && <Table tableHead={tableHead} rows={data} /> }
+            { isLoading ? "Loading" : <Table tableHead={tableHead} rows={data} /> }
         </Card>
     )
 };

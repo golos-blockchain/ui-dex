@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Box, FlexBox, H1, Metadata, Subheading} from "../../global";
+import {Box, FlexBox, H1, Heading, Metadata, Subheading} from "../../global";
 import {BrandTextBtn} from "../../btn";
 import {clsx, translateStr} from "../../../../utils";
 import {Table} from "../../table";
@@ -110,7 +110,7 @@ export const Nodes = () => {
     return(
         <Fragment>
             <FlexBox mt={1} justify="space-between" align="center">
-                <H1 content={i18n("nodes")} />
+                <Heading content={i18n("nodes")} />
                 <BrandTextBtn content={i18n("addNode")} />
             </FlexBox>
             <Box mt={.8}>
@@ -127,4 +127,4 @@ export const Nodes = () => {
             </Box>
         </Fragment>
     )
-}
+};

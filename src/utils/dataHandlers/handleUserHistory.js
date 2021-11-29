@@ -1,4 +1,4 @@
-import {balanceToObject} from "./handleBalances";
+import {amountToObject} from "./handleBalances";
 import {Body, BodyBold, Box, FlexBox} from "../../components/helpers/global";
 import {
     ArrowIcon,
@@ -13,8 +13,8 @@ import React from "react";
 
 const highlightText = (text) => <span className="clr--brand">{text}</span>;
 const formOrderSumm = (sell, buy) => {
-    const sellObj = balanceToObject(sell);
-    const buyObj = balanceToObject(buy);
+    const sellObj = amountToObject(sell);
+    const buyObj = amountToObject(buy);
     return(
         <FlexBox align="center">
             <Box>
@@ -48,7 +48,7 @@ const opHandlers = {
         const change = userIsSender ? "-" : "+";
         const opType = userIsSender ? "send" : "receive";
 
-        const {amount, symbol} = balanceToObject(amountRaw);
+        const {amount, symbol} = amountToObject(amountRaw);
         const summ = <span><span className={`clr--${userIsSender ? "error" : "success"} bold`}>{change}{amount}</span> {symbol}</span>;
         const descData = {
             amount: highlightText(amountRaw),
@@ -84,8 +84,6 @@ const opHandlers = {
     fill_order: ({ current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays, }) => {
         const userIsBuyer = open_owner === getUserData().name;
 
-        // console.log(current_owner, open_owner, current_orderid, open_orderid, current_pays, open_pays);
-
         const opType = userIsBuyer ? "buy" : "sell";
 
         const summ = userIsBuyer ? formOrderSumm(open_pays, current_pays) : formOrderSumm(current_pays, open_pays);
@@ -105,15 +103,11 @@ const opHandlers = {
             open_pays: highlightText(open_pays)
         };
 
-        console.log(descData);
-
         return { opType, summ, descData };
     }
 };
 
 export const handleUserHistory = (res) => {
-    // checkUniqueTypes(res);
-
     const actualTypes = [
         "transfer",
         "limit_order_create",
@@ -129,8 +123,6 @@ export const handleUserHistory = (res) => {
         const timestamp = el[1].timestamp;
         const [type, operation] = el[1].op;
         const fn = opHandlers[type];
-
-        console.log(type, operation);
 
         let opType = type;
         let summ, descData, icon;

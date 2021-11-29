@@ -27,6 +27,7 @@
     &:last-child{
       .table__cell{
         border-color: transparent;
+        padding-bottom: 0;
       }
     }
   }

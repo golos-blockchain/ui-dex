@@ -1,5 +1,5 @@
 import Request from "./Request";
-import {balanceToObject} from "../dataHandlers";
+import {amountToObject} from "../dataHandlers";
 
 export class ApiRequest extends Request{
     type = "api";
@@ -28,14 +28,26 @@ export class ApiRequest extends Request{
 
     getUserOrdersByName = name => {
         return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order', "limit_order_cancel", "limit_order_cancel_ex" ]}).catch(err => console.error(err));
-    }
+    };
 
     getUserHistoryByName = name => {
         return this.asyncRequest("getAccountHistory", name, -1, 10000).catch(err => console.error(err));
-    }
+    };
 
     getTicker = ticker => {
         return this.asyncRequest("getTicker", ticker);
+    };
+
+    getTickerToGolos = base => {
+        return this.getTicker([base, "GOLOS"]);
+    };
+
+    getLastTrade = ticker => {
+        return this.asyncRequest("getRecentTrades", 1, ticker);
+    };
+
+    getLastTradeToGolos = base => {
+        return this.getLastTrade([base, "GOLOS"]);
     };
 
     getPriceHistory = (pair, resolution, startDate, endDate) => {

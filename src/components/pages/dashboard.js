@@ -1,95 +1,66 @@
 import React from "react";
-import {Box, Card, Col, FlexBox, H2, Metadata, Row} from "../helpers/global";
-import {ApiRequest} from "../../utils/requests";
-import {getUserData} from "../../redux/actions/userData";
-import {handleUserHistory, handleUserOrders} from "../../utils/dataHandlers";
-import {clsx, LoadData, translateStr, useClassSetter} from "../../utils";
-import {OrdersTable} from "./orders";
-import {TransparentTextBtn} from "../helpers/btn";
-import {ArrowRightIcon} from "../../svg";
+
+import {translateStr} from "../../utils";
 import {TabsWrapper} from "../helpers/tabs";
 import {userHistory} from "../routing";
+import {orders, wallet} from "../routing/path";
+import {Box, Col, Row, Span} from "../helpers/global";
 
-const OpenOrders = () => {
-    const fn = () => new ApiRequest().getUserOrdersByName(getUserData().name).then(handleUserOrders);
-    const [data, isLoading, reloadData] = LoadData(fn);
-
-    if(isLoading) return "Loading";
-
-    const rows = data.filter(el => el.percent !== 1 && !el.isCancelled);
-
-    return <OrdersTable rows={rows} reloadData={reloadData} />;
-};
-
-const DashboardHistory = () => {
-    const [baseClass, setClass] = useClassSetter("dashboard-history");
-    const fn = () => new ApiRequest().getUserHistoryByName(getUserData().name).then(handleUserHistory);
-    const [data, isLoading] = LoadData(fn);
-
-    if(isLoading) return "Loading";
-
-    console.log(data.slice(0, 20));
-
-    return(
-        <div className={clsx(baseClass, "custom-scroll")}>
-            <div className={setClass("scroll-wrapper")}>
-                {data.slice(0, 20).map((el, id) => (
-                    <FlexBox key={id} className={setClass("item")} justify="space-between">
-                        <FlexBox>
-                            <div className={setClass("icon")}>
-                                {el.icon}
-                            </div>
-                            <div className={setClass("info")}>
-                                <Metadata content={`historyTable.${el.type}.title`} color="font-secondary" />
-                                <div>{el.summ}</div>
-                            </div>
-                        </FlexBox>
-                        <div className={setClass("date")}>
-                            <Metadata content="tableHeading.dateAndTime" color="font-secondary" />
-                            <div>{new Date(el.timestamp).toLocaleString()}</div>
-                        </div>
-                    </FlexBox>
-                ))}
-            </div>
-        </div>
-    )
-}
+import {
+    DashboardBalances, DashboardBuyForm,
+    DashboardCard,
+    DashboardHistory,
+    DashboardRates, DashboardSellForm, DashboardTransferForm,
+    OpenOrders
+} from "../helpers/pages/dashboard";
 
 export const Dashboard = () => {
     const i18n = translateStr("dashboard");
     const opsTabsHeading = ["buy", "sell", "send"].map(el => ({content: i18n(el)}));
 
+    const defaultCurrency = (
+        <Span
+            content={i18n("defaultCurrency")}
+            additionalData={{ defaultCurrency: "GOLOS" }}
+            color="brand"
+        />
+    );
+
     return(
         <div>
             <Row>
-                <Col md={6}>
-                    <Card pt={2.5}>
-                        <Box mb={.8}>
-                            <H2 content={i18n("operations")} />
-                        </Box>
-                        <TabsWrapper headingList={opsTabsHeading}>
-                            <div>buy</div>
-                            <div>sell</div>
-                            <div>send</div>
-                        </TabsWrapper>
-                    </Card>
+                <Col md={5}>
+                    <DashboardCard title="balance" linkContent="toWallet" link={wallet.link}>
+                        <DashboardBalances />
+                    </DashboardCard>
                 </Col>
-                <Col md={6}>
-                    <Card pt={2.5}>
-                        <FlexBox justify="space-between">
-                            <H2 content={i18n("history")} />
-                            <TransparentTextBtn to={userHistory.link} content={i18n("more")} iconRight={ArrowRightIcon} />
-                        </FlexBox>
-                        <DashboardHistory />
-                    </Card>
+                <Col md={7}>
+                    <DashboardCard title="currencies" additionalData={{defaultCurrency}}>
+                        <DashboardRates />
+                    </DashboardCard>
                 </Col>
             </Row>
-            <Card py={1.5} px={2}>
-                <H2 content={i18n("orders")} />
-                <Box mt={1.5}>
-                    <OpenOrders />
-                </Box>
-            </Card>
+            <Row>
+                <Col md={6}>
+                    <DashboardCard title="operations">
+                        <Box mt={-.7}>
+                            <TabsWrapper headingList={opsTabsHeading}>
+                                <DashboardBuyForm />
+                                <DashboardSellForm />
+                                <DashboardTransferForm />
+                            </TabsWrapper>
+                        </Box>
+                    </DashboardCard>
+                </Col>
+                <Col md={6}>
+                    <DashboardCard title="history" linkContent="more" link={userHistory.link}>
+                        <DashboardHistory />
+                    </DashboardCard>
+                </Col>
+            </Row>
+            <DashboardCard title="orders" linkContent="more" link={orders.link}>
+                <OpenOrders />
+            </DashboardCard>
         </div>
     )
 };
