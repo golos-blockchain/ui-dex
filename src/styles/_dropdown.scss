@@ -1,6 +1,20 @@
 .dropdown{
   width: 100%;
   position: relative;
+  &.disabled{
+    button:hover{
+      cursor: default;
+    }
+  }
+  &.error{
+    .select-btn{
+      color: var(--error);
+      border-color: var(--error);
+      svg{
+        fill: var(--error);
+      }
+    }
+  }
 }
 
 .dropdown-btn{
@@ -10,6 +24,16 @@
     margin-left: .8rem;
     transition: var(--qSpeed);
     transform: rotate(0);
+  }
+}
+
+.form .active.select-btn{
+  border-color: var(--success);
+  .select-btn__label{
+    color: var(--success);
+  }
+  svg{
+    fill: var(--success)
   }
 }
 
@@ -55,10 +79,11 @@
 }
 
 .table-actions{
-  width: 100%;
-  text-align: right;
+  width: fit-content;
+  display: block;
+  margin: 0 auto;
   svg{
-    margin-left: auto;
+    margin: 0 auto;
   }
 }
 
@@ -86,6 +111,7 @@
     margin-bottom: .8rem;
   }
   &__body{
+    max-height: 15rem;
     margin-top: .8rem;
     background: var(--white);
     z-index: 5;
@@ -134,7 +160,7 @@
   }
   &__btn{
     position: absolute;
-    top: 1.1rem;
+    top: 1.4rem;
     right: 1rem;
   }
   &__body{

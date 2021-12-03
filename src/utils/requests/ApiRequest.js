@@ -4,6 +4,22 @@ import {amountToObject} from "../dataHandlers";
 export class ApiRequest extends Request{
     type = "api";
 
+    getConfig = () => {
+        return this.asyncRequest("getConfig");
+    };
+
+    getDGP = () => {
+        return this.asyncRequest("getDynamicGlobalProperties");
+    };
+
+    getAssets = () => {
+        return this.asyncRequest("getAssets", "",[],"0","20","0");
+    };
+
+    checkUserExistence = (name) => {
+        return this.asyncRequest("lookupAccountNames", [name]).then(res => Boolean(res[0]));
+    };
+
     getAccByName = (name) => {
         return this.asyncRequest("getAccounts", [name]).then(res => res && res[0]);
     };

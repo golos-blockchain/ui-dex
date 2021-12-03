@@ -1,4 +1,4 @@
-import {SET_NIGHT_MODE, SET_PUSH_MESSAGES, SET_SETTINGS} from "../constants";
+import {SET_NIGHT_MODE, SET_SETTINGS} from "../constants";
 
 const defaultSettings = {
     nightMode: false,

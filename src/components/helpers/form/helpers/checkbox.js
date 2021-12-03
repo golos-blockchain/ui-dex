@@ -14,7 +14,7 @@ export const Checkbox = ({id, label, className, type, iconLeft: IL, iconRight: I
     if(!onChange) onChange = () => {};
 
     const handleChange = () => {
-
+        if(disabled) return;
         onChange({name, value: !value});
     };
 

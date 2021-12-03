@@ -9,7 +9,7 @@ import {cabinet, settings} from "../routing/path";
 import {BrandTextBtn} from "../helpers/btn";
 
 const LoginBtn = () => (
-    <BrandTextBtn content="login.title" to={cabinet.link} />
+    <BrandTextBtn className="header__login-btn" content="login.title" to={cabinet.link} />
 );
 
 const LoggedUserDisplay = ({userData}) => {

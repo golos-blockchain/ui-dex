@@ -1,4 +1,3 @@
-
 .checkbox{
   display: flex;
   &:hover{
@@ -34,6 +33,15 @@
     }
     span{
       color: var(--error);
+    }
+  }
+  &.disabled{
+    opacity: .75;
+    span{
+      color: var(--font-secondary);
+    }
+    &:hover{
+      cursor: default;
     }
   }
 }

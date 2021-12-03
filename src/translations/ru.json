@@ -88,10 +88,12 @@
     "nodes": "Ноды",
     "addNode": "Добавить ноду",
     "connected": "Подключена",
-    "nodesList": "Доступны",
+    "defaultNodesList": "Основные",
+    "userNodesList": "Пользовательские",
     "connectNode": "Подключить",
     "editNode": "Редактировать",
-    "deleteNode": "Удалить"
+    "deleteNode": "Удалить",
+    "deleteNodeDesc": "Вы уверены, что хотите удалить ноду %(url)s из списка?"
   },
   "tableHeading": {
     "currency": "Валюта",
@@ -123,7 +125,9 @@
     "from": "От кого",
     "to": "Кому",
     "summ": "Сумма",
-    "memo": "Мемо"
+    "memo": "Мемо",
+    "nodeTitle": "Название ноды",
+    "nodeUrl": "Адрес ноды"
   },
   "selects": {
     "language": "Язык",
@@ -137,7 +141,13 @@
   "errors": {
     "required": "Обязательное поле",
     "loginError": "Логин или пароль были введены неверно!",
-    "passwordIsWrong": "Пароль введен неверно!"
+    "passwordIsWrong": "Пароль введен неверно!",
+    "nodeNameIsExist": "Нода с таким именем уже сохранена!",
+    "nodeUrlIsExist": "Нода с таким адресом уже сохранена!",
+    "urlIsNotSocket": "Введита адрес вебсокета (wss://(адрес)/ws)!",
+    "nodeNotRespond": "Нода не отвечает на запросы",
+    "userNotExist": "Пользователя не существует",
+    "notEnoughCash": "Недостаточно средств"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
@@ -171,6 +181,28 @@
     "sell": {
       "title": "Продажа",
       "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s (ордер %(current_orderid)s)"
+    }
+  },
+  "confirmModal": {
+    "cancelOrder": {
+      "title": "Отмена ордера",
+      "desc": "Вы уверены, что хотите отменить ордер №%(id)s",
+      "btn": "Продолжить"
+    },
+    "cancelAllOrders": {
+      "title": "Отмена всех ордеров",
+      "desc": "Вы уверены, что хотите отменить все актуальные на данный момент ордера?",
+      "btn": "Продолжить"
+    },
+    "cancelAllOrdersEmpty": {
+      "title": "Ошибка!",
+      "desc": "В данный момент у вас нет открытых ордеров",
+      "btn": "Закрыть окно"
+    },
+    "trx": {
+      "title": "Перевод",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить перевод"
     }
   }
 }

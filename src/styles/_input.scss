@@ -127,6 +127,11 @@
     &__message{
       background: var(--error-light);
     }
+    &__icon-left, &__icon-right{
+      svg{
+        fill: var(--error);
+      }
+    }
   }
   &.disabled{
     opacity: .95;
@@ -185,4 +190,13 @@
 
 .field--hasMessage{
   padding-bottom: 3.4rem;
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }

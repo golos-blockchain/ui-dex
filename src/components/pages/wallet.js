@@ -6,53 +6,51 @@ import {TabsWrapper} from "../helpers/tabs";
 import {connectUserData} from "../../redux/actions/userData";
 import {mixDataToBalance} from "../../utils/dataHandlers";
 import {Table} from "../helpers/table";
+import {useClassSetter} from "../../utils";
 
 const WalletCardDisplay = ({ balances }) => {
+    const [baseClass, setClass] = useClassSetter("balances-card");
     return(
         <Row>
-            {balances.map((balance, id) => {
-                const IC = balance.icon;
-                return (
-                    <Col key={id} sm={6}>
-                        <Card py={2} pr={1.1} pl={3}>
-                            <FlexBox>
-                                {IC && (
-                                    <Box mr={2}>
-                                        <IC width="5rem" height="5rem" />
-                                    </Box>
-                                )}
-                                <div>
-                                    <Body text={balance.fullName} />
-                                    <Heading text={`${balance.amount} ${balance.symbol}`} />
-                                    <Body text={`${balance.amountInGolos} GOLOS`} color="font-secondary" />
+            {balances.map((balance, id) => (
+                <Col key={id} sm={6}>
+                    <Card className={baseClass}>
+                        <FlexBox>
+                            {balance.img && (
+                                <div className={setClass("image-wrapper")}>
+                                    <img src={balance.img} alt={balance.fullName} />
                                 </div>
-                            </FlexBox>
-                        </Card>
-                    </Col>
-                )
-            })}
+                            )}
+                            <div className={setClass("text-wrapper")}>
+                                <Body text={balance.fullName} />
+                                <Heading text={`${balance.amount} ${balance.symbol}`} />
+                                <Body text={`${balance.amountInGolos} GOLOS`} color="font-secondary" />
+                            </div>
+                        </FlexBox>
+                    </Card>
+                </Col>
+            ))}
         </Row>
     )
 };
 
 const WalletTableDisplay = ({ balances }) => {
+    const [baseClass, setClass] = useClassSetter("balances-table");
+
     const tableHead = [
         {
             key: 'fullName',
             translateTag: 'currency',
-            handleItem: (fullName, row) => {
-                const IC = row.icon;
-                return (
-                    <FlexBox>
-                        {IC && (
-                            <Box mr={3.8}>
-                                <row.icon width="3.2rem" height="3.2rem" />
-                            </Box>
-                        )}
-                        <Body text={fullName} />
-                    </FlexBox>
-                )
-            },
+            handleItem: (fullName, row) => (
+                <FlexBox className={baseClass}>
+                    {row.img && (
+                        <div className={setClass("image-wrapper")}>
+                            <img src={row.img} alt={row.fullName} />
+                        </div>
+                    )}
+                    <Body text={fullName} />
+                </FlexBox>
+            ),
             className: 'fit-content'
         },
         {

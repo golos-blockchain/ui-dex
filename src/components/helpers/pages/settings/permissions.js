@@ -45,5 +45,5 @@ const PermissionBlock = ({userKey, type}) => {
 export const Permissions = () => {
     const keys = getUserData().keys;
     const list = ["posting", "active", "owner", "memo"];
-    return list.map(type => <PermissionBlock key={type} type={type} userKey={keys[type]} />)
+    return list.map(type => keys[type] && <PermissionBlock key={type} type={type} userKey={keys[type]} />)
 };

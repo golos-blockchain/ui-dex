@@ -8,7 +8,7 @@ import {fieldHook} from "../form/hooks";
 const SelectBtn = ({btnLabel, btnContent, toggleOpenState}) => {
     const [baseClass, setClass] = useClassSetter("select-btn");
     return(
-        <button className={clsx(baseClass, btnContent && "active")} onClick={toggleOpenState}>
+        <button type="button" className={clsx(baseClass, btnContent && "active")} onClick={toggleOpenState}>
             { btnContent }
             { btnLabel && <BodyBold className={setClass("label")} content={`selects.${btnLabel}`} /> }
             <div className={setClass("caret")}>
@@ -19,7 +19,7 @@ const SelectBtn = ({btnLabel, btnContent, toggleOpenState}) => {
 };
 
 export const Select = ({id, label, list, className, ...props}) => {
-    let { name, value: selectedId, disabled, onChange } = fieldHook(props);
+    let { name, value: selectedId, error, disabled, onChange } = fieldHook(props);
 
     const btnLabel = label || name;
 
@@ -41,6 +41,7 @@ export const Select = ({id, label, list, className, ...props}) => {
                 </div>
             )))}
             disabled={disabled}
+            error={error}
         />
     )
 };

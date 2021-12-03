@@ -7,7 +7,8 @@ import {clsx, LoadData, translateStr} from "../../utils";
 import {BackspaceIcon} from "../../svg";
 import {ApiRequest} from "../../utils/requests";
 import {handleUserOrders} from "../../utils/dataHandlers";
-import {generateModal} from "../../redux/actions";
+import {generateModal, initModal} from "../../redux/actions";
+import {CancelOrderConfirm, CancelAllOrderConfirm} from "../helpers/confirmModals/";
 
 const tableHead = [
     {
@@ -68,8 +69,8 @@ const tableHead = [
         handleItem: (id, row, reloadData) => (
             <Box w="fit-content" mx="auto">
                 <TransparentBtn
-                    onClick={() => { console.log(id) }}
-                    disabled={row.percent === 1}
+                    onClick={generateModal(<CancelOrderConfirm id={id} reloadData={reloadData} />)}
+                    disabled={row.percent === 1 || row.isCancelled}
                 >
                     <BackspaceIcon />
                 </TransparentBtn>
@@ -95,6 +96,11 @@ export const Orders = () => {
 
     const rows = filter === filtersList[0] ? data : data.filter(el => el.type === filter);
 
+    const onCancel = () => {
+        const allOpenOrders = data.filter(el => el.percent !== 1 && !el.isCancelled);
+        initModal(<CancelAllOrderConfirm openOrders={allOpenOrders} reloadData={reloadData} />)
+    };
+
     return(
         <Fragment>
             <Card>
@@ -110,7 +116,7 @@ export const Orders = () => {
                             </button>
                         ))}
                     </FlexBox>
-                    <BrandTextBtn content={i18n("closeAllOrders")} onClick={generateModal(<span>asdasdasd</span>)} />
+                    <BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />
                 </FlexBox>
             </Card>
             <Card mt={2}>

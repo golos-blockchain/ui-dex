@@ -17,6 +17,8 @@ export class AuthRequest extends Request{
                 error = 'Авторизоваться не удалось! Неверный пароль (Переданная строка не является ни posting-ключом, ни паролем.)';
             }
 
+            console.log(error, keys);
+
             if(error) throw new Error(error);
 
             return keys;

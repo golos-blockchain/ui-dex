@@ -1,4 +1,4 @@
-import {amountToObject} from "./handleBalances";
+import {amountToObject} from "./handleAssets";
 import {Body, BodyBold, Box, FlexBox} from "../../components/helpers/global";
 import {
     ArrowIcon,
@@ -39,6 +39,7 @@ const icons = {
     buy: <HistoryFillIcon />,
     sell: <HistoryFillIcon />,
     limit_order_cancel: <HistoryDeleteIcon />,
+    limit_order_cancel_ex: <HistoryDeleteIcon />
 };
 
 const opHandlers = {
@@ -72,6 +73,16 @@ const opHandlers = {
         return { summ, descData };
     },
     limit_order_cancel: ({ owner, orderid }) => {
+
+        const summ = <Body content="historyTable.empty" color="disabled" />;
+        const descData = {
+            owner: highlightText(`@${owner}`),
+            orderid: highlightText(`#${orderid}`)
+        };
+
+        return { summ, descData };
+    },
+    limit_order_cancel_ex: ({ owner, orderid }) => {
 
         const summ = <Body content="historyTable.empty" color="disabled" />;
         const descData = {

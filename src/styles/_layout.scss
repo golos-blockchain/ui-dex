@@ -11,6 +11,9 @@ body{
     padding: .7rem 1.6rem;
     border-left: 1px solid var(--line);
   }
+  &__login-btn{
+    margin: -.7rem 0;
+  }
 }
 
 .theme-switch{

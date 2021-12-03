@@ -13,6 +13,7 @@ import {passwordChangeSchema} from "../helpers/form/validation";
 const PasswordChange = () => {
     const i18n = translateStr("settings");
     const userData = getUserData();
+    const userWithoutPassword = !getUserData().keys.password;
 
     return(
         <Box pt={0} px={2} pb={2}>
@@ -22,6 +23,7 @@ const PasswordChange = () => {
             </Box>
             <Form
                 schema={passwordChangeSchema}
+                disableForm={userWithoutPassword}
             >{formData => (
                 <Fragment>
                     <Box>
@@ -32,7 +34,7 @@ const PasswordChange = () => {
                             <Input name="generatedPassword" formData={formData} disabled />
                         </Box>
                         <Box w="fit-content" ml={1.5}>
-                            <BorderedTextBtn content={i18n("generateNewPassword")} onClick={() => {
+                            <BorderedTextBtn content={i18n("generateNewPassword")} disabled={formData.props.disableForm} onClick={() => {
                                 const newPassword = new FormatterRequest().generatePassword();
                                 formData.onChange({name: "generatedPassword", value: newPassword});
                             }} />
@@ -44,7 +46,7 @@ const PasswordChange = () => {
                     <Box mb={2.6}>
                         <Checkbox name="passwordSaveWarning" formData={formData} />
                     </Box>
-                    <BrandTextBtn type="submit" content={i18n("updatePassword")} />
+                    <BrandTextBtn type="submit" content={i18n("updatePassword")} disabled={formData.props.disableForm} />
                 </Fragment>
             )}</Form>
         </Box>

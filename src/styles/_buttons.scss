@@ -87,7 +87,7 @@ button{
     border-color: var(--active-border);
   }
   &:disabled, &:disabled:hover{
-    opacity: .2;
+    opacity: .75;
 
     background: var(--disabled-bg);
     border-color: var(--disabled-border);
@@ -95,7 +95,9 @@ button{
     color: var(--disabled-color);
   }
 
-  &--brand{}
+  &--brand{
+    --disabled-bg: var(--brand-bg);
+  }
   &--green{
     --bg: var(--success);
     --active-bg: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), var(--success);
@@ -108,12 +110,13 @@ button{
   &--bordered{
     --bg: transparent;
     --hover-bg: var(--brand-bg-light);
+    --disabled-bg: var(--brand-bg-light);
     --active-bg: transparent;
 
     --border: var(--brand);
     --hover-border: var(--brand);
     --active-border: var(--brand-dark);
-    --disabled-border: var(--grey);
+    --disabled-border: var(--brand);
 
     --color: var(--brand);
     --hover-color: var(--brand);

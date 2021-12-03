@@ -39,9 +39,7 @@ const tableHead = [
 
 export const UserHistory = () => {
     const fn = () => new ApiRequest().getUserHistoryByName(getUserData().name).then(handleUserHistory);
-    const [data, isLoading, reloadData] = LoadData(fn);
-
-    console.log(data);
+    const [data, isLoading] = LoadData(fn);
 
     return(
         <Card>

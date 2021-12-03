@@ -9,5 +9,6 @@ export * from "./settingsOperations"
 export * from "./dateOperations";
 export * from "./storage";
 
+export * from "./nodes";
 export * from "./store";
 export * from "./locale";

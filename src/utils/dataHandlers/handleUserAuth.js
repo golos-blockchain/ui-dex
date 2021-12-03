@@ -1,6 +1,6 @@
 import {ApiRequest, AuthRequest} from "../requests";
 import {setStorage} from "../storage";
-import {amountToObject, lastTradeToRate} from "./handleBalances";
+import {amountToObject, lastTradeToRate} from "./handleAssets";
 
 export const handleUserAuth = (userData) => new AuthRequest().login(userData).then(async keys => {
     setStorage("user", userData);

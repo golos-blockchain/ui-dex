@@ -13,8 +13,8 @@ export const Header = () => {
     return(
         <header className={baseClass}>
             <FlexBox pr={2} pl={4} justify="space-between">
-                <FlexBox align="center">
-                    <Box mt={1.8} mr={5.1} mb={1.2} className={setClass("logo")}>
+                <FlexBox mt="auto" align="end">
+                    <Box mr={5.1} pb={1.2} className={setClass("logo")}>
                         <Logo />
                     </Box>
                     <Box mt="auto">

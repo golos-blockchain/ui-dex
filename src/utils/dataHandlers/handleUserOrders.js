@@ -1,4 +1,4 @@
-import {amountToObject} from "./handleBalances";
+import {amountToObject} from "./handleAssets";
 import {getUserData} from "../../redux/actions/userData";
 
 export const handleUserOrders = (res) => {

@@ -12,8 +12,6 @@ export const DashboardHistory = () => {
 
     if(isLoading) return "Loading";
 
-    console.log(data.slice(0, 20));
-
     return(
         <div className={clsx(baseClass, "custom-scroll")}>
             <div className={setClass("scroll-wrapper")}>

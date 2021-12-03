@@ -12,7 +12,8 @@ import {RequestError} from "../../form/helpers/requestError";
 
 const userData = {
     name: 'graphenelab',
-    priv: 'P5JwNwn9zsDJpmD8Ktyc8kvtCZUo8ZkCKcbsAiL8xxdTYYGCW8cX'
+    priv: 'P5JwNwn9zsDJpmD8Ktyc8kvtCZUo8ZkCKcbsAiL8xxdTYYGCW8cX',
+    posting: "5JWAmidf7rLUFNJsnYNmRd1hSNCJHLRKBo5yJXbGE1PVFemrHCm"
 };
 
 const LoginForm = () => {

@@ -1,14 +1,20 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {DefaultRoutes, Header, Modal} from "./components/layout";
 import {initLocale} from "./utils/locale";
-import {getStorage, initSettings} from "./utils";
+import {getStorage, initNode, initSettings} from "./utils";
 import {setUserData} from "./redux/actions/userData";
-import {handleUserAuth} from "./utils/dataHandlers";
+import {handleAssetsRequest, handleUserAuth} from "./utils/dataHandlers";
+import {ApiRequest} from "./utils/requests";
+import {setAssets} from "./redux/actions/assets";
 
 const appInit = async () => {
     //base app initialising
     initLocale();
     initSettings();
+
+    const assets = await new ApiRequest().getAssets().then(handleAssetsRequest).then(setAssets);
+
+    console.log(assets);
 
     //user check
     const user = getStorage("user");
@@ -19,7 +25,7 @@ function App() {
     const [isLoading, setLoadingState] = useState(true);
 
     useEffect(() => {
-        appInit().then(() => setLoadingState(false));
+        initNode().then(appInit).then(() => setLoadingState(false));
     }, []);
 
     return isLoading

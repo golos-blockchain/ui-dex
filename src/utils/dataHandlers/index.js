@@ -1,4 +1,4 @@
 export * from "./handleUserAuth"
-export * from "./handleBalances"
+export * from "./handleAssets"
 export * from "./handleUserOrders"
 export * from "./handleUserHistory"

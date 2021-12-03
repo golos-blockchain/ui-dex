@@ -3,7 +3,7 @@ import {clsx, LoadData, useClassSetter} from "../../../../utils";
 import {getAllRates} from "../../../../utils/dataHandlers";
 import {Body, Col, FlexBox, Metadata, Row, Subheading, SubheadingBold} from "../../global";
 
-const RateDisplay = ({rate, rateChange = 0, icon: IC, fullName, symbol}) => {
+const RateDisplay = ({rate, rateChange = 0, img, fullName}) => {
     const [baseClass, setClass] = useClassSetter("dashboard-rate");
 
     const rateChangePrefix = rateChange === 0 ? "" : rateChange > 0 ? "+" : "-";
@@ -11,13 +11,12 @@ const RateDisplay = ({rate, rateChange = 0, icon: IC, fullName, symbol}) => {
     const rateChangeText = `${rateChangePrefix}${rateChange}%`;
 
     return(
-        <div className={clsx(baseClass, "bg--brand-light")}>
-            <div className={setClass("icon")}>
-                <IC />
+        <div className={clsx(baseClass, "bg--secondary")}>
+            <div className={setClass("image")}>
+                <img src={img} alt={fullName} />
             </div>
             <FlexBox className={setClass("rate")}>
                 <SubheadingBold text={rate} className={setClass("amount")} />
-                <Subheading text={symbol} className={setClass("symbol")} color="font-secondary" />
             </FlexBox>
             <FlexBox className={setClass("additional-info")}>
                 <Body text={fullName} />

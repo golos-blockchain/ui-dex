@@ -5,12 +5,12 @@ import {Body, Box, Col, HeadingBold, Metadata, MetadataBold, Row} from "../../gl
 import {mixDataToBalance} from "../../../../utils/dataHandlers";
 import {useClassSetter} from "../../../../utils";
 
-const BalanceDisplay = ({icon: IC, fullName, amount, symbol}) => {
+const BalanceDisplay = ({img, fullName, amount, symbol}) => {
     const [baseClass, setClass] = useClassSetter("dashboard-balance");
     return(
         <div className={baseClass}>
-            <div className={setClass("icon")}>
-                <IC />
+            <div className={setClass("image")}>
+                <img src={img} alt={fullName} />
             </div>
             <MetadataBold text={fullName} className={setClass("name")} />
             <div className={setClass("amount")}>

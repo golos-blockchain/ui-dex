@@ -15,22 +15,25 @@ export class Form extends Component {
         if(!schema) return {};
 
         let newError = "";
+        let path = name;
 
         try {
             schema.validateSyncAt(name, data);
         } catch(err){
-            const {type, message, params} = err;
+            const {path: customPath, type, message, params} = err;
+
+            path = customPath || name;
             newError = {type: type || message, params};
         }
 
-        return newError ? {[name]: newError} : {};
+        return newError ? {[path]: newError} : {};
     };
 
     saveErrors = (name, error) => this.setState({errors: {[name]: error}});
 
     handleRequestError = (err) => {
         if(typeof err === "object"){
-            this.saveErrors("request", {type: err.message});
+            this.saveErrors(err.field || "request", {type: err.message});
             return;
         }
 
@@ -42,9 +45,7 @@ export class Form extends Component {
 
                 return;
             } else {
-                console.log("HERE!");
                 this.saveErrors("request", {type: err});
-
                 return;
             }
         }
@@ -77,8 +78,6 @@ export class Form extends Component {
             return;
         }
 
-        console.log(schema);
-
         if(schema){
             try{
                 await schema.validate(this.state.data, {strict: true});
@@ -93,8 +92,6 @@ export class Form extends Component {
     };
 
     request = () => {
-        console.log("REQUEST!");
-
         const data = this.state.data;
         const request = this.props.request;
 

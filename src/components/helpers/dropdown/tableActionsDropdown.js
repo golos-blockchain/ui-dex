@@ -19,8 +19,8 @@ const OpenedDropdown = ({blockRef, btnLabel, btnContent, btnComponent, dropdownL
     const elementPosition = blockRef && blockRef.current ? blockRef.current.getBoundingClientRect() : {};
     const contentStyle = {
         // width: elementPosition.width + 32,
-        top: elementPosition.top - 11,
-        left: elementPosition.left - elementPosition.width - 21
+        top: elementPosition.top - 14,
+        left: elementPosition.left - elementPosition.width - 23 - 15
     };
 
     useEffect(() => {

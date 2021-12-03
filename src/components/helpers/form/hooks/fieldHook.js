@@ -9,7 +9,6 @@ const getFieldState = ({value, error, globalError, disabled}) => {
         fieldStateClass = "error";
     } else if(value) {
         fieldStateClass = "success";
-        message = "fieldMessages.success";
     }
 
     if(disabled && value){
@@ -25,7 +24,7 @@ export const fieldHook = ({formData, ...props}) => {
     const {name, disabled: initialDisabled} = props;
     const {data, errors, isLoading} = formData.state;
 
-    const disabled = initialDisabled || isLoading;
+    const disabled = formData.props.disableForm || initialDisabled || isLoading;
 
     const value = data[name] || data[name] === 0 ? data[name] : "";
     const error = errors && errors[name];
