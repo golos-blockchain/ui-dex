@@ -66,6 +66,10 @@ export class ApiRequest extends Request{
         return this.getLastTrade([base, "GOLOS"]);
     };
 
+    getOrderBook = ticker => {
+        return this.asyncRequest("getOrderBook", 100, ticker);
+    };
+
     getPriceHistory = (pair, resolution, startDate, endDate) => {
         return this.asyncRequest("getTradeHistory", startDate, endDate, resolution, pair);
     }

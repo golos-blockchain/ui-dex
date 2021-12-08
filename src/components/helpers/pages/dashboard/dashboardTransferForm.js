@@ -1,4 +1,4 @@
-import {Form, Input} from "../../form/helpers";
+import {Form, Input, NumberInput} from "../../form/helpers";
 import {Fragment} from "react";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
 import {AssetSelect} from "../../dropdown";
@@ -13,7 +13,7 @@ import {ApiRequest} from "../../../../utils/requests";
 import {TrxConfirm} from "../../confirmModals";
 import {initModal} from "../../../../redux/actions";
 
-export const DashboardTransferForm = () => {
+export const DashboardTransferForm = ({onUpdate}) => {
     const from = getUserData().name;
 
     const req = async (props) => {
@@ -35,9 +35,14 @@ export const DashboardTransferForm = () => {
 
 
     return(
-        <Form schema={trxSchema} request={req}>{formData => {
-            const {summ = 0, currencyToBuy = 0} = formData.state.data;
-            const selectedAsset = getAssetById(currencyToBuy);
+        <Form
+            schema={trxSchema}
+            request={req}
+            handleResult={onUpdate}
+            clearOnFinish
+        >{formData => {
+            const {summ = 0, asset = 0} = formData.state.data;
+            const selectedAsset = getAssetById(asset);
             const fee = `${summ * (selectedAsset.fee_percent / 100)} ${selectedAsset.symbol}`;
 
             return (
@@ -50,10 +55,10 @@ export const DashboardTransferForm = () => {
                             <Input name="to" iconLeft={MailIcon} formData={formData} />
                         </Col>
                         <Col md={7}>
-                            <Input type="number" name="summ" formData={formData} />
+                            <NumberInput name="summ" formData={formData} />
                         </Col>
                         <Col md={5}>
-                            <AssetSelect name="currencyToBuy" formData={formData} />
+                            <AssetSelect name="asset" formData={formData} />
                         </Col>
                         <Col>
                             <Input name="memo" formData={formData} />

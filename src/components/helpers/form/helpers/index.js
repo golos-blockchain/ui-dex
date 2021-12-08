@@ -1,3 +1,5 @@
 export * from "./input"
+export * from "./numberInput"
 export * from "./checkbox"
+export * from "./range"
 export * from "./form"

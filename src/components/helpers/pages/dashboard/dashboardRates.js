@@ -26,18 +26,12 @@ const RateDisplay = ({rate, rateChange = 0, img, fullName}) => {
     );
 };
 
-export const DashboardRates = () => {
-    const [data, isLoading] = LoadData(getAllRates);
-
-    return isLoading
-        ? "Loading"
-        : (
-            <Row>
-                {data.map((el, id) => (
-                    <Col key={id} md={4}>
-                        <RateDisplay {...el} />
-                    </Col>
-                ))}
-            </Row>
-        );
-};
+export const DashboardRates = ({rates}) => (
+    <Row>
+        {rates.map((el, id) => (
+            <Col key={id} md={4}>
+                <RateDisplay {...el} />
+            </Col>
+        ))}
+    </Row>
+);

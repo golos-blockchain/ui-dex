@@ -14,11 +14,17 @@ const currenciesFullName = {
     GBG: "Golos Gold"
 };
 
+const currenciesPrecisions = {
+    GOLOS: 3,
+    GBG: 3
+};
+
 const defaultCurrenciesList = currenciesList.map(symbol => ({
     symbol,
     fullName: currenciesFullName[symbol],
     img: currenciesImg[symbol],
     fee_percent: 0,
+    precision: currenciesPrecisions[symbol],
     whitelist: []
 }));
 
@@ -26,13 +32,12 @@ export const handleAssetsRequest = res => {
     const customAssets = res
         .sort((prev, next) => new Date(prev.created).getTime() > new Date(next.created).getTime() ? 1 : -1)
         .map(el => {
-
-            const {json_metadata, max_supply, fee_percent, symbols_whitelist} = el;
+            const {json_metadata, max_supply, fee_percent, symbols_whitelist, precision} = el;
             const [_, symbol] = max_supply.split(" ");
             const img = currenciesImg[symbol] || JSON.parse(json_metadata).image_url;
             const fullName = `${symbol.substr(0, 1).toUpperCase()}${symbol.substr(1,).toLowerCase()}`
 
-            return {symbol, fullName, img, fee_percent, whitelist: symbols_whitelist}
+            return {symbol, fullName, img, fee_percent, precision, whitelist: symbols_whitelist}
         });
 
     const params = {};
@@ -57,7 +62,7 @@ export const lastTradeToRate = res => {
     const {amount: baseAmount} = amountToObject(item.current_pays);
     const {amount: quoteAmount} = amountToObject(item.open_pays);
 
-    return +(baseAmount / quoteAmount).toFixed(5);
+    return +(quoteAmount / baseAmount).toFixed(5);
 };
 
 export const getAllRates = () => Promise.all(

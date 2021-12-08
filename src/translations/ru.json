@@ -1,13 +1,15 @@
 {
   "global": {
     "text": "%(text)s",
-    "commission": "Комиссия:",
     "buy": "Купить",
     "sell": "Продать",
-    "send": "Отправить"
+    "send": "Отправить",
+    "rate": "Курс:",
+    "commission": "Комиссия:"
   },
   "trade": {
-    "title": "Торговля"
+    "title": "Торговля",
+    "bestPrice": "Лучшая цена"
   },
   "cabinet": {
     "title": "Личный кабинет"
@@ -25,11 +27,13 @@
     "currencies": "Валюты %(defaultCurrency)s",
     "defaultCurrency": "в %(defaultCurrency)s",
     "operations": "Операции",
-    "buy": "Купить",
-    "sell": "Продать",
+    "buySell": "Быстрая покупка",
     "send": "Отправить",
     "history": "История",
-    "orders": "Открытые сделки"
+    "orders": "Открытые сделки",
+    "blank": "Blank",
+    "price": "Цена за 1 %(buySymbol)s:",
+    "buyAmount": "Сумма покупки:"
   },
   "wallet": {
     "title": "Кошелек",
@@ -120,23 +124,28 @@
     "priv": "Пароль или активный ключ",
     "currentPassword": "Текущий пароль",
     "generatedPassword": "Сгенерированный пароль",
-    "sellAmount": "Продать",
-    "buyAmount": "Купить",
+    "amountToSell": "Сумма продажи",
+    "amountToBuy": "Сумма покупки",
     "from": "От кого",
     "to": "Кому",
     "summ": "Сумма",
     "memo": "Мемо",
     "nodeTitle": "Название ноды",
-    "nodeUrl": "Адрес ноды"
+    "nodeUrl": "Адрес ноды",
+    "price": "Цена",
+    "amount": "Количество",
+    "result": "Итого"
   },
   "selects": {
     "language": "Язык",
-    "currencyToSell": "Валюта",
-    "currencyToBuy": "Валюта"
+    "asset": "Валюта",
+    "assetToBuy": "Купить",
+    "assetToSell": "Продать"
   },
   "checkboxes": {
     "passwordRestoreWarning": "Я понимаю, что GOLOS не сможет восстановить потерянные пароли",
-    "passwordSaveWarning": "Я надежно сохранил сгенерированный пароль"
+    "passwordSaveWarning": "Я надежно сохранил сгенерированный пароль",
+    "isSell": "Продажа"
   },
   "errors": {
     "required": "Обязательное поле",
@@ -147,7 +156,8 @@
     "urlIsNotSocket": "Введита адрес вебсокета (wss://(адрес)/ws)!",
     "nodeNotRespond": "Нода не отвечает на запросы",
     "userNotExist": "Пользователя не существует",
-    "notEnoughCash": "Недостаточно средств"
+    "notEnoughCash": "Недостаточно средств",
+    "pairNotUnique": "Ассет должен быть уникальным"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"

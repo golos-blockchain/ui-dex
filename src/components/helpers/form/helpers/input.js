@@ -22,7 +22,7 @@ const FieldMessage = ({className, type, message}) => {
     );
 };
 
-export const Input = ({id, label, className, type, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
+export const Input = ({id, label, className, type, inputMode, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
     const [baseClass, setClass, setEffect] = useClassSetter("field");
 
     let { name, value, disabled, onChange, fieldStateClass, message } = fieldHook(props);
@@ -48,6 +48,7 @@ export const Input = ({id, label, className, type, iconLeft: IL, iconRight: IR, 
                 name={name}
                 value={value || ""}
                 placeholder=" "
+                inputMode={inputMode}
                 className={setClass("input")}
                 onChange={onChange}
                 disabled={disabled}

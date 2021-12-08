@@ -2,10 +2,7 @@ import {ApiRequest, AuthRequest} from "../requests";
 import {setStorage} from "../storage";
 import {amountToObject, lastTradeToRate} from "./handleAssets";
 
-export const handleUserAuth = (userData) => new AuthRequest().login(userData).then(async keys => {
-    setStorage("user", userData);
-
-    const name = userData.name;
+export const fetchUserData = async (name) => {
     const apiReq = new ApiRequest();
 
     const accData = await apiReq.getAccByName(name);
@@ -39,13 +36,16 @@ export const handleUserAuth = (userData) => new AuthRequest().login(userData).th
 
     totalBalance = +(totalBalance).toFixed(5);
 
-    return {
-        name,
-        accData,
-        keys,
-        totalBalance,
-        balances
-    };
+    return { accData, totalBalance, balances };
+};
+
+export const handleUserAuth = (userData) => new AuthRequest().login(userData).then(async keys => {
+    setStorage("user", userData);
+
+    const name = userData.name;
+    const { accData, totalBalance, balances } = await fetchUserData(name);
+
+    return { name, accData, keys, totalBalance, balances };
 }).catch(err => {
     throw new Error("loginError")
 });

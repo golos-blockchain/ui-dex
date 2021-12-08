@@ -2,6 +2,13 @@
   width: 100%;
   position: relative;
   &.disabled{
+    opacity: .95;
+    .select-btn{
+      color: var(--font-disabled);
+      svg{
+        fill: var(--font-disabled);
+      }
+    }
     button:hover{
       cursor: default;
     }
@@ -27,13 +34,24 @@
   }
 }
 
-.form .active.select-btn{
-  border-color: var(--success);
-  .select-btn__label{
-    color: var(--success);
+.form{
+  .active.select-btn{
+    border-color: var(--success);
+    .select-btn__label{
+      color: var(--success);
+    }
+    svg{
+      fill: var(--success)
+    }
   }
-  svg{
-    fill: var(--success)
+  .error .active.select-btn{
+    border-color: var(--error);
+    .select-btn__label{
+      color: var(--error);
+    }
+    svg{
+      fill: var(--error);
+    }
   }
 }
 

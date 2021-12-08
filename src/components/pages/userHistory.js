@@ -43,7 +43,12 @@ export const UserHistory = () => {
 
     return(
         <Card>
-            { isLoading ? "Loading" : <Table tableHead={tableHead} rows={data} /> }
+            { isLoading
+                ? "Loading"
+                : data.length
+                    ? <Table tableHead={tableHead} rows={data} />
+                    : "No data"
+            }
         </Card>
     )
 };

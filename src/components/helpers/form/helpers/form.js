@@ -9,6 +9,14 @@ export class Form extends Component {
         isLoading: false
     };
 
+    focusOn = (fieldName) => {
+        const field = document.getElementsByName(fieldName)[0];
+        if(field) {
+            field.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            field.focus();
+        }
+    }
+
     checkErrors = (name, data) => {
         const schema = this.props.schema;
 
@@ -108,14 +116,14 @@ export class Form extends Component {
     handleResult = (data) => {
         // console.log(data)
 
-        const {handleResult} = this.props;
+        const {defaultData, clearOnFinish, handleResult} = this.props;
 
         // if(popUp) initPopUp({status: "success", content: popUp});
-
+        if(clearOnFinish) this.setState({data: defaultData || {}});
         if(!handleResult) return;
 
         handleResult(data, this);
-    }
+    };
 
 
     render(){

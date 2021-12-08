@@ -107,6 +107,8 @@
     margin-top: .4rem;
   }
   &__amount{
+    display: flex;
+    flex-wrap: wrap;
     span{
       margin-right: 2px;
     }

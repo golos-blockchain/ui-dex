@@ -66,7 +66,7 @@ const checkUserBalance = (amount, assetId) => {
 export const checkBalance = {
     message: "notEnoughCash",
     test: function(val){
-        return checkUserBalance(val, this.parent.currencyToBuy);
+        return checkUserBalance(val, this.parent.asset);
     }
 };
 
@@ -78,5 +78,27 @@ export const checkBalanceOnAssetChange = {
         }
 
         return true;
+    }
+};
+
+export const checkBalanceOnDashboardBuy = {
+    message: "notEnoughCash",
+    test: function(val){
+        return checkUserBalance(val, this.parent.assetToSell);
+    }
+};
+
+export const checkBalanceOnExchangeBuy = {
+    message: "notEnoughCash",
+    test: function(val){
+        return checkUserBalance(val, this.parent.baseAssetId);
+    }
+};
+
+export const checkPairUniquness = {
+    message: "pairNotUnique",
+    test: function(val){
+        const secondAsset = this.path === "assetToSell" ? "assetToBuy" : "assetToSell";
+        return val !== this.parent[secondAsset];
     }
 };
