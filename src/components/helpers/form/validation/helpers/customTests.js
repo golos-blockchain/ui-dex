@@ -47,9 +47,9 @@ export const isNodeUrlSocket = {
 };
 
 const checkUserBalance = (amount, assetId) => {
-    const assetData = getAssetById(assetId);
+    if(!amount || !assetId) return true;
 
-    if(!amount || !assetData) return true;
+    const assetData = getAssetById(assetId);
 
     amount = Number(amount);
 
@@ -84,7 +84,7 @@ export const checkBalanceOnAssetChange = {
 export const checkBalanceOnDashboardBuy = {
     message: "notEnoughCash",
     test: function(val){
-        return checkUserBalance(val, this.parent.assetToSell);
+        return checkUserBalance(val, this.parent.asset);
     }
 };
 

@@ -16,8 +16,9 @@ export class BroadcastRequest extends Request{
         return {wif: keys.active || '5JFZC7AtEe1wF2ce6vPAUxDeevzYkPgmtR14z9ZVgvCCtrFAaLw', owner: name};
     };
 
-    transfer = ({to, amount, memo = ""}) => {
+    transfer = ({to, amount: rawAmount, asset, memo = ""}) => {
         const {wif, owner: from} = this.getUserCreds();
+        const amount = this.amountToString(rawAmount, asset);
         return (
             this.asyncRequest("transfer", wif, from, to, amount, memo).catch(err => console.error(err))
         );

@@ -53,7 +53,7 @@ const formPositionStyles = (props, type) => {
 export const Box = ({className, stretch, style = {}, onClick = () => {}, children, ...props}) => {
     const mStyles = formPositionStyles(props, "m");
     const pStyles = formPositionStyles(props, "p");
-    const additionalStyles = {}
+    const additionalStyles = {};
 
     for (let key in props) {
         if(['w', 'h', 'mw', 'br', 'mh'].includes(key)) {

@@ -1,4 +1,5 @@
 export * from './confirmModal'
 export * from './cancelOrderConfirm'
 export * from './cancelAllOrdersConfirm'
+export * from './dashboardBuyConfirm'
 export * from './trxConfirm'

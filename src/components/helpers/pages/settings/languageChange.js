@@ -6,7 +6,7 @@ import React from "react";
 
 export const LanguageChange = connect(connectLocale)(({locale}) => {
 
-    const list = defaultLocales.map(el => ({text: el.title}));
+    const list = defaultLocales.map((el, id) => ({ id, text: el.title }));
     const value = defaultLocales.findIndex(el => el.type === locale);
     const onChange = ({value}) => setLocale(defaultLocales[value].type);
 

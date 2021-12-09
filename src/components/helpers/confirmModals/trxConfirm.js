@@ -6,11 +6,11 @@ import {BodyBold, Box, FlexBox, HeadingBold, MetadataBold} from "../global";
 import {translateStr} from "../../../utils";
 import {getAssetById} from "../../../redux/actions/assets";
 
-export const TrxConfirm = ({from, to, summ, currencyToBuy, memo}) => {
+export const TrxConfirm = ({from, to, summ, asset: assetId, memo, resolve}) => {
     const i18n = translateStr("fields");
-    const asset = getAssetById(currencyToBuy);
+    const asset = getAssetById(assetId);
     const amount = `${summ} ${asset.symbol}`;
-    const action = () => new BroadcastRequest().transfer({to, amount, memo}).then(console.log);
+    const action = () => new BroadcastRequest().transfer({to, amount: summ, asset: assetId, memo}).then(resolve);
 
     const additionalContent = (
         <Fragment>

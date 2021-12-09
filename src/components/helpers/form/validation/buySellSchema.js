@@ -1,7 +1,7 @@
-import {checkBalanceOnDashboardBuy, checkPairUniquness, schema, yupNum, yupString} from "./helpers";
+import {checkBalanceOnDashboardBuy, checkPairUniquness, schema, yupString} from "./helpers";
 
 export const buySchema = schema({
     amountToSell: yupString().test(checkBalanceOnDashboardBuy).required(),
-    assetToSell: yupNum().test(checkPairUniquness).required(),
-    assetToBuy: yupNum().test(checkPairUniquness).required()
+    assetToSell: yupString().test(checkPairUniquness).required(),
+    assetToBuy: yupString().test(checkPairUniquness).required()
 });

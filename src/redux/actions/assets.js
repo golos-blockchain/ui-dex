@@ -12,10 +12,12 @@ export const getAssetsParams = () => getAssets().params;
 export const getAssetParam = (symbol) => getAssetsParams()[symbol];
 
 export const getAssetById = (id) => {
-    if(!id && id !== 0) return false;
+    id = String(id);
+
+    if(!id) return false;
 
     const {list, params} = getAssets();
-    const symbol = list[id];
+    const activeItem = list.find(el => el.id === id);
 
-    return params[symbol];
+    return params[activeItem.symbol];
 };

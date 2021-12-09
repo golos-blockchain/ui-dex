@@ -1,19 +1,19 @@
+import {getUserData} from "../../../../redux/actions/userData";
+import {ApiRequest} from "../../../../utils/requests";
+import {initModal} from "../../../../redux/actions";
+import {TrxConfirm} from "../../confirmModals";
 import {Form, Input, NumberInput} from "../../form/helpers";
+import {trxSchema} from "../../form/validation";
+import {getAssetById} from "../../../../redux/actions/assets";
 import {Fragment} from "react";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
+import {MailIcon} from "../../../../svg";
 import {AssetSelect} from "../../dropdown";
 import {i18nGlobal} from "../../../../utils";
 import {BrandTextBtn} from "../../btn";
 import React from "react";
-import {MailIcon} from "../../../../svg";
-import {getUserData} from "../../../../redux/actions/userData";
-import {trxSchema} from "../../form/validation";
-import {getAssetById} from "../../../../redux/actions/assets";
-import {ApiRequest} from "../../../../utils/requests";
-import {TrxConfirm} from "../../confirmModals";
-import {initModal} from "../../../../redux/actions";
 
-export const DashboardTransferForm = ({onUpdate}) => {
+export const TransferForm = ({onUpdate}) => {
     const from = getUserData().name;
 
     const req = async (props) => {
@@ -30,15 +30,18 @@ export const DashboardTransferForm = ({onUpdate}) => {
             throw err;
         }
 
-        initModal(<TrxConfirm from={from} {...props}  />)
+        return new Promise((resolve, rej) => {
+            initModal(<TrxConfirm from={from} resolve={resolve} {...props}  />)
+        });
     };
 
+    const handleResult = onUpdate ? onUpdate : undefined;
 
     return(
         <Form
             schema={trxSchema}
             request={req}
-            handleResult={onUpdate}
+            handleResult={handleResult}
             clearOnFinish
         >{formData => {
             const {summ = 0, asset = 0} = formData.state.data;

@@ -1,0 +1,24 @@
+.trade{
+  &__content{
+    padding: 2rem;
+  }
+}
+
+.trade-pair{
+  &__change-btn{
+    margin-top: -.25rem;
+    margin-left: .5rem;
+    padding: .5rem .5rem;
+    svg{
+      width: 2rem;
+      height: 1.4rem;
+      fill: var(--font-disabled);
+      transition: var(--qSpeed);
+    }
+    &:hover{
+      svg{
+        fill: var(--brand);
+      }
+    }
+  }
+}

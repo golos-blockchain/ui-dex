@@ -8,16 +8,14 @@ import {BroadcastRequest} from "../../../../utils/requests";
 import {getAssetsList} from "../../../../redux/actions/assets";
 import {exchangeBuySchema} from "../../form/validation";
 
-export const ExchangeBuyForm = ({pair, rates}) => {
-    const rate = rates[0].rate;
-    const {base, quote} = pair;
+export const TradeBuyForm = ({base, quote, rates}) => {
+    // const rate = rates[0].rate;
+    const rate = 0;
 
     const userBalance = getUserData().balances[base].amount;
 
-    const baseAssetId = getAssetsList().findIndex(symbol => symbol === base);
-    const quoteAssetId = getAssetsList().findIndex(symbol => symbol === quote);;
-
-    console.log(userBalance);
+    const baseAssetId = getAssetsList().find(asset => asset.symbol === base).id;
+    const quoteAssetId = getAssetsList().find(asset => asset.symbol === quote).id;
 
     const modificators = {
         price: (data) => {

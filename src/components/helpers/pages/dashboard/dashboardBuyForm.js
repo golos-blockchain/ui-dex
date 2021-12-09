@@ -6,8 +6,10 @@ import {currenciesList, lastTradeToRate} from "../../../../utils/dataHandlers";
 import {i18nGlobal, translateStr} from "../../../../utils";
 import {GreenTextBtn, RedTextBtn} from "../../btn";
 import {getAssetById} from "../../../../redux/actions/assets";
-import {ApiRequest, BroadcastRequest} from "../../../../utils/requests";
-import {buySchema, buySellSchema} from "../../form/validation";
+import {ApiRequest} from "../../../../utils/requests";
+import {buySchema} from "../../form/validation";
+import {initModal} from "../../../../redux/actions";
+import {DashboardBuyConfirm} from "../../confirmModals";
 
 export const DashboardBuyForm = ({onUpdate}) => {
     const getResultParams = (data, formCtx) => {
@@ -62,8 +64,10 @@ export const DashboardBuyForm = ({onUpdate}) => {
 
     const i18n = translateStr("dashboard");
 
-    const request = ({amountToBuy, amountToSell, assetToSell, assetToBuy}) => {
-        return new BroadcastRequest().orderCreate({amountToBuy, amountToSell, assetToSell, assetToBuy, fillOrKill: true});
+    const request = (props) => {
+        return new Promise((resolve, rej) => {
+            initModal(<DashboardBuyConfirm resolve={resolve} {...props}  />)
+        });
     };
 
     const modificators = {

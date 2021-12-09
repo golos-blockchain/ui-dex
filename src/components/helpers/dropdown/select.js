@@ -27,7 +27,7 @@ export const Select = ({id, label, list, className, ...props}) => {
         onChange({name, value: id});
     };
 
-    const selectedItem = list[selectedId];
+    const selectedItem = list.find(el => el.id === selectedId);
     const btnContent = selectedItem && <BodyBold content={selectedItem.content} text={selectedItem.text} />;
 
     return(
@@ -35,8 +35,8 @@ export const Select = ({id, label, list, className, ...props}) => {
             btnContent={btnContent}
             btnLabel={btnLabel}
             btnComponent={SelectBtn}
-            dropdownList={list.map((({content, text}, id) => (
-                <div key={id} onClick={handleChange(id)}>
+            dropdownList={list.map((({id, content, text}) => (
+                <div key={id} onClick={handleChange(String(id))}>
                     <BodyBold content={content} text={text} />
                 </div>
             )))}

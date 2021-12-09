@@ -10,13 +10,13 @@ import {
     DashboardBalances, DashboardBuyForm,
     DashboardCard,
     DashboardHistory,
-    DashboardRates, DashboardTransferForm,
+    DashboardRates,
     OpenOrders
 } from "../helpers/pages/dashboard";
-import {ExchangeBuyForm} from "../helpers/pages/dashboard/exchangeBuyForm";
 import {fetchUserData, getAllRates, handleUserHistory, handleUserOrders} from "../../utils/dataHandlers";
 import {ApiRequest} from "../../utils/requests";
 import {getUserData, updateUserData} from "../../redux/actions/userData";
+import {TransferForm} from "../helpers/pages/cabinet";
 
 const loadDashboardData = async () => {
     const name = getUserData().name;
@@ -69,7 +69,7 @@ export const Dashboard = () => {
                         <Box mt={-.7}>
                             <TabsWrapper headingList={opsTabsHeading}>
                                 <DashboardBuyForm onUpdate={onUpdate} />
-                                <DashboardTransferForm onUpdate={onUpdate} />
+                                <TransferForm onUpdate={onUpdate} />
                             </TabsWrapper>
                         </Box>
                     </DashboardCard>

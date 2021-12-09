@@ -34,16 +34,18 @@ export const handleAssetsRequest = res => {
         .map(el => {
             const {json_metadata, max_supply, fee_percent, symbols_whitelist, precision} = el;
             const [_, symbol] = max_supply.split(" ");
-            const img = currenciesImg[symbol] || JSON.parse(json_metadata).image_url;
+            const {image_url, deposit, withdrawal} = JSON.parse(json_metadata);
+            const img = currenciesImg[symbol] || image_url;
             const fullName = `${symbol.substr(0, 1).toUpperCase()}${symbol.substr(1,).toLowerCase()}`
 
-            return {symbol, fullName, img, fee_percent, precision, whitelist: symbols_whitelist}
+            return {symbol, fullName, img, fee_percent, precision, deposit, withdrawal, whitelist: symbols_whitelist}
         });
 
     const params = {};
-    const list = [...defaultCurrenciesList, ...customAssets].map(el => {
-        params[el.symbol] = el;
-        return el.symbol;
+    const list = [...defaultCurrenciesList, ...customAssets].map((el, id) => {
+        const symbol = el.symbol;
+        params[symbol] = el;
+        return { id: String(id), symbol };
     });
 
     return {list, params};
@@ -66,7 +68,7 @@ export const lastTradeToRate = res => {
 };
 
 export const getAllRates = () => Promise.all(
-    getAssetsList().filter(el => el !== "GOLOS").slice(0, 3).map(async symbol => {
+    getAssetsList().filter(el => el.symbol !== "GOLOS").slice(0, 3).map(async ({symbol}) => {
         const apiRequest = new ApiRequest();
         const rate = await apiRequest.getLastTradeToGolos(symbol).then(lastTradeToRate);
         const rateChange = await apiRequest.getTickerToGolos(symbol).then(res => {
@@ -79,7 +81,7 @@ export const getAllRates = () => Promise.all(
     })
 );
 
-export const mixDataToBalance = (rawBalances) => getAssetsList().map(symbol => {
+export const mixDataToBalance = (rawBalances) => getAssetsList().map(({ symbol }) => {
     const item = rawBalances[symbol];
 
     if(!item) return null;
