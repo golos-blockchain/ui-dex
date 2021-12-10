@@ -2,19 +2,40 @@ import React, {useEffect} from "react";
 import {useParams} from "react-router";
 import {Card, Col, FlexBox, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
-import {translateStr, useClassSetter} from "../../utils";
+import {LoadData, translateStr, useClassSetter} from "../../utils";
 import {trade} from "../routing/path";
-import {PairDisplay, PairParams, PairsList, TradeBuyForm} from "../helpers/pages/trade";
+import {PairDisplay, PairParams, PairsList, TradeBuyForm, TradeUserOrders, TradeSellForm} from "../helpers/pages/trade";
+import {ApiRequest} from "../../utils/requests";
+import {lastTradeToRate} from "../../utils/dataHandlers";
+import {getUserData} from "../../redux/actions/userData";
+
+const getPairData = async (base, quote) => {
+    const userName = getUserData().name;
+    const apiRequest = new ApiRequest();
+    const pair = [base, quote];
+
+    const ticker = await apiRequest.getTicker(pair);
+    const lastTrades = await apiRequest.getLastTrades(pair, 100);
+    const rate = lastTradeToRate(base)(lastTrades);
+    const orderBook = await apiRequest.getOrderBook(pair);
+    // const userHistory = await apiRequest.getUserOrdersByName(getUserData().name).then(console.log);
+    console.log(orderBook);
+    return {ticker, rate, orderBook};
+};
 
 export const TradePair = () => {
     const {pair} = useParams();
     const [base, quote] = pair.split("_");
+    const [baseClass, setClass] = useClassSetter("trade-pair");
+
+    const [data, isLoading, reloadData, reloadPage] = LoadData(() => getPairData(base, quote));
 
     useEffect(() => {
-
+        if(isLoading) return;
+        reloadPage();
     }, [pair]);
 
-    const [baseClass, setClass] = useClassSetter("trade-pair");
+    if(isLoading) return "Loading";
 
     const i18n = translateStr("trade");
     const tradeTabs = ["buy", "sell"].map(el => ({content: i18n(el)}));
@@ -29,13 +50,14 @@ export const TradePair = () => {
                             <PairDisplay
                                 base={base}
                                 quote={quote}
+                                rate={data.rate}
                                 baseClass={baseClass}
                             />
                         </Card>
                     </Col>
                     <Col xl={10} lg={9}>
                         <Card py={1.3} px={4.6}>
-                            <PairParams base={base} quote={quote} />
+                            <PairParams base={base} quote={quote} ticker={data.ticker} />
                         </Card>
                     </Col>
                     <Col md={4}>
@@ -44,8 +66,8 @@ export const TradePair = () => {
                         </Card>
                         <Card>
                             <TabsWrapper headingList={tradeTabs}>
-                                <TradeBuyForm base={base} quote={quote} />
-                                <div>dsadsadsa</div>
+                                <TradeBuyForm base={base} quote={quote} orderBook={data.orderBook} />
+                                <TradeSellForm base={base} quote={quote} orderBook={data.orderBook} />
                             </TabsWrapper>
                         </Card>
                     </Col>
@@ -58,7 +80,7 @@ export const TradePair = () => {
                         <Card>
                             <TabsWrapper headingList={ordersTabs}>
                                 <div>asdasdasd</div>
-                                <div>dsadsadsa</div>
+                                <TradeUserOrders userOrders={data.userOrders} />
                                 <div>dsadsadsa</div>
                             </TabsWrapper>
                         </Card>

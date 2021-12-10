@@ -1,55 +1,58 @@
-import React, {Fragment} from "react";
+import {getUserData} from "../../../../redux/actions/userData";
+import {getAssetsList} from "../../../../redux/actions/assets";
+import {BroadcastRequest} from "../../../../utils/requests";
 import {Form, NumberInput, Range} from "../../form/helpers";
+import {tradeBuySchema, tradeSellSchema} from "../../form/validation";
+import {Fragment} from "react";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
 import {i18nGlobal, toFixedNum} from "../../../../utils";
-import {GreenTextBtn} from "../../btn";
-import {getUserData} from "../../../../redux/actions/userData";
-import {BroadcastRequest} from "../../../../utils/requests";
-import {getAssetsList} from "../../../../redux/actions/assets";
-import {tradeBuySchema} from "../../form/validation";
+import {GreenTextBtn, RedTextBtn} from "../../btn";
+import React from "react";
 
-export const TradeBuyForm = ({base, quote, orderBook}) => {
+export const TradeSellForm = ({base, quote, orderBook}) => {
     // const rate = rates[0].rate;
-    const bestPrice = toFixedNum(orderBook.asks[0].price);
+    const bestPrice = toFixedNum(orderBook.bids[0].price);
 
-    const userBalance = getUserData().balances[quote].amount;
+    const userBalance = getUserData().balances[base].amount;
 
-    const {id: baseAssetId, fee_percent} = getAssetsList().find(asset => asset.symbol === base);
-    const quoteAssetId = getAssetsList().find(asset => asset.symbol === quote).id;
+    const baseAssetId = getAssetsList().find(asset => asset.symbol === base).id;
+    const {id: quoteAssetId, fee_percent} = getAssetsList().find(asset => asset.symbol === quote);
 
     const toPrecision = (num) => String(toFixedNum(num));
     const resultCalculation = ({price, amount}) => price && amount ? toPrecision(price * amount) : undefined;
-    const rangeCalculation = ({result}) => result && result / userBalance * 100;
+    const rangeCalculation = ({amount}) => amount && amount / userBalance * 100;
     const amountCalculation = ({price, result}) => price && result ? toPrecision(result / price) : undefined;
 
     const modificators = {
         price: (data) => {
-            const result = amountCalculation(data);
-            return {...data, result};
+            return {...data, result: resultCalculation(data)};
         },
         amount: (data) => {
             const result = resultCalculation(data);
-            const range = rangeCalculation({result});
+            const range = rangeCalculation(data);
 
             return {...data, range, result};
         },
         range: (data) => {
             const {price, range} = data;
-            const result = toPrecision(userBalance * (range / 100));
-            const amount = amountCalculation({price, result});
+
+            const amount = toPrecision(userBalance * (range / 100));
+            const result = resultCalculation({price, amount});
 
             return {...data, amount, result};
         },
         result: (data) => {
-            const range = rangeCalculation(data);
-            const amount = amountCalculation(data);
+            const {price} = data;
 
-            return {...data, range, amount};
+            const amount = amountCalculation(data);
+            const range = rangeCalculation({price, amount});
+
+            return {...data, amount, range};
         }
     };
 
     const request = async ({amount, baseAssetId, quoteAssetId, result}) => {
-        const args = {amountToBuy: amount, assetToBuy: baseAssetId, amountToSell: result, assetToSell: quoteAssetId};
+        const args = {amountToBuy: result, amountToSell: amount, assetToSell: baseAssetId, assetToBuy: quoteAssetId};
         return new BroadcastRequest().orderCreate(args);
     };
 
@@ -57,11 +60,11 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
         <Form
             defaultData={{baseAssetId, quoteAssetId}}
             modificators={modificators}
-            schema={tradeBuySchema}
+            schema={tradeSellSchema}
             request={request}
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);
-            return (
+            return(
                 <Fragment>
                     <Row>
                         <Col md={6}>
@@ -81,13 +84,13 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
                     </FlexBox>
                     <FlexBox mt={.4} justify="space-between">
                         <Metadata content={i18nGlobal("commission")} />
-                        <MetadataBold text={`${fee} ${base}`} />
+                        <MetadataBold text={`${fee} ${quote}`} />
                     </FlexBox>
                     <Box w="fit-content" mt={1} ml="auto">
-                        <GreenTextBtn type="submit" content={i18nGlobal("buy")} additionalData={{asset: base}} />
+                        <RedTextBtn type="submit" content={i18nGlobal("sell")} additionalData={{asset: base}} />
                     </Box>
                 </Fragment>
             )
         }}</Form>
     )
-}
+};

@@ -20,7 +20,7 @@ import {TransferForm} from "../helpers/pages/cabinet";
 
 const loadDashboardData = async () => {
     const name = getUserData().name;
-    const rates = await getAllRates();
+    const rates = await getAllRates("GOLOS", 3);
     const history = await new ApiRequest().getUserHistoryByName(name).then(handleUserHistory);
     const ordersList = await new ApiRequest().getUserOrdersByName(getUserData().name).then(handleUserOrders);
 

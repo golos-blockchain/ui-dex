@@ -63,7 +63,7 @@
     transition: var(--qSpeed);
     z-index: 1;
   }
-  &__icon-left, &__icon-right{
+  &__icon-left, &__icon-right, &__asset{
     position: absolute;
     top: 1.1rem;
     z-index: 10;
@@ -71,8 +71,11 @@
   &__icon-left{
     left: 1.6rem;
   }
-  &__icon-right{
+  &__icon-right, &__asset{
     right: 1.6rem;
+  }
+  &__asset{
+    top: 1.4rem;
   }
   &__message{
     width: 100%;

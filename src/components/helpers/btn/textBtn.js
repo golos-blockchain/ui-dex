@@ -2,8 +2,8 @@ import React from "react";
 import {BtnContent} from "./btnContent";
 import {BorderedBtn, BrandBtn, GreenBtn, RedBtn, TransparentBtn} from "./btnWrapper";
 
-const textBtnConstructor = Wrapper => ({iconLeft, content, text, textComponent, iconRight, ...props}) => {
-    const contentProps = {iconLeft, content, text, textComponent, iconRight};
+const textBtnConstructor = Wrapper => ({iconLeft, content, text, textComponent, additionalData, iconRight, ...props}) => {
+    const contentProps = {iconLeft, content, text, textComponent, additionalData, iconRight};
     return (
         <Wrapper {...props}>
             <BtnContent {...contentProps} />

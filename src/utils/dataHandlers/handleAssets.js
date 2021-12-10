@@ -1,5 +1,6 @@
 import {ApiRequest} from "../requests";
 import {getAssetById, getAssetParam, getAssetsList} from "../../redux/actions/assets";
+import {toFixedNum} from "../numbersOperations";
 
 export const currenciesList = ["GOLOS", "GBG"];
 
@@ -56,30 +57,38 @@ export const amountToObject = (balance) => {
     return { amount: Number(amount), symbol };
 };
 
-export const lastTradeToRate = res => {
+export const lastTradeToRate = (base) => (res) => {
     const item = res[0];
 
     if(!item) return 0;
 
-    const {amount: baseAmount} = amountToObject(item.current_pays);
-    const {amount: quoteAmount} = amountToObject(item.open_pays);
+    const {amount: sellAmount, symbol: sellSymbol} = amountToObject(item.current_pays);
+    const {amount: buyAmount} = amountToObject(item.open_pays);
 
-    return +(quoteAmount / baseAmount).toFixed(5);
+    const rate = sellSymbol === base ? buyAmount / sellAmount : sellAmount / buyAmount;
+
+    return toFixedNum(rate);
 };
 
-export const getAllRates = () => Promise.all(
-    getAssetsList().filter(el => el.symbol !== "GOLOS").slice(0, 3).map(async ({symbol}) => {
-        const apiRequest = new ApiRequest();
-        const rate = await apiRequest.getLastTradeToGolos(symbol).then(lastTradeToRate);
-        const rateChange = await apiRequest.getTickerToGolos(symbol).then(res => {
-            return +(+res.percent_change1 || 0).toFixed(5)
-        });
+export const getAllRates = (base = "GOLOS", length) => {
+    const fullList = getAssetsList().filter(el => el.symbol !== base);
+    const list = length ? fullList.slice(0, length) : fullList;
 
-        const {fullName, img} = getAssetParam(symbol);
+    return Promise.all(
+        list.map(async ({symbol}) => {
+            const pair = [base, symbol];
+            const apiRequest = new ApiRequest();
+            const rate = await apiRequest.getLastTrade(pair).then(lastTradeToRate(base));
+            const rateChange = await apiRequest.getTicker(pair).then(res => {
+                return toFixedNum(res.percent_change1 || 0);
+            });
 
-        return {rate, rateChange, img, fullName, symbol};
-    })
-);
+            const {fullName, img} = getAssetParam(symbol);
+
+            return {rate, rateChange, img, fullName, symbol};
+        })
+    );
+};
 
 export const mixDataToBalance = (rawBalances) => getAssetsList().map(({ symbol }) => {
     const item = rawBalances[symbol];

@@ -26,7 +26,8 @@ export const fetchUserData = async (name) => {
         if(key === "GOLOS") {
             amountInGolos = amount;
         } else {
-            const golosRate = await apiReq.getLastTradeToGolos(balances[key].symbol).then(lastTradeToRate).catch(err => console.error(err));
+            const symbol = balances[key].symbol;
+            const golosRate = await apiReq.getLastTradeToGolos(symbol).then(lastTradeToRate("GOLOS")).catch(err => console.error(err));
             amountInGolos = amount * golosRate;
         }
 

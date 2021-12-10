@@ -13,7 +13,7 @@ export const Range = ({id, ...props}) => {
 
     return(
         <label htmlFor={id} className={baseClass}>
-            <input id={id} name={name} className={setClass("input")} value={value} onChange={onChange} min="1" max="100" type="range" />
+            <input id={id} name={name} className={setClass("input")} value={value || 1} onChange={onChange} min="1" max="100" type="range" />
             <FlexBox justify="space-between" className={setClass("percents-wrapper")}>
                 {[0, 25, 50, 75, 100].map((el, id) => (
                     <Metadata

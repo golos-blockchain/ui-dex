@@ -88,7 +88,14 @@ export const checkBalanceOnDashboardBuy = {
     }
 };
 
-export const checkBalanceOnExchangeBuy = {
+export const checkBalanceOnTradeBuy = {
+    message: "notEnoughCash",
+    test: function(val){
+        return checkUserBalance(val, this.parent.quoteAssetId);
+    }
+};
+
+export const checkBalanceOnTradeSell = {
     message: "notEnoughCash",
     test: function(val){
         return checkUserBalance(val, this.parent.baseAssetId);

@@ -22,7 +22,7 @@ const FieldMessage = ({className, type, message}) => {
     );
 };
 
-export const Input = ({id, label, className, type, inputMode, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
+export const Input = ({id, label, className, type, inputMode, assetSymbol, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
     const [baseClass, setClass, setEffect] = useClassSetter("field");
 
     let { name, value, disabled, onChange, fieldStateClass, message } = fieldHook(props);
@@ -56,6 +56,7 @@ export const Input = ({id, label, className, type, inputMode, iconLeft: IL, icon
             {label && !hideLabel && <BodyBold className={setClass("label")} content={`fields.${label}`} />}
             {IL && <div className={setClass("icon-left")}><IL /></div>}
             {IR && <div className={setClass("icon-right")}><IR /></div>}
+            {assetSymbol && <div className={setClass("asset")}><MetadataBold text={assetSymbol} color="font-secondary" /></div>}
             <FieldMessage className={setClass("message")} type={fieldStateClass} message={message} />
         </label>
     )

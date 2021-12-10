@@ -43,6 +43,7 @@ export class ApiRequest extends Request{
     };
 
     getUserOrdersByName = name => {
+        console.log(name);
         return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order', "limit_order_cancel", "limit_order_cancel_ex" ]}).catch(err => console.error(err));
     };
 
@@ -58,8 +59,12 @@ export class ApiRequest extends Request{
         return this.getTicker([base, "GOLOS"]);
     };
 
+    getLastTrades = (ticker, limit) => {
+        return this.asyncRequest("getRecentTrades", limit, ticker);
+    };
+
     getLastTrade = ticker => {
-        return this.asyncRequest("getRecentTrades", 1, ticker);
+        return this.getLastTrades(ticker, 1);
     };
 
     getLastTradeToGolos = base => {
@@ -68,6 +73,10 @@ export class ApiRequest extends Request{
 
     getOrderBook = ticker => {
         return this.asyncRequest("getOrderBook", 100, ticker);
+    };
+
+    getOpenOrders = (name, ticker) => {
+        return this.asyncRequest("getOpenOrders", name, ticker);
     };
 
     getPriceHistory = (pair, resolution, startDate, endDate) => {

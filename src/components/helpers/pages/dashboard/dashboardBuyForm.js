@@ -88,7 +88,7 @@ export const DashboardBuyForm = ({onUpdate}) => {
 
             const assetToSellData = getAssetById(assetToSell || 0);
             const assetToBuyData = getAssetById(assetToBuy || 0);
-            const fee = `${amountToSell * (assetToSellData.fee_percent / 100)} ${assetToSellData.symbol}`;
+            const fee = `${amountToBuy * (assetToBuyData.fee_percent / 100)} ${assetToBuyData.symbol}`;
 
             const assetToSellSelected = assetToSell || assetToSell === 0;
             const assetToBuySelected = assetToBuy || assetToBuy === 0;

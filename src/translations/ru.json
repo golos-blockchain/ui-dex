@@ -1,8 +1,8 @@
 {
   "global": {
     "text": "%(text)s",
-    "buy": "Купить",
-    "sell": "Продать",
+    "buy": "Купить %(asset)s",
+    "sell": "Продать %(asset)s",
     "send": "Отправить",
     "rate": "Курс:",
     "commission": "Комиссия:"

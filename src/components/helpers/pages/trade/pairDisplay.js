@@ -6,7 +6,7 @@ import {Body, FlexBox, SubheadingBold} from "../../global";
 import {HistoryFillIcon} from "../../../../svg";
 import React from "react";
 
-export const PairDisplay = ({base, quote, baseClass}) => {
+export const PairDisplay = ({base, quote, rate, baseClass}) => {
     const history = useHistory();
     const swapPair = () => history.push(trade.link + `${quote}_${base}`);
 
@@ -20,7 +20,7 @@ export const PairDisplay = ({base, quote, baseClass}) => {
                     <HistoryFillIcon />
                 </button>
             </FlexBox>
-            <SubheadingBold text="1,98162542" color="brand" />
+            <SubheadingBold text={rate} color="brand" />
         </Fragment>
     )
 };

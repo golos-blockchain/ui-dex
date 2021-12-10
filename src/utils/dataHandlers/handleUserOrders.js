@@ -27,6 +27,8 @@ export const handleUserOrders = (res) => {
         }
     });
 
+    console.log({createdOrders, cancelledOrders, filledOrders});
+
     return createdOrders.filter(el => el).map(el => {
         let type = "buy";
 
@@ -38,7 +40,9 @@ export const handleUserOrders = (res) => {
         const isCancelled = cancelledOrders.includes(id);
 
         const filledSum = filledOrders[id];
-        const percent = filledSum ? filledSum / buyObj.amount : 0;
+        const percent = filledSum ? buyObj.amount / filledSum : 0;
+
+        console.log(filledSum, buyObj.amount, percent);
 
         let base = buyObj;
         let quote = sellObj;
@@ -56,6 +60,6 @@ export const handleUserOrders = (res) => {
 
         return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol, isCancelled};
     }).sort((prev, next) => {
-        return prev.timestamp > next.timestamp ? 1 : -1;
+        return prev.timestamp < next.timestamp ? 1 : -1;
     });
 };

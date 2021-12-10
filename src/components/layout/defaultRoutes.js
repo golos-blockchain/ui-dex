@@ -13,7 +13,6 @@ export const DefaultRoutes = () => {
         <Switch>
             {routes.map((el, id) => {
                 const {link, component, isExact} = el;
-                console.log(el);
                 return (
                     <Route key={id} path={link} component={component} exact={isExact} />
                 )

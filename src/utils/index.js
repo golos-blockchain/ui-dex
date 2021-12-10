@@ -6,6 +6,7 @@ export * from "./copyText";
 export * from "./parseSearch";
 export * from "./getEnvVar";
 export * from "./settingsOperations"
+export * from "./numbersOperations"
 export * from "./dateOperations";
 export * from "./storage";
 

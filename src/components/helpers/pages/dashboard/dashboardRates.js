@@ -1,7 +1,6 @@
 import React from "react";
-import {clsx, LoadData, useClassSetter} from "../../../../utils";
-import {getAllRates} from "../../../../utils/dataHandlers";
-import {Body, Col, FlexBox, Metadata, Row, Subheading, SubheadingBold} from "../../global";
+import {clsx, useClassSetter} from "../../../../utils";
+import {Body, Col, FlexBox, Metadata, Row, SubheadingBold} from "../../global";
 
 const RateDisplay = ({rate, rateChange = 0, img, fullName}) => {
     const [baseClass, setClass] = useClassSetter("dashboard-rate");
