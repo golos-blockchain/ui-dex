@@ -17,8 +17,8 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
 
     const {list, params} = getAssets();
 
-    const baseAssetId = list.find(asset => asset.symbol === base).id;
-    const quoteAssetId = list.find(asset => asset.symbol === quote).id;
+    const baseAssetId = list.findIndex(symbol => symbol === base);
+    const quoteAssetId = list.findIndex(symbol => symbol === quote);
 
     const basePrecision = params[base].precision;
     const { precision: quotePrecision, fee_percent } = params[base];

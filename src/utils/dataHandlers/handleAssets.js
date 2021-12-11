@@ -46,7 +46,7 @@ export const handleAssetsRequest = res => {
     const list = [...defaultCurrenciesList, ...customAssets].map((el, id) => {
         const symbol = el.symbol;
         params[symbol] = el;
-        return { id: String(id), symbol };
+        return symbol;
     });
 
     return {list, params};
@@ -74,11 +74,11 @@ export const lastTradeToRate = (base) => (res) => {
 };
 
 export const getAllRates = (base = "GOLOS", length) => {
-    const fullList = getAssetsList().filter(el => el.symbol !== base);
+    const fullList = getAssetsList().filter(symbol => symbol !== base);
     const list = length ? fullList.slice(0, length) : fullList;
 
     return Promise.all(
-        list.map(async ({symbol}) => {
+        list.map(async symbol => {
             const pair = [base, symbol];
             const apiRequest = new ApiRequest();
             const rate = await apiRequest.getLastTrade(pair).then(lastTradeToRate(base));
@@ -93,7 +93,7 @@ export const getAllRates = (base = "GOLOS", length) => {
     );
 };
 
-export const mixDataToBalance = (rawBalances) => getAssetsList().map(({ symbol }) => {
+export const mixDataToBalance = (rawBalances) => getAssetsList().map(symbol => {
     const item = rawBalances[symbol];
 
     if(!item) return null;

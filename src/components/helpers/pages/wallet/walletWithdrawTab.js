@@ -10,10 +10,12 @@ export const WalletWithdrawTab = () => {
     const [selected, setSelected] = useState();
     const {list: rawList, params} = getAssets();
 
-    const list = rawList.filter(el => params[el.symbol].withdrawal).map(el => ({id: el.id, text: el.symbol}));
+    const list = rawList
+        .filter(el => params[el].withdrawal)
+        .map((symbol, id) => ({id: String(id), text: symbol}));
 
     const selectedAsset = rawList[selected];
-    const activeWithdrawal = selectedAsset && params[selectedAsset.symbol].withdrawal;
+    const activeWithdrawal = selectedAsset && params[selectedAsset].withdrawal;
 
     return(
         <Fragment>

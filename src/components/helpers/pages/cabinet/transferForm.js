@@ -1,6 +1,6 @@
 import {getUserData} from "../../../../redux/actions/userData";
 import {ApiRequest} from "../../../../utils/requests";
-import {generatePromiseModal, initModal} from "../../../../redux/actions";
+import {generatePromiseModal} from "../../../../redux/actions";
 import {TrxConfirm} from "../../confirmModals";
 import {Form, Input, NumberInput} from "../../form/helpers";
 import {trxSchema} from "../../form/validation";

@@ -1,8 +1,11 @@
 import {ApiRequest, AuthRequest} from "../requests";
 import {setStorage} from "../storage";
 import {amountToObject, lastTradeToRate} from "./handleAssets";
+import {toFixedNum} from "../numbersOperations";
+import {getAssetParam} from "../../redux/actions/assets";
 
 export const fetchUserData = async (name) => {
+    const defaultAssetSymbol = "GOLOS";
     const apiReq = new ApiRequest();
 
     const accData = await apiReq.getAccByName(name);
@@ -10,6 +13,8 @@ export const fetchUserData = async (name) => {
 
     const GOLOS = amountToObject(accData.balance);
     const GBG = amountToObject(accData.sbd_balance);
+
+    const golosPrecision = getAssetParam(defaultAssetSymbol);
 
     const balances = { GOLOS, GBG };
 
@@ -23,19 +28,24 @@ export const fetchUserData = async (name) => {
         const amount = balances[key].amount;
         let amountInGolos = 0;
 
-        if(key === "GOLOS") {
+        if(key === defaultAssetSymbol) {
             amountInGolos = amount;
         } else {
             const symbol = balances[key].symbol;
-            const golosRate = await apiReq.getLastTradeToGolos(symbol).then(lastTradeToRate("GOLOS")).catch(err => console.error(err));
+
+            const golosRate = await apiReq
+                .getLastTradeToGolos(symbol)
+                .then(lastTradeToRate(defaultAssetSymbol))
+                .catch(err => console.error(err));
+
             amountInGolos = amount * golosRate;
         }
 
         totalBalance += amountInGolos;
-        balances[key].amountInGolos = +(amountInGolos).toFixed(5);
+        balances[key].amountInGolos = toFixedNum(amountInGolos, golosPrecision);
     }
 
-    totalBalance = +(totalBalance).toFixed(5);
+    totalBalance = toFixedNum(totalBalance, golosPrecision);
 
     return { accData, totalBalance, balances };
 };

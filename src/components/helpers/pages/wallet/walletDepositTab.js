@@ -9,10 +9,12 @@ export const WalletDepositTab = () => {
     const [selected, setSelected] = useState();
     const {list: rawList, params} = getAssets();
 
-    const list = rawList.filter(el => params[el.symbol].deposit).map(el => ({id: el.id, text: el.symbol}));
+    const list = rawList
+        .filter(symbol => params[symbol].deposit)
+        .map((symbol, id) => ({id: String(id), text: symbol}));
 
     const selectedAsset = rawList[selected];
-    const activeDeposit = selectedAsset && params[selectedAsset.symbol].deposit;
+    const activeDeposit = selectedAsset && params[selectedAsset].deposit;
 
     return(
         <Fragment>

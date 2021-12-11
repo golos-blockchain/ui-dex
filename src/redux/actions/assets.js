@@ -17,7 +17,7 @@ export const getAssetById = (id) => {
     if(!id) return false;
 
     const {list, params} = getAssets();
-    const activeItem = list.find(el => el.id === id);
+    const symbol = list[id];
 
-    return params[activeItem.symbol];
+    return params[symbol];
 };
