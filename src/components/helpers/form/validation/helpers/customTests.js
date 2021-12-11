@@ -46,9 +46,9 @@ export const isNodeUrlSocket = {
     }
 };
 
-const checkUserBalance = (amount, assetId) => {
+const checkUserBalance = (path, amount, assetId, createError) => {
     if(!amount || !assetId) return true;
-
+    const message = "notEnoughCash";
     const assetData = getAssetById(assetId);
 
     amount = Number(amount);
@@ -56,51 +56,68 @@ const checkUserBalance = (amount, assetId) => {
     const {symbol, fee_percent} = assetData;
     const balance = getUserData().balances[symbol];
 
-    if(!balance) return false;
+    if(!balance) return createError({ path, message });
 
     const fee = amount * (fee_percent / 100);
 
-    return balance.amount >= amount + fee;
+    if(balance.amount >= amount + fee) return true;
+
+    return createError({ path, message });
 };
 
-export const checkBalance = {
-    message: "notEnoughCash",
-    test: function(val){
-        return checkUserBalance(val, this.parent.asset);
+export const balanceOnAmountChange = (assetKey) => ({
+    test: function(amount){
+        const assetId = this.parent[assetKey];
+
+        if(!amount || !assetId) return true;
+
+        const {path, createError} = this;
+
+        return checkUserBalance(path, amount, assetId, createError);
     }
-};
+});
 
-export const checkBalanceOnAssetChange = {
-    message: "notEnoughCash",
-    test: function(val){
-        if(!checkUserBalance(this.parent.summ, val)){
-            return this.createError({path: "summ", message: "notEnoughCash"})
-        }
+export const balanceOnAssetChange = (amountKey) => ({
+    test: function(assetId){
+        const amount = this.parent[amountKey];
 
-        return true;
+        if(!amount || !assetId) return true;
+
+        return checkUserBalance(amountKey, amount, assetId, this.createError);
     }
+});
+
+const checkPrecision = (path, amount, assetId, createError) => {
+    const message = "wrongPrecision";
+    const precision = getAssetById(assetId).precision;
+    const fixedAmount = Number(amount).toFixed(precision);
+
+    if(String(amount).length <= fixedAmount.length) return true;
+
+    return createError({ path, message, params: {precision} })
 };
 
-export const checkBalanceOnDashboardBuy = {
-    message: "notEnoughCash",
-    test: function(val){
-        return checkUserBalance(val, this.parent.asset);
-    }
-};
+export const precisionOnAmountChange = (assetKey) => ({
+    test: function(amount){
+        const assetId = this.parent[assetKey];
 
-export const checkBalanceOnTradeBuy = {
-    message: "notEnoughCash",
-    test: function(val){
-        return checkUserBalance(val, this.parent.quoteAssetId);
-    }
-};
+        if(!amount || !assetId) return true;
 
-export const checkBalanceOnTradeSell = {
-    message: "notEnoughCash",
-    test: function(val){
-        return checkUserBalance(val, this.parent.baseAssetId);
+        const {path, createError} = this;
+
+        return checkPrecision(path, amount, assetId, createError);
     }
-};
+});
+
+export const precisionOnAssetChange = (amountKey) => ({
+    test: function(assetId){
+        const amount = this.parent[amountKey];
+
+        if(!amount || !assetId) return true;
+
+        return checkPrecision(amountKey, amount, assetId, this.createError);
+    }
+});
 
 export const checkPairUniquness = {
     message: "pairNotUnique",

@@ -176,7 +176,8 @@
     "nodeNotRespond": "Нода не отвечает на запросы",
     "userNotExist": "Пользователя не существует",
     "notEnoughCash": "Недостаточно средств",
-    "pairNotUnique": "Ассет должен быть уникальным"
+    "pairNotUnique": "Ассет должен быть уникальным",
+    "wrongPrecision": "Макс. кол-во символов после запятой - %(precision)s"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"

@@ -27,8 +27,6 @@ export const handleUserOrders = (res) => {
         }
     });
 
-    console.log({createdOrders, cancelledOrders, filledOrders});
-
     return createdOrders.filter(el => el).map(el => {
         let type = "buy";
 
@@ -41,8 +39,6 @@ export const handleUserOrders = (res) => {
 
         const filledSum = filledOrders[id];
         const percent = filledSum ? buyObj.amount / filledSum : 0;
-
-        console.log(filledSum, buyObj.amount, percent);
 
         let base = buyObj;
         let quote = sellObj;

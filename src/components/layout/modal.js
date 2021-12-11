@@ -6,14 +6,19 @@ import {TransparentBtn} from "../helpers/btn";
 import {CrossIcon} from "../../svg";
 
 const ModalComponent = ({modal}) => {
-    const {visible, content} = modal;
+    const {visible, content, onClose} = modal;
+
+    const closeClick = () => {
+        if(onClose) onClose();
+        closeModal();
+    };
 
     return(
         <div className={clsx("modal", visible && "open", "custom-scroll")}>
-            <div className="overlay" onClick={closeModal} />
+            <div className="overlay" onClick={closeClick} />
             <div className={clsx("card", "modal__body")}>
                 {content}
-                <TransparentBtn className="modal__cross" onClick={closeModal}>
+                <TransparentBtn className="modal__cross" onClick={closeClick}>
                     <CrossIcon />
                 </TransparentBtn>
             </div>

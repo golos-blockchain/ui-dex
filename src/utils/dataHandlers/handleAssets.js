@@ -63,11 +63,14 @@ export const lastTradeToRate = (base) => (res) => {
     if(!item) return 0;
 
     const {amount: sellAmount, symbol: sellSymbol} = amountToObject(item.current_pays);
-    const {amount: buyAmount} = amountToObject(item.open_pays);
+    const {amount: buyAmount, symbol: buySymbol} = amountToObject(item.open_pays);
 
-    const rate = sellSymbol === base ? buyAmount / sellAmount : sellAmount / buyAmount;
+    const sellIsBase = sellSymbol === base;
 
-    return toFixedNum(rate);
+    const rate = sellIsBase ? buyAmount / sellAmount : sellAmount / buyAmount;
+    const precision = getAssetParam(sellIsBase ? buySymbol : sellSymbol).precision;
+
+    return toFixedNum(rate, precision);
 };
 
 export const getAllRates = (base = "GOLOS", length) => {

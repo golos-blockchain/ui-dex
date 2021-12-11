@@ -12,9 +12,7 @@ const appInit = async () => {
     initLocale();
     initSettings();
 
-    const assets = await new ApiRequest().getAssets().then(handleAssetsRequest).then(setAssets);
-
-    console.log(assets);
+    await new ApiRequest().getAssets().then(handleAssetsRequest).then(setAssets);
 
     //user check
     const user = getStorage("user");

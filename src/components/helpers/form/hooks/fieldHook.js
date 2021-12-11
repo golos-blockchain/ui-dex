@@ -1,10 +1,12 @@
 const getFieldState = ({value, error, globalError, disabled}) => {
     let fieldStateClass = "";
     let message = "";
+    let messageParams = {};
 
     if(error){
         fieldStateClass = "error";
-        message = `errors.${error.type}`
+        message = `errors.${error.type}`;
+        messageParams = error.params;
     } else if(globalError) {
         fieldStateClass = "error";
     } else if(value) {
@@ -15,7 +17,7 @@ const getFieldState = ({value, error, globalError, disabled}) => {
         message = "";
     }
 
-    return { fieldStateClass, message };
+    return { fieldStateClass, message, messageParams };
 };
 
 export const fieldHook = ({formData, ...props}) => {
@@ -31,7 +33,7 @@ export const fieldHook = ({formData, ...props}) => {
     const globalError = errors && errors.request;
     const onChange = formData.onChange;
 
-    let {fieldStateClass, message} = getFieldState({disabled, value, error, globalError});
+    let {fieldStateClass, message, messageParams} = getFieldState({disabled, value, error, globalError});
 
-    return {...props, value, error, disabled, onChange, isLoading, fieldStateClass, message}
+    return {...props, value, error, disabled, onChange, isLoading, fieldStateClass, message, messageParams};
 };

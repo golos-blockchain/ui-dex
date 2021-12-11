@@ -43,7 +43,6 @@ export class ApiRequest extends Request{
     };
 
     getUserOrdersByName = name => {
-        console.log(name);
         return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order', "limit_order_cancel", "limit_order_cancel_ex" ]}).catch(err => console.error(err));
     };
 

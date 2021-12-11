@@ -1,12 +1,10 @@
-import {CLOSE_MODAL, OPEN_MODAL, ADD_MODAL_CONTENT, REMOVE_MODAL_CONTENT} from "../constants";
-// import {blockContent} from "../../utils/";
-import {reduxDispatch} from "../../utils/store";
-import {QuickBuyConfirm} from "../../components/helpers/confirmModals";
 import React from "react";
+import {reduxDispatch} from "../../utils/store";
+import {CLOSE_MODAL, OPEN_MODAL, ADD_MODAL_CONTENT, REMOVE_MODAL_CONTENT} from "../constants";
 
 export const connectModal = state => ({modal: state.modal});
 
-export const generateModal = payload => () => initModal(payload);
+export const generateModal = payload => () => initModal({content: payload});
 export const initModal = payload => {
     // blockContent(true);
     reduxDispatch(ADD_MODAL_CONTENT, payload);
@@ -14,8 +12,8 @@ export const initModal = payload => {
 };
 
 export const generatePromiseModal = (ModalBody, props) => (
-    new Promise((resolve, rej) => {
-        initModal(<ModalBody resolve={resolve} {...props}  />)
+    new Promise((resolve, reject) => {
+        initModal({content: <ModalBody resolve={resolve} reject={reject} {...props}  />, onClose: reject});
     })
 );
 

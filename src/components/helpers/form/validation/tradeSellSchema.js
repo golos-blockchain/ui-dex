@@ -1,8 +1,19 @@
-import {checkBalanceOnTradeSell, schema, yupNum, yupString} from "./helpers";
+import {
+    balanceOnAmountChange,
+    precisionOnAmountChange,
+    schema,
+    yupNum,
+    yupString
+} from "./helpers";
 
 export const tradeSellSchema = schema({
     price: yupString().required(),
-    amount: yupString().test(checkBalanceOnTradeSell).required(),
+    amount: yupString()
+        .test(balanceOnAmountChange("baseAssetId"))
+        .test(precisionOnAmountChange("baseAssetId"))
+        .required(),
     range: yupNum(),
-    result: yupString().required()
+    result: yupString()
+        .test(precisionOnAmountChange("quoteAssetId"))
+        .required()
 });

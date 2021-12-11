@@ -4,7 +4,7 @@ import {BodyBold, Box, FlexBox, MetadataBold} from "../../global";
 import {ErrorIcon, MessageIcon, SuccessIcon, WarningIcon} from "../../../../svg";
 import {fieldHook} from "../hooks";
 
-const FieldMessage = ({className, type, message}) => {
+const FieldMessage = ({className, type, message, messageParams}) => {
     const iconsList = {
         message: MessageIcon,
         success: SuccessIcon,
@@ -17,7 +17,7 @@ const FieldMessage = ({className, type, message}) => {
     return(
         <FlexBox className={clsx(className, message && "shown")}>
             <Box mr={.4}>{Icon && <Icon />}</Box>
-            <MetadataBold content={message} />
+            <MetadataBold content={message} additionalData={messageParams} />
         </FlexBox>
     );
 };
@@ -25,7 +25,7 @@ const FieldMessage = ({className, type, message}) => {
 export const Input = ({id, label, className, type, inputMode, assetSymbol, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
     const [baseClass, setClass, setEffect] = useClassSetter("field");
 
-    let { name, value, disabled, onChange, fieldStateClass, message } = fieldHook(props);
+    let { name, value, disabled, onChange, fieldStateClass, message, messageParams } = fieldHook(props);
 
     if(!id) id = name;
     if(!label) label = name;
@@ -57,7 +57,7 @@ export const Input = ({id, label, className, type, inputMode, assetSymbol, iconL
             {IL && <div className={setClass("icon-left")}><IL /></div>}
             {IR && <div className={setClass("icon-right")}><IR /></div>}
             {assetSymbol && <div className={setClass("asset")}><MetadataBold text={assetSymbol} color="font-secondary" /></div>}
-            <FieldMessage className={setClass("message")} type={fieldStateClass} message={message} />
+            <FieldMessage className={setClass("message")} type={fieldStateClass} message={message} messageParams={messageParams} />
         </label>
     )
 };

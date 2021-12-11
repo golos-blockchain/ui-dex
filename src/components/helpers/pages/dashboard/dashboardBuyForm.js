@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {Form, NumberInput} from "../../form/helpers";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
 import {AssetSelect} from "../../dropdown";
-import {i18nGlobal, translateStr} from "../../../../utils";
+import {i18nGlobal, toFixedNum, translateStr} from "../../../../utils";
 import {GreenTextBtn} from "../../btn";
 import {getAssetById} from "../../../../redux/actions/assets";
 import {ApiRequest} from "../../../../utils/requests";
@@ -50,7 +50,7 @@ export const DashboardBuyForm = ({onUpdate}) => {
                     }
                 }
 
-                amountToBuy = +(amountToBuy.toFixed(5));
+                amountToBuy = String(toFixedNum(amountToBuy, assetToBuyData.precision));
 
                 const price = +((amountToBuy / amountToSell).toFixed(5));
 

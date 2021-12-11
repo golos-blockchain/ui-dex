@@ -58,7 +58,9 @@ export class Form extends Component {
             }
         }
 
-        console.log("ERRRRRRR!", typeof err);
+        console.error("Error!", err);
+
+        if(!err) return;
     };
 
     onChange = (e) => {

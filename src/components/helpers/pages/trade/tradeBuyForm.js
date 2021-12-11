@@ -5,7 +5,7 @@ import {i18nGlobal, toFixedNum} from "../../../../utils";
 import {GreenTextBtn} from "../../btn";
 import {getUserData} from "../../../../redux/actions/userData";
 import {BroadcastRequest} from "../../../../utils/requests";
-import {getAssetsList} from "../../../../redux/actions/assets";
+import {getAssets, getAssetsList} from "../../../../redux/actions/assets";
 import {tradeBuySchema} from "../../form/validation";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeBuyConfirm} from "../../confirmModals/tradeBuyConfirm";
@@ -15,13 +15,18 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
 
     const userBalance = getUserData().balances[quote].amount;
 
-    const {id: baseAssetId, fee_percent} = getAssetsList().find(asset => asset.symbol === base);
-    const quoteAssetId = getAssetsList().find(asset => asset.symbol === quote).id;
+    const {list, params} = getAssets();
 
-    const toPrecision = (num) => String(toFixedNum(num));
-    const resultCalculation = ({price, amount}) => price && amount ? toPrecision(price * amount) : undefined;
+    const baseAssetId = list.find(asset => asset.symbol === base).id;
+    const quoteAssetId = list.find(asset => asset.symbol === quote).id;
+
+    const basePrecision = params[base].precision;
+    const { precision: quotePrecision, fee_percent } = params[base];
+
+    const toPrecision = (num, precision) => String(toFixedNum(num, precision));
+    const resultCalculation = ({price, amount}) => price && amount ? toPrecision(price * amount, quotePrecision) : undefined;
     const rangeCalculation = ({result}) => result && result / userBalance * 100;
-    const amountCalculation = ({price, result}) => price && result ? toPrecision(result / price) : undefined;
+    const amountCalculation = ({price, result}) => price && result ? toPrecision(result / price, basePrecision) : undefined;
 
     const modificators = {
         price: (data) => {
@@ -36,7 +41,8 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
         },
         range: (data) => {
             const {price, range} = data;
-            const result = toPrecision(userBalance * (range / 100));
+
+            const result = toPrecision(userBalance * (range / 100), quotePrecision);
             const amount = amountCalculation({price, result});
 
             return {...data, amount, result};
@@ -60,6 +66,7 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
             modificators={modificators}
             schema={tradeBuySchema}
             request={request}
+            clearOnFinish
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);
             return (
