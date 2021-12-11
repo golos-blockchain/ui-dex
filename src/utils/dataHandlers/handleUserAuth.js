@@ -14,7 +14,7 @@ export const fetchUserData = async (name) => {
     const GOLOS = amountToObject(accData.balance);
     const GBG = amountToObject(accData.sbd_balance);
 
-    const golosPrecision = getAssetParam(defaultAssetSymbol);
+    const golosPrecision = getAssetParam(defaultAssetSymbol).precision;
 
     const balances = { GOLOS, GBG };
 
