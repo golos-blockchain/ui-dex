@@ -1,8 +1,8 @@
-import {checkBalanceOnTradeSell, schema, yupString} from "./helpers";
+import {checkBalanceOnTradeSell, schema, yupNum, yupString} from "./helpers";
 
 export const tradeSellSchema = schema({
     price: yupString().required(),
     amount: yupString().test(checkBalanceOnTradeSell).required(),
-    range: yupString(),
+    range: yupNum(),
     result: yupString().required()
 });

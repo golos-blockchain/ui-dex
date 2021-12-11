@@ -7,9 +7,10 @@ import {getUserData} from "../../../../redux/actions/userData";
 import {BroadcastRequest} from "../../../../utils/requests";
 import {getAssetsList} from "../../../../redux/actions/assets";
 import {tradeBuySchema} from "../../form/validation";
+import {generatePromiseModal} from "../../../../redux/actions";
+import {TradeBuyConfirm} from "../../confirmModals/tradeBuyConfirm";
 
 export const TradeBuyForm = ({base, quote, orderBook}) => {
-    // const rate = rates[0].rate;
     const bestPrice = toFixedNum(orderBook.asks[0].price);
 
     const userBalance = getUserData().balances[quote].amount;
@@ -50,7 +51,7 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
 
     const request = async ({amount, baseAssetId, quoteAssetId, result}) => {
         const args = {amountToBuy: amount, assetToBuy: baseAssetId, amountToSell: result, assetToSell: quoteAssetId};
-        return new BroadcastRequest().orderCreate(args);
+        return generatePromiseModal(TradeBuyConfirm, args);
     };
 
     return(

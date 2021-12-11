@@ -1,6 +1,6 @@
 import {getUserData} from "../../../../redux/actions/userData";
 import {ApiRequest} from "../../../../utils/requests";
-import {initModal} from "../../../../redux/actions";
+import {generatePromiseModal, initModal} from "../../../../redux/actions";
 import {TrxConfirm} from "../../confirmModals";
 import {Form, Input, NumberInput} from "../../form/helpers";
 import {trxSchema} from "../../form/validation";
@@ -30,9 +30,7 @@ export const TransferForm = ({onUpdate}) => {
             throw err;
         }
 
-        return new Promise((resolve, rej) => {
-            initModal(<TrxConfirm from={from} resolve={resolve} {...props}  />)
-        });
+        return generatePromiseModal(TrxConfirm, {from, ...props});
     };
 
     const handleResult = onUpdate ? onUpdate : undefined;

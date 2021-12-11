@@ -1,18 +1,19 @@
 import {translateStr} from "../../../utils";
-import {getAssetById} from "../../../redux/actions/assets";
 import {BroadcastRequest} from "../../../utils/requests";
 import {Fragment} from "react";
 import {BodyBold, Box, FlexBox, MetadataBold} from "../global";
+import {getAssetById} from "../../../redux/actions/assets";
 import {ConfirmModal} from "./confirmModal";
 import {GreenTextBtn} from "../btn";
 import React from "react";
 
-export const DashboardBuyConfirm = ({amountToBuy, amountToSell, assetToSell, assetToBuy, resolve}) => {
+export const NewOrderConfirm = ({tag, btnComponent, ...broadcastProps}) => {
     const i18n = translateStr("fields");
+    const {amountToBuy, assetToBuy, amountToSell, assetToSell, resolve} = broadcastProps;
 
     const action = () => (
         new BroadcastRequest()
-            .orderCreate({amountToBuy, amountToSell, assetToSell, assetToBuy, fillOrKill: true})
+            .orderCreate({amountToBuy, amountToSell, assetToSell, assetToBuy})
             .then(resolve)
     );
 
@@ -33,8 +34,8 @@ export const DashboardBuyConfirm = ({amountToBuy, amountToSell, assetToSell, ass
 
     return(
         <ConfirmModal
-            tag="dashboardBuy"
-            btnComponent={GreenTextBtn}
+            tag={tag}
+            btnComponent={btnComponent ? btnComponent : GreenTextBtn}
             additionalContent={additionalContent}
             action={action}
         />

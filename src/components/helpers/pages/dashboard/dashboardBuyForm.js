@@ -1,15 +1,14 @@
 import React, {Fragment} from "react";
-import {Checkbox, Form, Input, NumberInput} from "../../form/helpers";
+import {Form, NumberInput} from "../../form/helpers";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
-import {AssetSelect, Select} from "../../dropdown";
-import {currenciesList, lastTradeToRate} from "../../../../utils/dataHandlers";
+import {AssetSelect} from "../../dropdown";
 import {i18nGlobal, translateStr} from "../../../../utils";
-import {GreenTextBtn, RedTextBtn} from "../../btn";
+import {GreenTextBtn} from "../../btn";
 import {getAssetById} from "../../../../redux/actions/assets";
 import {ApiRequest} from "../../../../utils/requests";
 import {buySchema} from "../../form/validation";
-import {initModal} from "../../../../redux/actions";
-import {DashboardBuyConfirm} from "../../confirmModals";
+import {generatePromiseModal, initModal} from "../../../../redux/actions";
+import {QuickBuyConfirm} from "../../confirmModals";
 
 export const DashboardBuyForm = ({onUpdate}) => {
     const getResultParams = (data, formCtx) => {
@@ -64,11 +63,7 @@ export const DashboardBuyForm = ({onUpdate}) => {
 
     const i18n = translateStr("dashboard");
 
-    const request = (props) => {
-        return new Promise((resolve, rej) => {
-            initModal(<DashboardBuyConfirm resolve={resolve} {...props}  />)
-        });
-    };
+    const request = (props) => generatePromiseModal(QuickBuyConfirm, {...props, fillOrKill: true});
 
     const modificators = {
         assetToSell: getResultParams,
@@ -84,7 +79,7 @@ export const DashboardBuyForm = ({onUpdate}) => {
             handleResult={onUpdate}
             clearOnFinish
         >{formData => {
-            const {amountToBuy, price, amountToSell = 0, assetToSell, assetToBuy} = formData.state.data;
+            const {amountToBuy, price, assetToSell, assetToBuy} = formData.state.data;
 
             const assetToSellData = getAssetById(assetToSell || 0);
             const assetToBuyData = getAssetById(assetToBuy || 0);

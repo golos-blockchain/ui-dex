@@ -1,16 +1,16 @@
 import {getUserData} from "../../../../redux/actions/userData";
 import {getAssetsList} from "../../../../redux/actions/assets";
-import {BroadcastRequest} from "../../../../utils/requests";
 import {Form, NumberInput, Range} from "../../form/helpers";
-import {tradeBuySchema, tradeSellSchema} from "../../form/validation";
+import {tradeSellSchema} from "../../form/validation";
 import {Fragment} from "react";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
 import {i18nGlobal, toFixedNum} from "../../../../utils";
-import {GreenTextBtn, RedTextBtn} from "../../btn";
+import {RedTextBtn} from "../../btn";
 import React from "react";
+import {generatePromiseModal} from "../../../../redux/actions";
+import {TradeSellConfirm} from "../../confirmModals";
 
 export const TradeSellForm = ({base, quote, orderBook}) => {
-    // const rate = rates[0].rate;
     const bestPrice = toFixedNum(orderBook.bids[0].price);
 
     const userBalance = getUserData().balances[base].amount;
@@ -53,7 +53,7 @@ export const TradeSellForm = ({base, quote, orderBook}) => {
 
     const request = async ({amount, baseAssetId, quoteAssetId, result}) => {
         const args = {amountToBuy: result, amountToSell: amount, assetToSell: baseAssetId, assetToBuy: quoteAssetId};
-        return new BroadcastRequest().orderCreate(args);
+        return generatePromiseModal(TradeSellConfirm, args);
     };
 
     return(
