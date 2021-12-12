@@ -222,6 +222,9 @@
   &.active, &:hover{
     color: var(--brand);
     background: var(--brand-bg-light);
+    .metadata{
+      font-weight: bold;
+    }
   }
 }
 

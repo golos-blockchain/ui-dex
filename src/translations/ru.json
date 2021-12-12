@@ -130,11 +130,15 @@
     "pair": "Пара",
     "type": "Тип",
     "amount": "Количество",
+    "amountWithAsset": "Кол-во (%(asset)s)",
     "price": "Цена",
+    "priceWithAsset": "Цена (%(asset)s)",
     "completed": "% выполнения",
     "dateAndTime": "Дата и время",
     "summ": "Сумма",
-    "desc": "Описание"
+    "desc": "Описание",
+    "quote": "%(quote)s",
+    "base": "%(base)s"
   },
   "fields": {
     "test": "Test",

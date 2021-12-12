@@ -9,7 +9,7 @@ import {RedTextBtn} from "../../btn";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeSellConfirm} from "../../confirmModals";
 
-export const TradeSellForm = ({base, quote, orderBook}) => {
+export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
     const bestPrice = toFixedNum(orderBook.bids[0].price);
 
     const userBalance = getUserData().balances[base].amount;
@@ -66,6 +66,7 @@ export const TradeSellForm = ({base, quote, orderBook}) => {
             modificators={modificators}
             schema={tradeSellSchema}
             request={request}
+            handleResult={reloadData}
             clearOnFinish
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);

@@ -1,7 +1,10 @@
 import {amountToObject} from "./handleAssets";
 import {getUserData} from "../../redux/actions/userData";
 
-export const handleUserOrders = (res) => {
+export const handleUserOrdersByPair = (pair) => (res) => handleUserOrders(res, pair);
+
+export const handleUserOrders = (res, pair) => {
+    const allTypes = ["limit_order_create", "fill_order", "limit_order_cancel", "limit_order_cancel_ex"];
     const createdOrders = [];
     const cancelledOrders = [];
     const filledOrders = {};
@@ -9,6 +12,8 @@ export const handleUserOrders = (res) => {
     res.forEach(item => {
         const timestamp = new Date(item[1].timestamp).getTime();
         const [type, operation] = item[1].op;
+
+        if(!allTypes.includes(type)) return false;
 
         if (type === "limit_order_create") {
             createdOrders.push({timestamp, ...operation});
@@ -27,8 +32,20 @@ export const handleUserOrders = (res) => {
         }
     });
 
-    return createdOrders.filter(el => el).map(el => {
+    return createdOrders.filter(el => {
+        if(!el) return false;
+        if(!pair) return true;
+
+        const {amount_to_sell, min_to_receive} = el;
+
+        const sellObj = amountToObject(amount_to_sell);
+        const buyObj = amountToObject(min_to_receive);
+
+        return pair.includes(sellObj.symbol) && pair.includes(buyObj.symbol);
+    }).map(el => {
         let type = "buy";
+
+        const defaultBase = pair ? pair[0] : "GOLOS";
 
         const {orderid: id, timestamp, amount_to_sell, min_to_receive} = el;
 
@@ -43,7 +60,7 @@ export const handleUserOrders = (res) => {
         let base = buyObj;
         let quote = sellObj;
 
-        if (quote.symbol === "GOLOS") {
+        if (quote.symbol === defaultBase) {
             type = "sell";
 
             base = sellObj;
@@ -52,7 +69,6 @@ export const handleUserOrders = (res) => {
 
         const {amount: baseAmount, symbol: baseSymbol} = base;
         const {amount: quoteAmount, symbol: quoteSymbol} = quote;
-
 
         return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol, isCancelled};
     }).sort((prev, next) => {

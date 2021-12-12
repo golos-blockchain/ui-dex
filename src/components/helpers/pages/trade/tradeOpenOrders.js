@@ -1,9 +1,13 @@
 import React from "react";
-import {MetadataBold} from "../../global";
-import {clsx} from "../../../../utils";
 import {TradeOrdersTable} from "./tradeOrdersTable";
+import {Box, MetadataBold} from "../../global";
+import {clsx} from "../../../../utils";
+import {TransparentBtn} from "../../btn";
+import {generateModal} from "../../../../redux/actions";
+import {CancelOrderConfirm} from "../../confirmModals";
+import {BackspaceIcon} from "../../../../svg";
 
-export const TradeUserOrders = ({userOrders, base, quote, ...props}) => {
+export const TradeOpenOrders = ({userOrders, base, quote, reloadData, ...props}) => {
     const tableHead = [
         {
             key: 'timestamp',
@@ -38,8 +42,25 @@ export const TradeUserOrders = ({userOrders, base, quote, ...props}) => {
             translateParams: { asset: quote },
             className: 'align-right',
             isSortable: true
+        },
+        {
+            key: 'id',
+            translateTag: 'actions',
+            handleItem: (id, row, reloadData) => (
+                <Box w="fit-content" mx="auto">
+                    <TransparentBtn
+                        onClick={generateModal(<CancelOrderConfirm id={id} reloadData={reloadData} />)}
+                        disabled={row.percent === 1 || row.isCancelled}
+                    >
+                        <BackspaceIcon />
+                    </TransparentBtn>
+                </Box>
+            ),
+            className: 'align-center'
         }
     ];
 
-    return <TradeOrdersTable {...props} tableHead={tableHead} rows={userOrders} />
+    const rows = userOrders.filter(el => el.percent !== 1 && !el.isCancelled);
+
+    return <TradeOrdersTable {...props} tableHead={tableHead} rows={rows} />
 };

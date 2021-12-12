@@ -3,7 +3,7 @@ import {MetadataBold} from "../../global";
 import {clsx} from "../../../../utils";
 import {TradeOrdersTable} from "./tradeOrdersTable";
 
-export const TradeUserOrders = ({userOrders, base, quote, ...props}) => {
+export const TradeHistory = ({ordersHistory, base, quote, ...props}) => {
     const tableHead = [
         {
             key: 'timestamp',
@@ -20,26 +20,22 @@ export const TradeUserOrders = ({userOrders, base, quote, ...props}) => {
             className: 'align-center',
         },
         {
-            key: 'baseAmount',
-            translateTag: 'amountWithAsset',
+            key: 'price',
+            translateTag: 'priceWithAsset',
             translateParams: { asset: base },
-            isSortable: true
-        },
-        {
-            key: 'percent',
-            translateTag: 'completed',
-            handleItem: (item) => `${+(item * 100).toFixed(2)}%`,
-            className: 'align-center',
-            isSortable: true
         },
         {
             key: 'quoteAmount',
-            translateTag: 'priceWithAsset',
-            translateParams: { asset: quote },
+            translateTag: 'quote',
+            translateParams: { quote },
+        },
+        {
+            key: 'baseAmount',
+            translateTag: 'base',
+            translateParams: { base },
             className: 'align-right',
-            isSortable: true
         }
     ];
 
-    return <TradeOrdersTable {...props} tableHead={tableHead} rows={userOrders} />
+    return <TradeOrdersTable {...props} tableHead={tableHead} rows={ordersHistory} />
 };

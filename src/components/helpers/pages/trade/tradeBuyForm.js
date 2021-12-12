@@ -10,7 +10,7 @@ import {tradeBuySchema} from "../../form/validation";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeBuyConfirm} from "../../confirmModals/tradeBuyConfirm";
 
-export const TradeBuyForm = ({base, quote, orderBook}) => {
+export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
     const bestPrice = toFixedNum(orderBook.asks[0].price);
 
     const userBalance = getUserData().balances[quote].amount;
@@ -66,6 +66,7 @@ export const TradeBuyForm = ({base, quote, orderBook}) => {
             modificators={modificators}
             schema={tradeBuySchema}
             request={request}
+            handleResult={reloadData}
             clearOnFinish
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);

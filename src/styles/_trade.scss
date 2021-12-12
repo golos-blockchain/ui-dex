@@ -22,3 +22,14 @@
     }
   }
 }
+
+.trade-history{
+    .table__row .table__cell{
+      padding-top: .4rem;
+      padding-bottom: .4rem;
+      border-color: transparent;
+      &:not(:last-child){
+        padding-right: 1rem;
+      }
+    }
+}

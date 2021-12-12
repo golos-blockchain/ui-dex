@@ -3,8 +3,11 @@
   table-layout: auto;
 
   &__cell{
+    &:not(:first-child){
+      padding-left: 1rem;
+    }
     &:not(:last-child){
-      padding-right: 3.1rem;
+      padding-right: 1rem;
       border-color: transparent;
     }
     > .btn{
@@ -51,5 +54,18 @@
   .fit-content{
     width: auto;
     white-space: nowrap;
+  }
+}
+
+.table-scroll {
+  max-height: var(--mh);
+  > div {
+    padding-right: 1rem;
+  }
+  th {
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 }

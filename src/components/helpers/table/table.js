@@ -1,9 +1,20 @@
 import React, {useState} from "react";
 import {Body} from "../global";
-import {useClassSetter} from "../../../utils";
+import {clsx, useClassSetter} from "../../../utils";
 import {TableHeading} from "./tableHeading";
 
-export const Table = ({tableHead, rows = [], reloadData, defaultSortKey}) => {
+const TableScrollWrapper = ({children, maxHeight}) => {
+    const [baseClass, setClass] = useClassSetter("table-scroll");
+    return(
+        <div className={clsx(baseClass, "custom-scroll")} style={{"--mh": maxHeight}}>
+            <div className={setClass("content-wrapper")}>
+                {children}
+            </div>
+        </div>
+    )
+};
+
+const TableDisplay = ({tableHead, rows = [], className, itemComponent, reloadData, defaultSortKey}) => {
     const [baseClass, setClass] = useClassSetter("table");
     const sortState = useState({key: defaultSortKey, type: "abc"});
 
@@ -21,32 +32,41 @@ export const Table = ({tableHead, rows = [], reloadData, defaultSortKey}) => {
     const headingProps = {baseClass, tableHead, sortState};
 
     return(
-        <table className={baseClass}>
+        <table className={clsx(baseClass, className)}>
             <TableHeading {...headingProps} />
             <tbody>
-                {sortedData.map((row, id) => (
-                    <tr key={id} className={setClass("row")}>
-                        {tableHead.map((col, id) => {
+            {sortedData.map((row, id) => (
+                <tr key={id} className={setClass("row")}>
+                    {tableHead.map((col, id) => {
 
-                            const className = `${setClass("cell")} ${col.className ? col.className : ''}`;
-                            const item = row[col.key];
-                            const content = col.handleItem ? col.handleItem(item, row, reloadData) : item;
+                        const className = `${setClass("cell")} ${col.className ? col.className : ''}`;
+                        const item = row[col.key];
+                        const content = col.handleItem ? col.handleItem(item, row, reloadData) : item;
+                        const Component = itemComponent ? itemComponent : Body;
 
-                            return (
-                                <td key={id} className={className}>
-                                    {typeof content === "string"
-                                        ? (
-                                            <Body text={content} />
-                                        ) : (
-                                            content
-                                        )
-                                    }
-                                </td>
-                            )
-                        })}
-                    </tr>
-                ))}
+                        return (
+                            <td key={id} className={className}>
+                                {typeof content === "string"
+                                    ? (
+                                        <Component text={content} />
+                                    ) : (
+                                        content
+                                    )
+                                }
+                            </td>
+                        )
+                    })}
+                </tr>
+            ))}
             </tbody>
         </table>
     );
+};
+
+export const Table = ({maxHeight, ...tableProps}) => {
+    const table = <TableDisplay {...tableProps} />
+
+    return maxHeight
+        ? <TableScrollWrapper maxHeight={maxHeight} children={table} />
+        : table;
 };

@@ -1,6 +1,13 @@
 import React, {Fragment, useState} from "react";
 import {Body, Box, Card, FlexBox, MetadataBold} from "../helpers/global";
-import {Table} from "../helpers/table";
+import {
+    filterOrdersList,
+    OrdersFilter,
+    ordersFiltersList,
+    Table,
+    useFiltersState,
+    useOrdersFiltersState
+} from "../helpers/table";
 import {BrandTextBtn, TransparentBtn} from "../helpers/btn";
 import {getUserData} from "../../redux/actions/userData";
 import {clsx, LoadData, translateStr} from "../../utils";
@@ -91,10 +98,8 @@ export const Orders = () => {
     const fn = () => new ApiRequest().getUserOrdersByName(getUserData().name).then(handleUserOrders);
     const [data, isLoading, reloadData] = LoadData(fn);
 
-    const filtersList = ["all", "buy", "sell"];
-    const [filter, setFilter] = useState(filtersList[0]);
-
-    const rows = filter === filtersList[0] ? data : data.filter(el => el.type === filter);
+    const filtersState = useOrdersFiltersState();
+    const rows = filterOrdersList(data, filtersState[0]);
 
     const onCancel = () => {
         const allOpenOrders = data.filter(el => el.percent !== 1 && !el.isCancelled);
@@ -105,17 +110,7 @@ export const Orders = () => {
         <Fragment>
             <Card>
                 <FlexBox justify="space-between">
-                    <FlexBox>
-                        {filtersList.map(key => (
-                            <button
-                                key={key}
-                                className={clsx("orders-filter", key === filter && "active")}
-                                onClick={() => setFilter(key)}
-                            >
-                                <MetadataBold content={i18n("types", key)} />
-                            </button>
-                        ))}
-                    </FlexBox>
+                    <OrdersFilter filtersState={filtersState} />
                     <BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />
                 </FlexBox>
             </Card>

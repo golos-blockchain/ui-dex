@@ -1,7 +1,7 @@
+import React from "react";
 import {useClassSetter} from "../../../../utils";
 import {Body, BodyBold, Card, FlexBox} from "../../global";
 import {Table} from "../../table";
-import React from "react";
 
 export const WalletTableDisplay = ({ balances }) => {
     const [baseClass, setClass] = useClassSetter("balances-table");
