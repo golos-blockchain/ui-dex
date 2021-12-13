@@ -57,6 +57,12 @@
   }
 }
 
+.hidden-head {
+  .table__header{
+    visibility: collapse;
+  }
+}
+
 .table-scroll {
   max-height: var(--mh);
   > div {

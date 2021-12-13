@@ -9,7 +9,8 @@ import {Table} from "../helpers/table";
 const tableHead = [
     {
         key: 'icon',
-        translateTag: ''
+        translateTag: '',
+        className: "align-center"
     },
     {
         key: 'timestamp',

@@ -14,10 +14,10 @@ export const TradeOrdersTable = ({tableHead, rows: rawList, className, maxHeight
                     <OrdersFilter filtersState={filtersState} />
                 </Box>
                 <Table
+                    defaultSortKey="timestamp"
                     tableHead={tableHead}
                     rows={rows}
                     itemComponent={Metadata}
-                    defaultSortKey="timestamp"
                     className={className}
                     maxHeight={maxHeight}
                 />

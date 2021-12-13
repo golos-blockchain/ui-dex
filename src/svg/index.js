@@ -36,6 +36,11 @@ export { ReactComponent as HistoryPlusIcon } from './history-plus.svg';
 export { ReactComponent as HistoryFillIcon } from './history-fill.svg';
 export { ReactComponent as HistoryDeleteIcon } from './history-delete.svg';
 
+//order book table icon
+export { ReactComponent as BookAllIcon } from './orderbook-all.svg';
+export { ReactComponent as BookSellIcon } from './orderbook-sell.svg';
+export { ReactComponent as BookBuyIcon } from './orderbook-buy.svg';
+
 //coins icon
 export { ReactComponent as GolosIcon } from './coins/golos.svg';
 export { ReactComponent as SbdIcon } from './coins/sbd.svg';

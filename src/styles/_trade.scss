@@ -23,6 +23,58 @@
   }
 }
 
+.order-book{
+  position: relative;
+  &__table-wrapper{
+    position: relative;
+    z-index: 5;
+  }
+  &__lines-wrapper{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  &__line{
+    height: 2.8rem;
+    position: absolute;
+    right: 0;
+  }
+  .table__row .table__cell{
+    padding-top: .15rem;
+    padding-bottom: .15rem;
+    border-color: transparent;
+    &:not(:last-child){
+      padding-right: 1rem;
+    }
+  }
+}
+
+.book-price{
+  svg{
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: .5rem;
+    fill: var(--error);
+  }
+  &.is-buy {
+    svg{
+      fill: var(--success);
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.book-filter{
+  margin-right: 1rem;
+  opacity: .25;
+  transition: var(--qSpeed);
+  &.active, &:hover{
+    opacity: 1;
+  }
+}
+
 .trade-history{
     .table__row .table__cell{
       padding-top: .4rem;

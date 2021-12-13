@@ -72,6 +72,7 @@ a{
     /* width */
     &::-webkit-scrollbar {
       width: 2px;
+      height: 2px;
       z-index: 10;
     }
 
@@ -91,7 +92,8 @@ a{
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background: var(--grey-light);
+      cursor: pointer;
+      background: var(--brand-dark);
     }
   }
 }

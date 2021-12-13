@@ -2,7 +2,7 @@ export const toFixedNum = (rawNumber, precision = 5) => {
     if(isNaN(rawNumber)) return rawNumber;
 
     const number = Number(rawNumber);
-    const fixedNumber = number.toFixed(precision);
+    const fixedNumber = Number(number.toFixed(precision));
 
-    return Number(fixedNumber);
+    return number !== 0 && fixedNumber === 0 ? 1 / Math.pow(10, precision) : fixedNumber;
 };

@@ -138,7 +138,8 @@
     "summ": "Сумма",
     "desc": "Описание",
     "quote": "%(quote)s",
-    "base": "%(base)s"
+    "base": "%(base)s",
+    "total": "Всего"
   },
   "fields": {
     "test": "Test",

@@ -11,7 +11,7 @@ import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeBuyConfirm} from "../../confirmModals/tradeBuyConfirm";
 
 export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
-    const bestPrice = toFixedNum(orderBook.asks[0].price);
+    const bestPrice = orderBook.asks[0].price;
 
     const userBalance = getUserData().balances[quote].amount;
 

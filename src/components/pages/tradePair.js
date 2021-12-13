@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useParams} from "react-router";
 import {Card, Col, FlexBox, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
-import {LoadData, translateStr, useClassSetter} from "../../utils";
+import {LoadData, toFixedNum, translateStr, useClassSetter} from "../../utils";
 import {trade} from "../routing/path";
 import {
     PairDisplay,
@@ -11,11 +11,30 @@ import {
     TradeBuyForm,
     TradeUserOrders,
     TradeSellForm,
-    TradeHistory, TradeOpenOrders
+    TradeHistory, TradeOpenOrders, TradeOrderBook
 } from "../helpers/pages/trade";
 import {ApiRequest} from "../../utils/requests";
 import {handleTradeHistory, handleUserOrdersByPair, lastTradeToRate} from "../../utils/dataHandlers";
 import {getUserData} from "../../redux/actions/userData";
+import {getAssetParam} from "../../redux/actions/assets";
+
+const handleOrderBook = pair => ({asks, bids}) => {
+    const [base, quote] = pair;
+    const baseParams = getAssetParam(base);
+    const quoteParams = getAssetParam(quote);
+
+    const handleOrder = ({price: rawPrice, asset1, asset2}) => {
+        const base = asset1 / Math.pow(10, baseParams.precision);
+        const quote = asset2 / Math.pow(10, quoteParams.precision);
+        const price = toFixedNum(rawPrice, quoteParams.precision);
+        return { base, quote, price: Number(rawPrice) };
+    };
+
+    return {
+        asks: asks.map(handleOrder),
+        bids: bids.map(handleOrder)
+    };
+};
 
 const getPairData = async (base, quote) => {
     const apiRequest = new ApiRequest();
@@ -26,8 +45,10 @@ const getPairData = async (base, quote) => {
 
     const rate = lastTradeToRate(base)(lastTrades);
     const ordersHistory = handleTradeHistory(lastTrades, base);
-    const orderBook = await apiRequest.getOrderBook(pair);
+    const orderBook = await apiRequest.getOrderBook(pair).then(handleOrderBook(pair));
     const userOrders = await apiRequest.getUserOrdersByName(getUserData().name).then(handleUserOrdersByPair(pair));
+
+    console.log(orderBook);
 
     return {ticker, rate, orderBook, userOrders, ordersHistory};
 };
@@ -97,7 +118,7 @@ export const TradePair = () => {
             </Col>
             <Col md={3}>
                 <Card>
-
+                    <TradeOrderBook {...defaultProps} ordersHistory={data.ordersHistory} orderBook={data.orderBook} />
                 </Card>
             </Col>
         </Row>
