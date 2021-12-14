@@ -10,9 +10,9 @@ import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeSellConfirm} from "../../confirmModals";
 
 export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
-    const bestPrice = orderBook.bids[0].price;
+    const bestPrice = orderBook.bids[0] ? orderBook.bids[0].price : 0;
 
-    const userBalance = getUserData().balances[base].amount;
+    const userBalance = getUserData().balances[base] ? getUserData().balances[base].amount : 0;
 
     const {list, params} = getAssets();
 
@@ -86,7 +86,7 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
                     <NumberInput name="result" assetSymbol={quote} formData={formData} />
                     <FlexBox justify="space-between">
                         <Metadata content="trade.bestPrice" />
-                        <MetadataBold text={`${bestPrice} ${quote}`} />
+                        <MetadataBold text={`${toFixedNum(bestPrice, basePrecision)} ${base}`} />
                     </FlexBox>
                     <FlexBox mt={.4} justify="space-between">
                         <Metadata content={i18nGlobal("commission")} />

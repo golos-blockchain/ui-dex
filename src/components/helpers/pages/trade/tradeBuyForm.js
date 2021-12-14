@@ -11,9 +11,9 @@ import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeBuyConfirm} from "../../confirmModals/tradeBuyConfirm";
 
 export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
-    const bestPrice = orderBook.asks[0].price;
+    const bestPrice = orderBook.asks[0] ? orderBook.asks[0].price : 0;
 
-    const userBalance = getUserData().balances[quote].amount;
+    const userBalance = getUserData().balances[quote] ? getUserData().balances[quote].amount : 0;
 
     const {list, params} = getAssets();
 
@@ -21,7 +21,7 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
     const quoteAssetId = list.findIndex(symbol => symbol === quote);
 
     const basePrecision = params[base].precision;
-    const { precision: quotePrecision, fee_percent } = params[base];
+    const { precision: quotePrecision, fee_percent } = params[quote];
 
     const toPrecision = (num, precision) => String(toFixedNum(num, precision));
     const resultCalculation = ({price, amount}) => price && amount ? toPrecision(price * amount, quotePrecision) : undefined;
@@ -86,7 +86,7 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
                     <NumberInput name="result" assetSymbol={quote} formData={formData} />
                     <FlexBox justify="space-between">
                         <Metadata content="trade.bestPrice" />
-                        <MetadataBold text={`${bestPrice} ${quote}`} />
+                        <MetadataBold text={`${toFixedNum(bestPrice, quotePrecision)} ${quote}`} />
                     </FlexBox>
                     <FlexBox mt={.4} justify="space-between">
                         <Metadata content={i18nGlobal("commission")} />

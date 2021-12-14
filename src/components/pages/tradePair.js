@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {useParams} from "react-router";
+import ScrollContainer from 'react-indiana-drag-scroll'
 import {Card, Col, FlexBox, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
 import {LoadData, toFixedNum, translateStr, useClassSetter} from "../../utils";
@@ -23,11 +24,10 @@ const handleOrderBook = pair => ({asks, bids}) => {
     const baseParams = getAssetParam(base);
     const quoteParams = getAssetParam(quote);
 
-    const handleOrder = ({price: rawPrice, asset1, asset2}) => {
+    const handleOrder = ({price, asset1, asset2}) => {
         const base = asset1 / Math.pow(10, baseParams.precision);
         const quote = asset2 / Math.pow(10, quoteParams.precision);
-        const price = toFixedNum(rawPrice, quoteParams.precision);
-        return { base, quote, price: Number(rawPrice) };
+        return { base, quote, price: Number(price) };
     };
 
     return {
@@ -48,8 +48,6 @@ const getPairData = async (base, quote) => {
     const orderBook = await apiRequest.getOrderBook(pair).then(handleOrderBook(pair));
     const userOrders = await apiRequest.getUserOrdersByName(getUserData().name).then(handleUserOrdersByPair(pair));
 
-    console.log(orderBook);
-
     return {ticker, rate, orderBook, userOrders, ordersHistory};
 };
 
@@ -64,6 +62,10 @@ export const TradePair = () => {
         if(isLoading) return;
         reloadPage();
     }, [pair]);
+    // useEffect(() => {
+    //     const interval = setInterval(reloadData, 5000);
+    //     return () => clearInterval(interval);
+    // }, [pair]);
 
     if(isLoading) return "Loading";
 
@@ -91,7 +93,7 @@ export const TradePair = () => {
                     </Col>
                     <Col md={4}>
                         <Card mb={1}>
-                            <PairsList />
+                            <PairsList {...defaultProps} />
                         </Card>
                         <Card>
                             <TabsWrapper headingList={tradeTabs}>

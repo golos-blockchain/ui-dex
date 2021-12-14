@@ -27,13 +27,14 @@ export const LoadData = (req, throttling) => {
     }, [reloadId]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const reloadData = () => {
+        console.log("RELOAD!");
         setReloadId(reloadId + 1);
-    }
+    };
 
     const reloadPage = () => {
         setLoadingState(true);
         reloadData();
-    }
+    };
 
     return [data, isLoading, reloadData, reloadPage];
 }

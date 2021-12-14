@@ -14,7 +14,7 @@ const TableScrollWrapper = ({children, maxHeight}) => {
     )
 };
 
-const TableDisplay = ({tableHead, disableHead, rows = [], className, itemComponent, reloadData, defaultSortKey}) => {
+const TableDisplay = ({tableHead, disableHead, rows = [], className, itemComponent, reloadData, onRowClick, defaultSortKey}) => {
     const [baseClass, setClass] = useClassSetter("table");
     const sortState = useState({key: defaultSortKey, type: "abc"});
 
@@ -35,36 +35,40 @@ const TableDisplay = ({tableHead, disableHead, rows = [], className, itemCompone
         <table className={clsx(baseClass, className, disableHead && "hidden-head")}>
             <TableHeading {...headingProps} />
             <tbody>
-            {sortedData.map((row, id) => (
-                <tr key={id} className={setClass("row")}>
-                    {tableHead.map((col, id) => {
+            {sortedData.map((row, id) => {
+                const rowClick = onRowClick ? () => onRowClick(row) : undefined;
+                const classNames = clsx(setClass("row"), rowClick && "w-hover");
+                return (
+                    <tr key={id} className={classNames} onClick={rowClick}>
+                        {tableHead.map((col, id) => {
 
-                        const className = `${setClass("cell")} ${col.className ? col.className : ''}`;
-                        const item = row[col.key];
-                        const content = col.handleItem ? col.handleItem(item, row, reloadData) : item;
-                        const Component = itemComponent ? itemComponent : Body;
+                            const className = `${setClass("cell")} ${col.className ? col.className : ''}`;
+                            const item = row[col.key];
+                            const content = col.handleItem ? col.handleItem(item, row, reloadData) : item;
+                            const Component = itemComponent ? itemComponent : Body;
 
-                        return (
-                            <td key={id} className={className}>
-                                {typeof content === "string"
-                                    ? (
-                                        <Component text={content} />
-                                    ) : (
-                                        content
-                                    )
-                                }
-                            </td>
-                        )
-                    })}
-                </tr>
-            ))}
+                            return (
+                                <td key={id} className={className}>
+                                    {typeof content === "string"
+                                        ? (
+                                            <Component text={content} />
+                                        ) : (
+                                            content
+                                        )
+                                    }
+                                </td>
+                            )
+                        })}
+                    </tr>
+                )
+            })}
             </tbody>
         </table>
     );
 };
 
 export const Table = ({maxHeight, ...tableProps}) => {
-    const table = <TableDisplay {...tableProps} />
+    const table = <TableDisplay {...tableProps} />;
 
     return maxHeight
         ? <TableScrollWrapper maxHeight={maxHeight} children={table} />

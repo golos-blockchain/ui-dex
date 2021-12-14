@@ -66,7 +66,7 @@ const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableH
             <div className={setClass("lines-wrapper")}>
                 {list.map((el, id) => {
                     const classNames = clsx(setClass("line"), `bg--${priceColor}`);
-                    const top = disableHeading ? id  * 28 + 2 : id * 28 + 26;
+                    const top = disableHeading ? id  * 26 : id * 26 + 24;
                     const width = el.quote / total * 100;
                     const style = { width: width + "%", top };
                     return (
@@ -79,10 +79,15 @@ const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableH
 };
 
 const LastTradeDisplay = ({base, quote, ordersHistory}) => {
-    const {quoteAmount, baseAmount, type} = ordersHistory[0];
+    const lastOrder = ordersHistory[0]
+        ? ordersHistory[0]
+        : { quoteAmount : 0, baseAmount: 1 };
+
+    const {quoteAmount, baseAmount, type} = lastOrder;
     const precision = getAssetParam(quote).precision;
     const lastPrice = toFixedNum(quoteAmount / baseAmount, precision);
     const isBuy = type === "buy";
+
     return (
         <FlexBox className={clsx("book-price", isBuy && "is-buy")} my={1}>
             <Heading text={lastPrice} color={isBuy ? "success" : "error"} />

@@ -21,6 +21,34 @@
       }
     }
   }
+
+  .table__row .table__cell{
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    border-color: transparent;
+    &:not(:last-child){
+      padding-right: 1rem;
+    }
+  }
+}
+
+.pairs-list{
+  &__header{
+    max-width: 100%;
+    overflow-x: scroll;
+    &:hover{
+      cursor: grab;
+      &:focus, &:active{
+        cursor: grabbing;
+      }
+    }
+    &:focus, &:active{
+      cursor: grabbing;
+    }
+  }
+  &__content{
+    margin-top: 1rem;
+  }
 }
 
 .order-book{
@@ -37,7 +65,7 @@
     z-index: 1;
   }
   &__line{
-    height: 2.8rem;
+    height: 2.6rem;
     position: absolute;
     right: 0;
   }

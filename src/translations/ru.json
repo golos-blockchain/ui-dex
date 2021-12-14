@@ -139,7 +139,9 @@
     "desc": "Описание",
     "quote": "%(quote)s",
     "base": "%(base)s",
-    "total": "Всего"
+    "total": "Всего",
+    "lastPrice": "Посл.цена",
+    "change": "Измен."
   },
   "fields": {
     "test": "Test",

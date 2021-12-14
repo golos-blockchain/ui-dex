@@ -1,5 +1,5 @@
 import {ApiRequest} from "../requests";
-import {getAssetById, getAssetParam, getAssetsList} from "../../redux/actions/assets";
+import {getAssetById, getAssetParam, getAssets, getAssetsList} from "../../redux/actions/assets";
 import {toFixedNum} from "../numbersOperations";
 
 export const currenciesList = ["GOLOS", "GBG"];
@@ -73,24 +73,31 @@ export const lastTradeToRate = (base) => (res) => {
     return toFixedNum(rate, precision);
 };
 
+export const getRate = async (pair) => {
+    const [base, quote] = pair;
+    const apiRequest = new ApiRequest();
+    const rate = await apiRequest.getLastTrade(pair).then(lastTradeToRate(base));
+    const rateChange = await apiRequest.getTicker(pair).then(res => {
+        return toFixedNum(res.percent_change1 || 0);
+    });
+
+    const {fullName, img} = getAssetParam(quote);
+
+    return {rate, rateChange, img, fullName, symbol: quote, base};
+};
+
+
 export const getAllRates = (base = "GOLOS", length) => {
-    const fullList = getAssetsList().filter(symbol => symbol !== base);
+    const {list: rawList, params} = getAssets();
+    const whitelist = params[base].whitelist;
+
+    const fullList = whitelist.length ? whitelist : rawList.filter(symbol => symbol !== base);
     const list = length ? fullList.slice(0, length) : fullList;
 
-    return Promise.all(
-        list.map(async symbol => {
-            const pair = [base, symbol];
-            const apiRequest = new ApiRequest();
-            const rate = await apiRequest.getLastTrade(pair).then(lastTradeToRate(base));
-            const rateChange = await apiRequest.getTicker(pair).then(res => {
-                return toFixedNum(res.percent_change1 || 0);
-            });
-
-            const {fullName, img} = getAssetParam(symbol);
-
-            return {rate, rateChange, img, fullName, symbol};
-        })
-    );
+    return Promise.all(list.map(async symbol => {
+        const pair = [base, symbol];
+        return getRate(pair);
+    }));
 };
 
 export const mixDataToBalance = (rawBalances) => getAssetsList().map(symbol => {

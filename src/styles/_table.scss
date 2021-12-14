@@ -1,8 +1,10 @@
 .table{
   width: 100%;
   table-layout: auto;
+  border-collapse: collapse;
 
   &__cell{
+    border-width:  0 0 0 0;
     &:not(:first-child){
       padding-left: 1rem;
     }
@@ -35,6 +37,10 @@
         border-color: transparent;
         padding-bottom: 0;
       }
+    }
+    &.w-hover:hover{
+      cursor: pointer;
+      background: var(--brand-bg-light);
     }
   }
 

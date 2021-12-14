@@ -37,5 +37,7 @@ export const TradeHistory = ({ordersHistory, base, quote, ...props}) => {
         }
     ];
 
-    return <TradeOrdersTable {...props} tableHead={tableHead} rows={ordersHistory} />
+    return ordersHistory.length
+        ? <TradeOrdersTable {...props} tableHead={tableHead} rows={ordersHistory} />
+        : "No items"
 };
