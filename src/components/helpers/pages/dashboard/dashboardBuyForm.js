@@ -30,7 +30,7 @@ export const DashboardBuyForm = ({onUpdate}) => {
 
         new ApiRequest().getOrderBook([assetToSellData.symbol, assetToBuyData.symbol])
             .then(res => {
-                const allOrders = res.asks;
+                const allOrders = res.bids;
 
                 let sellSumm = 0;
                 let amountToBuy = 0;
