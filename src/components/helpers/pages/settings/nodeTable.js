@@ -5,6 +5,7 @@ import {TransparentBtn} from "../../btn";
 import {Table} from "../../table";
 import {generateModal} from "../../../../redux/actions";
 import {clsx, connectToNodeOnClick, translateStr} from "../../../../utils";
+import {ConnectIcon} from "../../../../svg";
 import {DeleteNodeModal, EditNodeModal} from "./nodeModals";
 
 
@@ -43,7 +44,7 @@ export const NodeTable = ({list, isActiveNode, isUserNode}) => {
         ? (id, row) => <NodeActions isActiveNode={isActiveNode} {...row} />
         : (id) => (
             <TransparentBtn onClick={connectToNodeOnClick(id)} disabled={isActiveNode}>
-                connect
+                <ConnectIcon />
             </TransparentBtn>
         );
 

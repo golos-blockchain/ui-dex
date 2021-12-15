@@ -1,10 +1,24 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import QRCode from "react-qr-code";
 import {clsx, translateStr, useClassSetter} from "../../../../utils";
-import {FlexBox, Metadata, MetadataBold} from "../../global";
+import {Body, Box, FlexBox, Heading, Metadata, MetadataBold} from "../../global";
 import {TransparentTextBtn} from "../../btn";
 import {PasswordHideIcon, PasswordShowIcon} from "../../../../svg";
 import {getUserData} from "../../../../redux/actions/userData";
+import {generateModal} from "../../../../redux/actions";
+
+const QRModal = ({type, userKey}) => {
+    const i18n = translateStr("settings.permissions");
+    return(
+        <Fragment>
+            <Heading content={i18n(type, "title")} />
+            <Box mt={1} mb={3}>
+                <Body content={i18n(type, "desc")} />
+            </Box>
+            <QRCode size={400} value={userKey} />
+        </Fragment>
+    )
+}
 
 const PermissionBlock = ({userKey, type}) => {
     const i18n = translateStr("settings.permissions");
@@ -19,6 +33,8 @@ const PermissionBlock = ({userKey, type}) => {
         onClick: () => setShownState(!shown)
     };
 
+    const generateQRModal = generateModal(<QRModal type={type} userKey={userKey} />)
+
     return(
         <div className={baseClass}>
             <div className={setClass("title")}>
@@ -31,9 +47,9 @@ const PermissionBlock = ({userKey, type}) => {
                 <div className={clsx(setClass("key"), shown && "shown")}>
                     <MetadataBold text={!shown ? hiddenKey : userKey} />
                 </div>
-                <div className={setClass("qr")}>
+                <button className={setClass("qr")} onClick={generateQRModal}>
                     <QRCode size={33.33} value={userKey} />
-                </div>
+                </button>
             </FlexBox>
             <div className={setClass("btn")}>
                 <TransparentTextBtn {...btnProps} />

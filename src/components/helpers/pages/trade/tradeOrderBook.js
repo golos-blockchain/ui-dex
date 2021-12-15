@@ -66,7 +66,7 @@ const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableH
             <div className={setClass("lines-wrapper")}>
                 {list.map((el, id) => {
                     const classNames = clsx(setClass("line"), `bg--${priceColor}`);
-                    const top = disableHeading ? id  * 26 : id * 26 + 24;
+                    const top = disableHeading ? id  * 2.6 + "rem" : id * 2.6 + 2.4 + "rem";
                     const width = el.quote / total * 100;
                     const style = { width: width + "%", top };
                     return (

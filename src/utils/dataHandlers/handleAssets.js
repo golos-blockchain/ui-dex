@@ -68,7 +68,7 @@ export const lastTradeToRate = (base) => (res) => {
     const sellIsBase = sellSymbol === base;
 
     const rate = sellIsBase ? buyAmount / sellAmount : sellAmount / buyAmount;
-    const precision = getAssetParam(sellIsBase ? buySymbol : sellSymbol).precision;
+    const precision = getAssetParam(sellIsBase ? sellSymbol : buySymbol).precision;
 
     return toFixedNum(rate, precision);
 };

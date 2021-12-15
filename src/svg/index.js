@@ -65,3 +65,4 @@ export { ReactComponent as ArrowRightIcon } from './arrow-right.svg';
 export { ReactComponent as BackspaceIcon } from './backspace.svg';
 export { ReactComponent as CrossIcon } from './cross.svg';
 export { ReactComponent as FavIcon } from './fav.svg';
+export { ReactComponent as ConnectIcon } from './connect.svg';

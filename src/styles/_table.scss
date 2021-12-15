@@ -56,6 +56,10 @@
   }
   .align-center{
     text-align: center;
+    button{
+      width: fit-content;
+      margin: 0 auto;
+    }
   }
   .fit-content{
     width: auto;
