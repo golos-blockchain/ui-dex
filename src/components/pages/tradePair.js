@@ -15,8 +15,8 @@ import {
     TradeHistory, TradeOpenOrders, TradeOrderBook
 } from "../helpers/pages/trade";
 import {ApiRequest} from "../../utils/requests";
-import {handleTradeHistory, handleUserOrdersByPair, lastTradeToRate} from "../../utils/dataHandlers";
-import {connectUserData, getUserData} from "../../redux/actions/userData";
+import {fetchUserData, handleTradeHistory, handleUserOrdersByPair, lastTradeToRate} from "../../utils/dataHandlers";
+import {connectUserData, getUserData, updateUserData} from "../../redux/actions/userData";
 import {getAssetParam} from "../../redux/actions/assets";
 import {generateModal} from "../../redux/actions";
 import {LoginModal} from "../helpers/pages/cabinet";
@@ -83,9 +83,14 @@ const Display = ({userData}) => {
     const tradeTabs = ["buy", "sell"].map(el => ({content: i18n(el)}));
     const ordersTabs = ["openOrders", "myOrders", "history"].map(el => ({content: i18n(el)}));
 
+    const reloadDataWithBalance = async () => {
+        await fetchUserData(getUserData().name).then(updateUserData);
+        reloadData();
+    };
+
     const defaultProps = {baseClass, base, quote};
     const defaultHistoryProps = { ...defaultProps, className: "trade-history", maxHeight: "40rem" };
-    const defaultFormsProps = { ...defaultProps, orderBook: data.orderBook, reloadData };
+    const defaultFormsProps = { ...defaultProps, orderBook: data.orderBook, reloadData: reloadDataWithBalance };
 
     const loginBtn = (
         <Box w="fit-content" mx="auto">
@@ -134,7 +139,7 @@ const Display = ({userData}) => {
                             <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>
                                 {!!userData.name
                                     ? (
-                                        <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadData} />
+                                        <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadDataWithBalance} />
                                     ) : loginBtn
                                 }
                                 {!!userData.name

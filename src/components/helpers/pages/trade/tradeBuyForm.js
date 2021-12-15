@@ -61,18 +61,13 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
         return generatePromiseModal(TradeBuyConfirm, args);
     };
 
-    const handleResult = async () => {
-        await fetchUserData(getUserData().name).then(updateUserData);
-        if(reloadData) reloadData()
-    }
-
     return(
         <Form
             defaultData={{baseAssetId, quoteAssetId}}
             modificators={modificators}
             schema={tradeBuySchema}
             request={request}
-            handleResult={handleResult}
+            handleResult={reloadData}
             clearOnFinish
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);
