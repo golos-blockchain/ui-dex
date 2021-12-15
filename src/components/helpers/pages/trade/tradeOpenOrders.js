@@ -62,5 +62,5 @@ export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...pr
 
     const rows = userOrders.filter(el => el.percent !== 1 && !el.isCancelled);
 
-    return <TradeOrdersTable {...props} tableHead={tableHead} rows={rows} />
+    return <TradeOrdersTable {...props} tableHead={tableHead} rows={rows} reloadData={reloadData} />
 };

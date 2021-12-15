@@ -3,7 +3,7 @@ import {filterOrdersList, OrdersFilter, Table, useOrdersFiltersState} from "../.
 import {Fragment} from "react";
 import React from "react";
 
-export const TradeOrdersTable = ({tableHead, rows: rawList, className, maxHeight}) => {
+export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadData, maxHeight}) => {
     const filtersState = useOrdersFiltersState();
     const rows = filterOrdersList(rawList, filtersState[0]);
 
@@ -17,6 +17,7 @@ export const TradeOrdersTable = ({tableHead, rows: rawList, className, maxHeight
                     defaultSortKey="timestamp"
                     tableHead={tableHead}
                     rows={rows}
+                    reloadData={reloadData}
                     itemComponent={Metadata}
                     className={className}
                     maxHeight={maxHeight}
