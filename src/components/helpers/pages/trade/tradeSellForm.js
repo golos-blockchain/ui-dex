@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {getUserData} from "../../../../redux/actions/userData";
+import {getUserData, updateUserData} from "../../../../redux/actions/userData";
 import {getAssets} from "../../../../redux/actions/assets";
 import {Form, NumberInput, Range} from "../../form/helpers";
 import {tradeSellSchema} from "../../form/validation";
@@ -8,6 +8,7 @@ import {i18nGlobal, toFixedNum} from "../../../../utils";
 import {RedTextBtn} from "../../btn";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeSellConfirm} from "../../confirmModals";
+import {fetchUserData} from "../../../../utils/dataHandlers";
 
 export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
     const bestPrice = orderBook.bids[0] ? orderBook.bids[0].price : 0;
@@ -60,13 +61,18 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
         return generatePromiseModal(TradeSellConfirm, args);
     };
 
+    const handleResult = async () => {
+        await fetchUserData(getUserData().name).then(updateUserData);
+        if(reloadData) reloadData()
+    };
+
     return(
         <Form
             defaultData={{baseAssetId, quoteAssetId}}
             modificators={modificators}
             schema={tradeSellSchema}
             request={request}
-            handleResult={reloadData}
+            handleResult={handleResult}
             clearOnFinish
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);

@@ -3,12 +3,13 @@ import {Form, NumberInput, Range} from "../../form/helpers";
 import {Box, Col, FlexBox, Metadata, MetadataBold, Row} from "../../global";
 import {i18nGlobal, toFixedNum} from "../../../../utils";
 import {GreenTextBtn} from "../../btn";
-import {getUserData} from "../../../../redux/actions/userData";
+import {getUserData, updateUserData} from "../../../../redux/actions/userData";
 import {BroadcastRequest} from "../../../../utils/requests";
 import {getAssets, getAssetsList} from "../../../../redux/actions/assets";
 import {tradeBuySchema} from "../../form/validation";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeBuyConfirm} from "../../confirmModals/tradeBuyConfirm";
+import {fetchUserData} from "../../../../utils/dataHandlers";
 
 export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
     const bestPrice = orderBook.asks[0] ? orderBook.asks[0].price : 0;
@@ -60,13 +61,18 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
         return generatePromiseModal(TradeBuyConfirm, args);
     };
 
+    const handleResult = async () => {
+        await fetchUserData(getUserData().name).then(updateUserData);
+        if(reloadData) reloadData()
+    }
+
     return(
         <Form
             defaultData={{baseAssetId, quoteAssetId}}
             modificators={modificators}
             schema={tradeBuySchema}
             request={request}
-            handleResult={reloadData}
+            handleResult={handleResult}
             clearOnFinish
         >{formData => {
             const fee = (fee_percent || 0) / 100 * (formData.state.data.amount || 0);
