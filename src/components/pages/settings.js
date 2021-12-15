@@ -1,19 +1,24 @@
 import React, {Fragment} from "react";
-import {Card, Box, Col, FlexBox, H1, MetadataBold, Row, Heading} from "../helpers/global";
-import {translateStr, useClassSetter} from "../../utils";
+import {Card, Box, Col, FlexBox, MetadataBold, Row, Heading} from "../helpers/global";
+import {setStorage, translateStr, useClassSetter} from "../../utils";
 import {TabsWrapper} from "../helpers/tabs";
 import {LanguageChange, Nodes, Permissions, ThemeChange} from "../helpers/pages/settings";
-import {Checkbox, Form, Input} from "../helpers/form/helpers";
+import {Checkbox, Form, Input, PasswordInput} from "../helpers/form/helpers";
 import {getUserData} from "../../redux/actions/userData";
 import {MailIcon} from "../../svg";
-import {BorderedTextBtn, BrandTextBtn} from "../helpers/btn";
-import {FormatterRequest} from "../../utils/requests";
+import {BrandTextBtn} from "../helpers/btn";
 import {passwordChangeSchema} from "../helpers/form/validation";
+import {decodeUserData, encodeUserData} from "../../utils/dataHandlers";
+
+const pwdChange = async ({password, newPassword}) => {
+    const userData = decodeUserData({password})
+    const ciphertext = encodeUserData({...userData, password: newPassword});
+    setStorage("user", ciphertext);
+};
 
 const PasswordChange = () => {
     const i18n = translateStr("settings");
     const userData = getUserData();
-    const userWithoutPassword = !getUserData().keys.password;
 
     return(
         <Box pt={0} px={2} pb={2}>
@@ -23,26 +28,13 @@ const PasswordChange = () => {
             </Box>
             <Form
                 schema={passwordChangeSchema}
-                disableForm={userWithoutPassword}
+                request={pwdChange}
+                clearOnFinish
             >{formData => (
                 <Fragment>
-                    <Box>
-                        <Input name="currentPassword" type="password" formData={formData} />
-                    </Box>
-                    <FlexBox align="start">
-                        <Box f="1">
-                            <Input name="generatedPassword" formData={formData} disabled />
-                        </Box>
-                        <Box w="fit-content" ml={1.5}>
-                            <BorderedTextBtn content={i18n("generateNewPassword")} disabled={formData.props.disableForm} onClick={() => {
-                                const newPassword = new FormatterRequest().generatePassword();
-                                formData.onChange({name: "generatedPassword", value: newPassword});
-                            }} />
-                        </Box>
-                    </FlexBox>
-                    <Box mt={1} mb={2.6}>
-                        <Checkbox name="passwordRestoreWarning" formData={formData} />
-                    </Box>
+                    <PasswordInput name="password" label="currentPassword" formData={formData} />
+                    <PasswordInput name="newPassword" formData={formData} />
+                    <PasswordInput name="confirmPassword" formData={formData} />
                     <Box mb={2.6}>
                         <Checkbox name="passwordSaveWarning" formData={formData} />
                     </Box>

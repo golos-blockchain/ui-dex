@@ -1,38 +1,13 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {EmptyLayout} from "../../../layout";
 import {Card, BodyBold, Box, Heading} from "../../global";
-import {handleUserAuth} from "../../../../utils/dataHandlers";
-import {setUserData} from "../../../../redux/actions/userData";
-import {Input, Form} from "../../form/helpers";
-import {MailIcon} from "../../../../svg";
 import {translateStr} from "../../../../utils";
-import {BrandTextBtn} from "../../btn";
-import {loginSchema} from "../../form/validation";
-import {RequestError} from "../../form/helpers/requestError";
+import {LoginForm} from "./loginForm";
 
 const userData = {
     name: 'graphenelab',
     priv: 'P5JwNwn9zsDJpmD8Ktyc8kvtCZUo8ZkCKcbsAiL8xxdTYYGCW8cX',
     posting: "5JWAmidf7rLUFNJsnYNmRd1hSNCJHLRKBo5yJXbGE1PVFemrHCm"
-};
-
-const LoginForm = () => {
-    return(
-        <Fragment>
-            <Form
-                schema={loginSchema}
-                request={handleUserAuth}
-                handleResult={setUserData}
-            >{formData => (
-                <Fragment>
-                    <Input name="name" iconLeft={MailIcon} formData={formData} />
-                    <Input name="priv" type="password" formData={formData} />
-                    <RequestError formData={formData} />
-                    <BrandTextBtn type="submit" content="login.title" />
-                </Fragment>
-            )}</Form>
-        </Fragment>
-    );
 };
 
 export const LoginScreen = () => {

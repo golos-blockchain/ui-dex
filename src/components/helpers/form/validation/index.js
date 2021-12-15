@@ -1,4 +1,5 @@
 export * from "./loginSchema"
+export * from "./secondAuthSchema"
 export * from "./passwordChangeSchema"
 export * from "./nodeSchema"
 export * from "./trxSchema"

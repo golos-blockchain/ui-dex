@@ -6,14 +6,13 @@ export class BroadcastRequest extends Request{
     type = "broadcast";
 
     amountToString = (amount, assetId) => {
-        console.log(amount, assetId);
         const assetToSellData = getAssetById(assetId || 0);
         return `${Number(amount).toFixed(assetToSellData.precision)} ${assetToSellData.symbol}`;
     };
 
     getUserCreds = () => {
         const {name, keys} = getUserData();
-        return {wif: keys.active || '5JFZC7AtEe1wF2ce6vPAUxDeevzYkPgmtR14z9ZVgvCCtrFAaLw', owner: name};
+        return {wif: keys.active, owner: name};
     };
 
     transfer = ({to, amount: rawAmount, asset, memo = ""}) => {

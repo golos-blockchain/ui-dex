@@ -3,12 +3,14 @@ import {Route, Switch, useHistory} from "react-router";
 import {trade, tradePair, tradeRoot} from "../routing";
 import {useClassSetter} from "../../utils";
 import {TradePair} from "./tradePair";
+import {getActivePair} from "../../redux/actions/activePair";
 
 const TradeRoot = () => {
     const history = useHistory();
 
     useEffect(() => {
-        history.push(trade.link + "GOLOS_GBG");
+        const activePair = getActivePair();
+        history.push(trade.link + activePair);
     }, []);
 
     return <span />;

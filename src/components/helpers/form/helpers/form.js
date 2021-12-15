@@ -46,7 +46,6 @@ export class Form extends Component {
         }
 
         if(typeof err === "string"){
-            console.log(err);
             if(err.includes("{")){
                 const {field, msg: type, params} = JSON.parse(err);
                 this.saveErrors(field, {type, params});

@@ -278,7 +278,8 @@
 
   &__btn{
     width: fit-content;
-    display: block;
+    display: flex;
+    align-items: center;
     margin: .3rem auto 0;
   }
 }

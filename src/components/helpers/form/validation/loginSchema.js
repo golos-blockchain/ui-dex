@@ -1,6 +1,8 @@
-import {schema, yupString} from "./helpers";
+import {confirmPassword, schema, yupString} from "./helpers";
 
 export const loginSchema = schema({
     name: yupString().required(),
-    priv: yupString().required(),
+    activeKey: yupString().required(),
+    newPassword: yupString().required(),
+    confirmPassword: yupString().test(confirmPassword).required(),
 });

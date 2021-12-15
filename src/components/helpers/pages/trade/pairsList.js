@@ -9,6 +9,7 @@ import {getStorage, LoadData, setStorage} from "../../../../utils";
 import {getAllRates, getRate} from "../../../../utils/dataHandlers";
 import {Table} from "../../table";
 import ScrollContainer from "react-indiana-drag-scroll";
+import {updateActivePair} from "../../../../redux/actions/activePair";
 
 const PairListTable = ({rows, onFavsChange}) => {
     const history = useHistory();
@@ -46,7 +47,10 @@ const PairListTable = ({rows, onFavsChange}) => {
     };
 
     const changeTradePair = (row) => {
-        history.push(`/trade/${row.base}_${row.symbol}`);
+        const newActivePair = [row.base, row.symbol].join("_");
+        setStorage("active_pair", newActivePair);
+        updateActivePair(newActivePair);
+        history.push(`/trade/${newActivePair}`);
     };
 
     const tableHead = [

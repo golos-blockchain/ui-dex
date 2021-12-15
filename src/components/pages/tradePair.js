@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useParams} from "react-router";
 import ScrollContainer from 'react-indiana-drag-scroll'
-import {Card, Col, FlexBox, Row} from "../helpers/global";
+import {BodyBold, Box, Card, Col, FlexBox, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
 import {LoadData, toFixedNum, translateStr, useClassSetter} from "../../utils";
 import {trade} from "../routing/path";
@@ -16,8 +16,12 @@ import {
 } from "../helpers/pages/trade";
 import {ApiRequest} from "../../utils/requests";
 import {handleTradeHistory, handleUserOrdersByPair, lastTradeToRate} from "../../utils/dataHandlers";
-import {getUserData} from "../../redux/actions/userData";
+import {connectUserData, getUserData} from "../../redux/actions/userData";
 import {getAssetParam} from "../../redux/actions/assets";
+import {generateModal} from "../../redux/actions";
+import {LoginModal} from "../helpers/pages/cabinet";
+import {TransparentBtn} from "../helpers/btn";
+import {connect} from "react-redux";
 
 const handleOrderBook = pair => ({asks, bids}) => {
     const [base, quote] = pair;
@@ -37,6 +41,7 @@ const handleOrderBook = pair => ({asks, bids}) => {
 };
 
 const getPairData = async (base, quote) => {
+    const userName = getUserData().name;
     const apiRequest = new ApiRequest();
     const pair = [base, quote];
 
@@ -46,12 +51,14 @@ const getPairData = async (base, quote) => {
     const rate = lastTradeToRate(base)(lastTrades);
     const ordersHistory = handleTradeHistory(lastTrades, base);
     const orderBook = await apiRequest.getOrderBook(pair).then(handleOrderBook(pair));
-    const userOrders = await apiRequest.getUserOrdersByName(getUserData().name).then(handleUserOrdersByPair(pair));
+    const userOrders = userName
+        ? await apiRequest.getUserOrdersByName(userName).then(handleUserOrdersByPair(pair))
+        : [];
 
     return {ticker, rate, orderBook, userOrders, ordersHistory};
 };
 
-export const TradePair = () => {
+const Display = ({userData}) => {
     const {pair} = useParams();
     const [base, quote] = pair.split("_");
     const [baseClass] = useClassSetter("trade-pair");
@@ -62,6 +69,9 @@ export const TradePair = () => {
         if(isLoading) return;
         reloadPage();
     }, [pair]);
+    useEffect(() => {
+        reloadData();
+    }, [userData.name]);
     // useEffect(() => {
     //     const interval = setInterval(reloadData, 5000);
     //     return () => clearInterval(interval);
@@ -76,6 +86,14 @@ export const TradePair = () => {
     const defaultProps = {baseClass, base, quote};
     const defaultHistoryProps = { ...defaultProps, className: "trade-history", maxHeight: "40rem" };
     const defaultFormsProps = { ...defaultProps, orderBook: data.orderBook, reloadData };
+
+    const loginBtn = (
+        <Box w="fit-content" mx="auto">
+            <TransparentBtn onClick={generateModal(<LoginModal />)}>
+                <BodyBold content={i18n("loginBtn")} color="brand" />
+            </TransparentBtn>
+        </Box>
+    );
 
     return(
         <Row className={baseClass}>
@@ -96,10 +114,14 @@ export const TradePair = () => {
                             <PairsList {...defaultProps} />
                         </Card>
                         <Card>
-                            <TabsWrapper headingList={tradeTabs}>
-                                <TradeBuyForm {...defaultFormsProps} />
-                                <TradeSellForm {...defaultFormsProps} />
-                            </TabsWrapper>
+                            {!!userData.name
+                                ? (
+                                    <TabsWrapper headingList={tradeTabs}>
+                                        <TradeBuyForm {...defaultFormsProps} />
+                                        <TradeSellForm {...defaultFormsProps} />
+                                    </TabsWrapper>
+                                ) : loginBtn
+                            }
                         </Card>
                     </Col>
                     <Col md={8}>
@@ -109,9 +131,17 @@ export const TradePair = () => {
                             </FlexBox>
                         </Card>
                         <Card>
-                            <TabsWrapper headingList={ordersTabs}>
-                                <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadData} />
-                                <TradeUserOrders {...defaultHistoryProps} userOrders={data.userOrders} />
+                            <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>
+                                {!!userData.name
+                                    ? (
+                                        <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadData} />
+                                    ) : loginBtn
+                                }
+                                {!!userData.name
+                                    ? (
+                                        <TradeUserOrders {...defaultHistoryProps} userOrders={data.userOrders} />
+                                    ) : loginBtn
+                                }
                                 <TradeHistory {...defaultHistoryProps} ordersHistory={data.ordersHistory} />
                             </TabsWrapper>
                         </Card>
@@ -125,4 +155,6 @@ export const TradePair = () => {
             </Col>
         </Row>
     )
-}
+};
+
+export const TradePair = connect(connectUserData)(Display);

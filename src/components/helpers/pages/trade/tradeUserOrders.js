@@ -3,7 +3,7 @@ import {MetadataBold} from "../../global";
 import {clsx} from "../../../../utils";
 import {TradeOrdersTable} from "./tradeOrdersTable";
 
-export const TradeUserOrders = ({userOrders, base, quote, ...props}) => {
+export const TradeUserOrders = ({userOrders = [], base, quote, ...props}) => {
     const tableHead = [
         {
             key: 'timestamp',

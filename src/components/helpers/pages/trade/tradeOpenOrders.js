@@ -7,7 +7,7 @@ import {generateModal} from "../../../../redux/actions";
 import {CancelOrderConfirm} from "../../confirmModals";
 import {BackspaceIcon} from "../../../../svg";
 
-export const TradeOpenOrders = ({userOrders, base, quote, reloadData, ...props}) => {
+export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...props}) => {
     const tableHead = [
         {
             key: 'timestamp',

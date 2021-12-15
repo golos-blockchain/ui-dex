@@ -10,6 +10,15 @@ export const oldPasswordValidation = {
     }
 };
 
+export const confirmPassword = {
+    message: "passwordsNotMatch",
+    test: function(val){
+        const password = this.parent.newPassword;
+        if(!val || !password) return true;
+        return password === val;
+    }
+};
+
 export const isNodeTitleUnique = {
     message: "nodeNameIsExist",
     test: function(val){

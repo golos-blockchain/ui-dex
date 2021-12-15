@@ -1,8 +1,10 @@
+import CryptoJS from "crypto-js";
 import {ApiRequest, AuthRequest} from "../requests";
-import {setStorage} from "../storage";
+import {getStorage, setStorage} from "../storage";
 import {amountToObject, lastTradeToRate} from "./handleAssets";
 import {toFixedNum} from "../numbersOperations";
 import {getAssetParam} from "../../redux/actions/assets";
+import {getUserData} from "../../redux/actions/userData";
 
 export const fetchUserData = async (name) => {
     const defaultAssetSymbol = "GOLOS";
@@ -47,12 +49,66 @@ export const fetchUserData = async (name) => {
 
     totalBalance = toFixedNum(totalBalance, golosPrecision);
 
-    return { accData, totalBalance, balances };
+    return { totalBalance, balances };
+};
+
+const authRequest = (userData) => new AuthRequest().login(userData);
+
+export const encodeUserData = ({name, activeKey, password}) => {
+    const data = JSON.stringify({name, activeKey});
+    console.log(data);
+    return CryptoJS.AES.encrypt(data, password).toString();
+};
+
+export const decodeUserData = ({password}) => {
+    const ciphertext = getStorage("user");
+    const bytes = CryptoJS.AES.decrypt(ciphertext, password);
+
+    let data = "";
+
+    try{
+        data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    } catch(err) {
+        const error = new Error("passwordIsWrong");
+
+        error.field = "password";
+
+        throw error;
+    }
+
+    return data;
+};
+
+export const handleFirstAuth = async ({name, activeKey, newPassword}) => {
+    let keys = {};
+
+    try{
+        keys = await authRequest({name, activeKey});
+    } catch (err) {
+        throw new Error("loginError")
+    }
+
+    const ciphertext = encodeUserData({name, activeKey, password: newPassword});
+    setStorage("user", ciphertext);
+
+    const { accData, totalBalance, balances } = await fetchUserData(name);
+    return { name, accData, keys, totalBalance, balances };
+};
+
+export const handleSecondAuth = async ({password}) => {
+    const data = decodeUserData({password});
+
+    return authRequest(data).then(async keys => {
+        const name = data.name;
+        const { totalBalance, balances } = await fetchUserData(name);
+
+        return { name, keys, totalBalance, balances };
+    }).catch(err => {
+        throw new Error("loginError")
+    })
 };
 
 export const handleUserAuth = (userData) => new AuthRequest().login(userData).then(async keys => {
-    setStorage("user", userData);
-
     const name = userData.name;
     const { accData, totalBalance, balances } = await fetchUserData(name);
 

@@ -155,6 +155,7 @@ button{
   }
 
   &__icon-left, &__icon-right{
+    margin-top: -0.25rem;
     svg{
       fill: var(--color);
     }
