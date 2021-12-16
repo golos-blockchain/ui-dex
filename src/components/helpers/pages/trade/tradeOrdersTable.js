@@ -8,22 +8,26 @@ export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadDat
     const filtersState = useOrdersFiltersState();
     const rows = filterOrdersList(rawList, filtersState[0]);
 
-    return rows.length
+    return rawList.length
         ? (
             <Fragment>
                 <Box mb={2}>
                     <OrdersFilter filtersState={filtersState} />
                 </Box>
-                <Table
-                    defaultSortKey="timestamp"
-                    tableHead={tableHead}
-                    rows={rows}
-                    reloadData={reloadData}
-                    itemComponent={Metadata}
-                    className={className}
-                    maxHeight={maxHeight}
-                    disableDivider
-                />
+                {rows.length
+                    ? (
+                        <Table
+                            defaultSortKey="timestamp"
+                            tableHead={tableHead}
+                            rows={rows}
+                            reloadData={reloadData}
+                            itemComponent={Metadata}
+                            className={className}
+                            maxHeight={maxHeight}
+                            disableDivider
+                        />
+                    ) : "No orders"
+                }
             </Fragment>
         )
         : "No orders";
