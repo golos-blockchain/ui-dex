@@ -73,6 +73,21 @@
   }
 }
 
+.hidden-divider{
+  .table__cell{
+    border-color: transparent;
+  }
+}
+
+.padding-medium{
+  .table__row .table__cell {
+    padding-top: 1rem;
+  }
+  .table__row:not(:last-child) .table__cell{
+    padding-bottom: 1rem;
+  }
+}
+
 .table-scroll {
   max-height: var(--mh);
   > div {

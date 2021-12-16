@@ -14,7 +14,7 @@ const TableScrollWrapper = ({children, maxHeight}) => {
     )
 };
 
-const TableDisplay = ({tableHead, disableHead, rows = [], className, itemComponent, reloadData, onRowClick, defaultSortKey}) => {
+const TableDisplay = ({tableHead, rows = [], className, itemComponent, reloadData, onRowClick, defaultSortKey, disableDivider, disableHead}) => {
     const [baseClass, setClass] = useClassSetter("table");
     const sortState = useState({key: defaultSortKey, type: "abc"});
 
@@ -32,7 +32,7 @@ const TableDisplay = ({tableHead, disableHead, rows = [], className, itemCompone
     const headingProps = {baseClass, tableHead, sortState};
 
     return(
-        <table className={clsx(baseClass, className, disableHead && "hidden-head")}>
+        <table className={clsx(baseClass, className, disableHead && "hidden-head", disableDivider && "hidden-divider")}>
             <TableHeading {...headingProps} />
             <tbody>
             {sortedData.map((row, id) => {

@@ -2,6 +2,13 @@
   &__content{
     padding: 2rem;
   }
+  .row{
+    margin: 0 -.5rem;
+    > .col{
+      padding: 0 .5rem;
+      margin-bottom: 1rem;
+    }
+  }
 }
 
 .trade-pair{
@@ -25,7 +32,6 @@
   .table__row .table__cell{
     padding-top: .1rem;
     padding-bottom: .1rem;
-    border-color: transparent;
     &:not(:last-child){
       padding-right: 1rem;
     }

@@ -93,9 +93,10 @@ const PairListTable = ({rows, onFavsChange}) => {
 
     return (
         <Table
-            tableHead={tableHead}
             rows={rows}
+            tableHead={tableHead}
             onRowClick={changeTradePair}
+            disableDivider
         />
     )
 };

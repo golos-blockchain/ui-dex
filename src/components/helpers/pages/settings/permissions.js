@@ -15,7 +15,7 @@ const QRModal = ({type, userKey}) => {
             <Box mt={1} mb={3}>
                 <Body content={i18n(type, "desc")} />
             </Box>
-            <QRCode size={400} value={userKey} />
+            <QRCode size={window.devicePixelRatio > 1 ? 200 : 400} value={userKey} />
         </Fragment>
     )
 }

@@ -130,14 +130,16 @@
   }
   &__body{
     max-height: 15rem;
-    margin-top: .8rem;
+    margin: .8rem -.8rem 0;
     background: var(--white);
     z-index: 5;
+  }
+  &__scroll-wrapper{
+    overflow-x: hidden;
   }
   &__list-item{
     width: calc(100% + 1.6rem);
     display: block;
-    margin: 0 -.8rem;
     padding: .8rem;
     box-sizing: border-box;
     text-align: left;

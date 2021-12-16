@@ -37,7 +37,7 @@ const Display = (props) => {
                         <ViewChange cardViewState={cardViewState} />
                     </FlexBox>
                 </Card>
-                <Box mt={1.5}>
+                <Box mt={2}>
                     {isCardView ? <WalletCardDisplay balances={balances} /> : <WalletTableDisplay balances={balances} />}
                 </Box>
             </Col>

@@ -41,7 +41,7 @@ export const WalletTableDisplay = ({ balances }) => {
     return(
         <Card>
             {balances.length
-                ? <Table tableHead={tableHead} rows={balances} />
+                ? <Table tableHead={tableHead} rows={balances} className="padding-medium" disableDivider />
                 : "No data"
             }
         </Card>

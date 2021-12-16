@@ -2,6 +2,7 @@ import {Box, Metadata} from "../../global";
 import {filterOrdersList, OrdersFilter, Table, useOrdersFiltersState} from "../../table";
 import {Fragment} from "react";
 import React from "react";
+import {clsx} from "../../../../utils";
 
 export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadData, maxHeight}) => {
     const filtersState = useOrdersFiltersState();
@@ -21,6 +22,7 @@ export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadDat
                     itemComponent={Metadata}
                     className={className}
                     maxHeight={maxHeight}
+                    disableDivider
                 />
             </Fragment>
         )
