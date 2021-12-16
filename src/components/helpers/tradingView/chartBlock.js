@@ -4,7 +4,7 @@ import {getTimezone} from "./getTimezone";
 
 const defaultParams = {
     container_id: "tradingview",
-    library_path: `/`,
+    library_path: `/charting_library/charting_library.min.js`,
     charts_storage_url: "https://saveload.tradingview.com",
     charts_storage_api_version: "1.1",
     client_id: "tradingview.com",
