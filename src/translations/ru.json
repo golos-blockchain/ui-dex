@@ -178,7 +178,7 @@
   },
   "checkboxes": {
     "passwordRestoreWarning": "Я понимаю, что GOLOS не сможет восстановить потерянные пароли",
-    "passwordSaveWarning": "Я надежно сохранил сгенерированный пароль",
+    "passwordSaveWarning": "Я надежно сохранил новый пароль",
     "isSell": "Продажа"
   },
   "errors": {

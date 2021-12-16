@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useParams} from "react-router";
+import {useLocation, useParams} from "react-router";
 import ScrollContainer from 'react-indiana-drag-scroll'
 import {BodyBold, Box, Card, Col, FlexBox, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
@@ -22,6 +22,7 @@ import {generateModal} from "../../redux/actions";
 import {LoginModal} from "../helpers/pages/cabinet";
 import {TransparentBtn} from "../helpers/btn";
 import {connect} from "react-redux";
+import {ChartPage} from "../helpers/tradingView/chartBlock";
 
 const handleOrderBook = pair => ({asks, bids}) => {
     const [base, quote] = pair;
@@ -62,6 +63,7 @@ const Display = ({userData}) => {
     const {pair} = useParams();
     const [base, quote] = pair.split("_");
     const [baseClass] = useClassSetter("trade-pair");
+    const isLocalhost = window.location.hostname === "localhost";
 
     const [data, isLoading, reloadData, reloadPage] = LoadData(() => getPairData(base, quote));
 
@@ -131,9 +133,15 @@ const Display = ({userData}) => {
                     </Col>
                     <Col md={8}>
                         <Card h={38.3} mb={1} p={0}>
-                            <FlexBox h="100%" justify="center" align="center">
-                                ЗДЕСЬ БУДЕТ ТРЭЙДИНГ ВЬЮ!
-                            </FlexBox>
+                            {isLocalhost
+                                ? (
+                                    <FlexBox h="100%" justify="center" align="center">
+                                        ЗДЕСЬ БУДЕТ ТРЭЙДИНГ ВЬЮ!
+                                    </FlexBox>
+                                ) : (
+                                    <ChartPage {...defaultProps} />
+                                )
+                            }
                         </Card>
                         <Card>
                             <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>

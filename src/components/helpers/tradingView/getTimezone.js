@@ -1,0 +1,51 @@
+const supportedTimeZones = [
+    "America/Argentina/Buenos_Aires",
+    "America/Bogota",
+    "America/Caracas",
+    "America/Chicago",
+    "America/El_Salvador",
+    "America/Los_Angeles",
+    "America/Mexico_City",
+    "America/New_York",
+    "America/Phoenix",
+    "America/Sao_Paulo",
+    "America/Toronto",
+    "America/Vancouver",
+    "Asia/Almaty",
+    "Asia/Ashkhabad",
+    "Asia/Bangkok",
+    "Asia/Dubai",
+    "Asia/Hong_Kong",
+    "Asia/Kathmandu",
+    "Asia/Kolkata",
+    "Asia/Seoul",
+    "Asia/Shanghai",
+    "Asia/Singapore",
+    "Asia/Taipei",
+    "Asia/Tehran",
+    "Asia/Tokyo",
+    "Australia/ACT",
+    "Australia/Adelaide",
+    "Australia/Brisbane",
+    "Australia/Sydney",
+    "Europe/Athens",
+    "Europe/Berlin",
+    "Europe/Istanbul",
+    "Europe/London",
+    "Europe/Madrid",
+    "Europe/Moscow",
+    "Europe/Paris",
+    "Europe/Warsaw",
+    "Europe/Zurich",
+    "Pacific/Auckland",
+    "Pacific/Chatham",
+    "Pacific/Fakaofo",
+    "Pacific/Honolulu",
+    "US/Mountain"
+];
+
+export const getTimezone = () => {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if(supportedTimeZones.includes(timezone)) return timezone;
+    return supportedTimeZones[0];
+};

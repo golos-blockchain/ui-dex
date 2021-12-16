@@ -18,7 +18,7 @@ const QRModal = ({type, userKey}) => {
             <QRCode size={window.devicePixelRatio > 1 ? 200 : 400} value={userKey} />
         </Fragment>
     )
-}
+};
 
 const PermissionBlock = ({userKey, type}) => {
     const i18n = translateStr("settings.permissions");
