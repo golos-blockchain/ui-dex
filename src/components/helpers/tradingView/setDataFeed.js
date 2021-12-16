@@ -1,18 +1,14 @@
 import {getTimezone} from "./getTimezone";
-import TVData from "./TVData";
 
-const supported_resolutions = ["1", "5", "15", "30", "60", "240", "D"];
+const supported_resolutions = ["1", "5", "60", "D", "W"];
 
-let tvData = false;
-
-export const setDataFeed = (pair) => ({
+export const setDataFeed = (pair, twData) => ({
     interval: supported_resolutions[supported_resolutions.length - 1],
     latestBar: 0,
     supported_resolutions,
     ticker: pair,
     onReady: (callback) => (
         setTimeout(() => {
-            console.log("HERE!");
             callback({
                 exchanges: [{
                     value: "OPEN.",
@@ -70,23 +66,16 @@ export const setDataFeed = (pair) => ({
         to,
         onHistoryCallback
     ) => {
-
-        console.log("HERE!");
-
-        if(!tvData){
-            tvData = new TVData().init(symbolInfo, resolution);
+        if(twData.resolution !== resolution){
+            twData.setResolution(resolution);
         }
 
-        if(tvData.resolution !== resolution){
-            tvData = new TVData().init(symbolInfo, resolution);
-        }
-
-        if(tvData.list.length) {
+        if(twData.list.length) {
             onHistoryCallback([], {noData: true});
             return;
         }
 
-        tvData.getList(from, to).then(history => {
+        twData.getList(from, to).then(history => {
             if (!history.length) {
                 onHistoryCallback([], {noData: true});
                 return;
@@ -96,7 +85,7 @@ export const setDataFeed = (pair) => ({
         });
     },
     subscribeBars: (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) => {
-        tvData.setUpdate(onRealtimeCallback);
+        twData.setUpdate(onRealtimeCallback);
     },
     unsubscribeBars: () => {
         //nothing

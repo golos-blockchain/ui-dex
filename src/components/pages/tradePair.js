@@ -15,31 +15,19 @@ import {
     TradeHistory, TradeOpenOrders, TradeOrderBook
 } from "../helpers/pages/trade";
 import {ApiRequest} from "../../utils/requests";
-import {fetchUserData, handleTradeHistory, handleUserOrdersByPair, lastTradeToRate} from "../../utils/dataHandlers";
+import {
+    fetchUserData,
+    handleOrderBook,
+    handleTradeHistory, handleTradingViewData,
+    handleUserOrdersByPair,
+    lastTradeToRate
+} from "../../utils/dataHandlers";
 import {connectUserData, getUserData, updateUserData} from "../../redux/actions/userData";
-import {getAssetParam} from "../../redux/actions/assets";
 import {generateModal} from "../../redux/actions";
 import {LoginModal} from "../helpers/pages/cabinet";
 import {TransparentBtn} from "../helpers/btn";
 import {connect} from "react-redux";
 import {ChartPage} from "../helpers/tradingView/chartBlock";
-
-const handleOrderBook = pair => ({asks, bids}) => {
-    const [base, quote] = pair;
-    const baseParams = getAssetParam(base);
-    const quoteParams = getAssetParam(quote);
-
-    const handleOrder = ({price, asset1, asset2}) => {
-        const base = asset1 / Math.pow(10, baseParams.precision);
-        const quote = asset2 / Math.pow(10, quoteParams.precision);
-        return { base, quote, price: Number(price) };
-    };
-
-    return {
-        asks: asks.map(handleOrder),
-        bids: bids.map(handleOrder)
-    };
-};
 
 const getPairData = async (base, quote) => {
     const userName = getUserData().name;
@@ -56,14 +44,15 @@ const getPairData = async (base, quote) => {
         ? await apiRequest.getUserOrdersByName(userName).then(handleUserOrdersByPair(pair))
         : [];
 
-    return {ticker, rate, orderBook, userOrders, ordersHistory};
+    const tradingViewData = handleTradingViewData(pair);
+
+    return { ticker, rate, orderBook, userOrders, ordersHistory, tradingViewData };
 };
 
 const Display = ({userData}) => {
     const {pair} = useParams();
     const [base, quote] = pair.split("_");
     const [baseClass] = useClassSetter("trade-pair");
-    const isLocalhost = window.location.hostname === "localhost";
 
     const [data, isLoading, reloadData, reloadPage] = LoadData(() => getPairData(base, quote));
 
@@ -72,6 +61,7 @@ const Display = ({userData}) => {
         reloadPage();
     }, [pair]);
     useEffect(() => {
+        if(isLoading) return;
         reloadData();
     }, [userData.name]);
     // useEffect(() => {
@@ -132,16 +122,8 @@ const Display = ({userData}) => {
                         </Card>
                     </Col>
                     <Col md={8}>
-                        <Card h={38.3} mb={1} p="0">
-                            {isLocalhost
-                                ? (
-                                    <FlexBox h="100%" justify="center" align="center">
-                                        ЗДЕСЬ БУДЕТ ТРЭЙДИНГ ВЬЮ!
-                                    </FlexBox>
-                                ) : (
-                                    <ChartPage {...defaultProps} />
-                                )
-                            }
+                        <Card h={50} mb={1} p="0">
+                            <ChartPage {...defaultProps} tradingViewData={data.tradingViewData} />
                         </Card>
                         <Card>
                             <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>

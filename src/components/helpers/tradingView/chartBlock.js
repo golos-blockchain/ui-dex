@@ -13,34 +13,29 @@ const defaultParams = {
     overrides: {
         "paneProperties.background": "rgba(255, 255, 255, 1)",
         "paneProperties.horzGridProperties.color": "rgba(255, 255, 255, 1)",
-        "paneProperties.vertGridProperties.color": "rgba(255, 255, 255, 1)"
+        "paneProperties.vertGridProperties.color": "rgba(255, 255, 255, 1)",
+        "symbolWatermarkProperties.transparency": "0.01",
     },
     enabled_features: ["study_templates", "keep_left_toolbar_visible_on_small_screens"],
     disabled_features: ["header_saveload", "symbol_info", "symbol_search_hot_key", "border_around_the_chart", "header_symbol_search", "header_compare"]
 };
 
-export const ChartPage = ({base, quote}) => {
+export const ChartPage = ({base, quote, tradingViewData}) => {
     useEffect(() => {
         const TradingView = window.TradingView;
 
         const pair = [base, quote];
 
-        // const data = await new ApiRequest().getTicker(pair);
-
-        // console.log(data);
-
         const symbol = pair.join("_");
 
-        const datafeed = setDataFeed(pair.join("_"));
+        const datafeed = setDataFeed(pair.join("_"), tradingViewData);
         const timezone = getTimezone();
-
-        console.log(TradingView);
 
         new TradingView.widget({ ...defaultParams, symbol, datafeed, timezone });
     }, []);
 
     return(
-        <div id="tradingview" style={{ display: "block", width: "100%", height: "100%" }}>
+        <div id="tradingview" className="tradingview">
             chart
         </div>
     )

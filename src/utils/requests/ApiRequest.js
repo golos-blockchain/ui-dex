@@ -78,7 +78,7 @@ export class ApiRequest extends Request{
         return this.asyncRequest("getOpenOrders", name, ticker);
     };
 
-    getPriceHistory = (pair, resolution, startDate, endDate) => {
-        return this.asyncRequest("getTradeHistory", startDate, endDate, resolution, pair);
+    getPriceHistory = (pair, bucket_seconds, startDate, endDate) => {
+        return this.asyncRequest("getMarketHistory", bucket_seconds, startDate, endDate, pair);
     }
 };
