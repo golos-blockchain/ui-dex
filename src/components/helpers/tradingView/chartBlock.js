@@ -34,6 +34,8 @@ export const ChartPage = ({base, quote}) => {
         const datafeed = setDataFeed(pair.join("_"));
         const timezone = getTimezone();
 
+        console.log(TradingView);
+
         new TradingView.widget({ ...defaultParams, symbol, datafeed, timezone });
     }, []);
 

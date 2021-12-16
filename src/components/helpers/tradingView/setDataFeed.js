@@ -71,6 +71,8 @@ export const setDataFeed = (pair) => ({
         onHistoryCallback
     ) => {
 
+        console.log("HERE!");
+
         if(!tvData){
             tvData = new TVData().init(symbolInfo, resolution);
         }
