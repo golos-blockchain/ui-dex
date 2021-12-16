@@ -132,7 +132,7 @@ const Display = ({userData}) => {
                         </Card>
                     </Col>
                     <Col md={8}>
-                        <Card h={38.3} mb={1} p={0}>
+                        <Card h={38.3} mb={1} p="0">
                             {isLocalhost
                                 ? (
                                     <FlexBox h="100%" justify="center" align="center">
