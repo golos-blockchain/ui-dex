@@ -1,4 +1,5 @@
 export { ReactComponent as Logo } from './logo.svg';
+export { ReactComponent as LogoDark } from './logo-dark.svg';
 
 //theme switcher icons
 export { ReactComponent as NightThemeIcon } from './theme-night.svg';

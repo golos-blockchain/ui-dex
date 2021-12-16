@@ -1,6 +1,6 @@
 import React from "react";
 import {clsx, useClassSetter} from "../../../../utils";
-import {FlexBox, Metadata} from "../../global";
+import {Body, Box, FlexBox, Metadata} from "../../global";
 
 export const DashboardHistory = ({list}) => {
     const [baseClass, setClass] = useClassSetter("dashboard-history");
@@ -21,7 +21,9 @@ export const DashboardHistory = ({list}) => {
                         </FlexBox>
                         <div className={setClass("date")}>
                             <Metadata content="tableHeading.dateAndTime" color="font-secondary" />
-                            <div>{new Date(el.timestamp).toLocaleString()}</div>
+                            <Box>
+                                <Body text={new Date(el.timestamp).toLocaleString()} />
+                            </Box>
                         </div>
                     </FlexBox>
                 ))}

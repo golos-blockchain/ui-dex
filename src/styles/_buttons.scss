@@ -44,12 +44,12 @@ button{
   --bg: var(--brand);
   --hover-bg: var(--bg);
   --active-bg: var(--brand-dark);
-  --disabled-bg: var(--disabled-bg);
+  --disabled-bg: transparent;
 
-  --color: var(--white);
-  --hover-color: var(--white);
-  --active-color: var(--white);
-  --disabled-color: var(--white);
+  --color: var(--btn-text-color);
+  --hover-color: var(--btn-text-color);
+  --active-color: var(--btn-text-color);
+  --disabled-color: var(--btn-text-color);
 
   --border: var(--bg);
   --hover-border: var(--hover-bg);
@@ -148,7 +148,9 @@ button{
   }
   &__text{
     padding: var(--content-padding);
-    color: var(--color);
+    span{
+      color: var(--color);
+    }
   }
   &__icon-right{
     margin-right: -.4rem;

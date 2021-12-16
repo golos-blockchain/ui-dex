@@ -49,7 +49,7 @@ const TableDisplay = ({tableHead, rows = [], className, itemComponent, reloadDat
 
                             return (
                                 <td key={id} className={className}>
-                                    {typeof content === "string"
+                                    {["string", "number"].includes(typeof content)
                                         ? (
                                             <Component text={content} />
                                         ) : (

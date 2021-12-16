@@ -4,7 +4,9 @@
   &.disabled{
     opacity: .95;
     .select-btn{
-      color: var(--font-disabled);
+      span{
+        color: var(--font-disabled);
+      }
       svg{
         fill: var(--font-disabled);
       }

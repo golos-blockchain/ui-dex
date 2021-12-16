@@ -5,17 +5,24 @@ import {Body, Box, FlexBox, Heading, Metadata, MetadataBold} from "../../global"
 import {TransparentTextBtn} from "../../btn";
 import {PasswordHideIcon, PasswordShowIcon} from "../../../../svg";
 import {getUserData} from "../../../../redux/actions/userData";
-import {generateModal} from "../../../../redux/actions";
+import {generateModal, getSettings} from "../../../../redux/actions";
 
 const QRModal = ({type, userKey}) => {
     const i18n = translateStr("settings.permissions");
+    const nightMode = getSettings().nightMode;
+    const qrProps = {
+        bgColor: nightMode ? "#342448" : "white",
+        fgColor: nightMode ? "white" : "dark",
+        size: window.devicePixelRatio > 1 ? 200 : 400,
+        value: userKey
+    };
     return(
         <Fragment>
             <Heading content={i18n(type, "title")} />
             <Box mt={1} mb={3}>
                 <Body content={i18n(type, "desc")} />
             </Box>
-            <QRCode size={window.devicePixelRatio > 1 ? 200 : 400} value={userKey} />
+            <QRCode {...qrProps} />
         </Fragment>
     )
 };

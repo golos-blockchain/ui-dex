@@ -59,6 +59,8 @@ class TVData{
             .then(res => {
                 if(!res || !res.length) return [];
 
+                console.log(res);
+
                 return res.map(el => {
 
                     const time = new Date(el.open).getTime();

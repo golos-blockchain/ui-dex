@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
 import {useHistory} from "react-router";
 import {Input} from "../../form/helpers";
-import {Box, FlexBox, Metadata} from "../../global";
+import {Body, Box, FlexBox, Metadata} from "../../global";
 import {FavIcon, SearchIcon} from "../../../../svg";
 import {TabsHeader} from "../../tabs";
 import {getAssetsList} from "../../../../redux/actions/assets";
@@ -130,7 +130,7 @@ const PairListContent = ({base, search}) => {
 
 const FavListContent = ({search}) => {
     const req = async () => {
-        const favList = getStorage("favorites");
+        const favList = getStorage("favorites") || [];
         return Promise.all(favList.map(el => {
             const pair = el.split("/");
             return getRate(pair);

@@ -1,5 +1,9 @@
 body{
   min-height: 100vh;
+}
+
+#root{
+  min-height: 100vh;
   background: var(--brand-bg-light);
 }
 
@@ -25,9 +29,9 @@ body{
   background: var(--brand-bg);
   transition: var(--qSpeed);
 
-  &.active{
-    background: var(--brand-dark);
-  }
+  //&.active{
+  //  background: var(--brand-dark);
+  //}
 
   &__day-icon, &__night-icon, &__caret {
     position: absolute;
@@ -61,7 +65,7 @@ body{
 .active .theme-switch{
   &__day-icon, &__night-icon{
     svg {
-      fill: var(--white);
+      fill: var(--font-primary);
     }
   }
   &__caret{

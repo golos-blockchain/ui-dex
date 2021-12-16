@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {Card, BodyBold, Body, Box, Col, FlexBox, Row, HeadingBold, Heading} from "../helpers/global";
+import {Card, Body, Box, Col, FlexBox, Row, HeadingBold} from "../helpers/global";
 import {ViewChange} from "../helpers/pages/cabinet";
 import {TabsWrapper} from "../helpers/tabs";
 import {connectUserData} from "../../redux/actions/userData";
