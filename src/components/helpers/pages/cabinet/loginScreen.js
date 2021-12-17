@@ -4,12 +4,6 @@ import {Card, BodyBold, Box, Heading} from "../../global";
 import {translateStr} from "../../../../utils";
 import {LoginForm} from "./loginForm";
 
-const userData = {
-    name: 'graphenelab',
-    priv: 'P5JwNwn9zsDJpmD8Ktyc8kvtCZUo8ZkCKcbsAiL8xxdTYYGCW8cX',
-    posting: "5JWAmidf7rLUFNJsnYNmRd1hSNCJHLRKBo5yJXbGE1PVFemrHCm"
-};
-
 export const LoginScreen = () => {
     const i18n = translateStr("login");
     const regLink = (

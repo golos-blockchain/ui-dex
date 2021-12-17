@@ -16,13 +16,15 @@ export const handleUserOrders = (res, pair) => {
         if(!allTypes.includes(type)) return false;
 
         if (type === "limit_order_create") {
+            console.log({timestamp, ...operation});
+
             createdOrders.push({timestamp, ...operation});
         } else if (type === "fill_order") {
             const {current_orderid, open_orderid, open_pays, current_pays, current_owner} = operation;
 
             const userIsBuyer = current_owner === getUserData().name;
             const id = userIsBuyer ? current_orderid : open_orderid;
-            const bought = amountToObject(userIsBuyer ? open_pays : current_pays).amount;
+            const bought = amountToObject(userIsBuyer ? current_pays : open_pays).amount;
 
             if (!filledOrders[id]) filledOrders[id] = 0;
 
@@ -55,7 +57,9 @@ export const handleUserOrders = (res, pair) => {
         const isCancelled = cancelledOrders.includes(id);
 
         const filledSum = filledOrders[id];
-        const percent = filledSum ? buyObj.amount / filledSum : 0;
+        const percent = filledSum ? filledSum / sellObj.amount : 0;
+
+        if(percent !== 1 && !isCancelled) console.log(id, amount_to_sell, min_to_receive, filledSum);
 
         let base = buyObj;
         let quote = sellObj;

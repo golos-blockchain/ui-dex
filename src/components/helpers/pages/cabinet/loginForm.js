@@ -12,13 +12,8 @@ export const LoginForm = ({onFinish}) => {
     const handleResult = (data) => {
         setUserData(data);
         if(onFinish) onFinish();
-    }
+    };
 
-    // handleFirstAuth({
-        // name: "graphene",
-        // activeKey: "5JFZC7AtEe1wF2ce6vPAUxDeevzYkPgmtR14z9ZVgvCCtrFAaLw",
-        // password: "123"
-    // });
     return(
         <Fragment>
             <Form

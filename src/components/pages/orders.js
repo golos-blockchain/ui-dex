@@ -88,6 +88,8 @@ const tableHead = [
 ];
 
 export const OrdersTable = ({rows, reloadData}) => {
+    console.log(rows);
+
     return rows.length
         ? <Table tableHead={tableHead} rows={rows} reloadData={reloadData} />
         : "No orders";

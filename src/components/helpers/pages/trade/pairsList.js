@@ -5,7 +5,7 @@ import {Body, Box, FlexBox, Metadata} from "../../global";
 import {FavIcon, SearchIcon} from "../../../../svg";
 import {TabsHeader} from "../../tabs";
 import {getAssetsList} from "../../../../redux/actions/assets";
-import {getStorage, LoadData, setStorage} from "../../../../utils";
+import {getStorage, LoadData, setStorage, toFixedNum} from "../../../../utils";
 import {getAllRates, getRate} from "../../../../utils/dataHandlers";
 import {Table} from "../../table";
 import ScrollContainer from "react-indiana-drag-scroll";
@@ -84,9 +84,11 @@ const PairListTable = ({rows, onFavsChange}) => {
         {
             key: 'rateChange',
             translateTag: 'change',
-            handleItem: (item) => (
-                item
-            ),
+            handleItem: (item) => {
+                const text = toFixedNum(item, "0") + "%";
+                const color = item === 0 ? false : item < 0 ? "error" : "success";
+                return <Metadata text={text} color={color} />
+            },
             className: 'align-right'
         }
     ];
@@ -95,6 +97,7 @@ const PairListTable = ({rows, onFavsChange}) => {
         <Table
             rows={rows}
             tableHead={tableHead}
+            itemComponent={Metadata}
             onRowClick={changeTradePair}
             disableDivider
         />
