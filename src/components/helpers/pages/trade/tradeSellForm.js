@@ -86,6 +86,10 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
                     </Box>
                     <NumberInput name="result" assetSymbol={quote} formData={formData} />
                     <FlexBox justify="space-between">
+                        <Metadata content="trade.balance" />
+                        <MetadataBold text={`${userBalance} ${base}`} />
+                    </FlexBox>
+                    <FlexBox mt={.4} justify="space-between">
                         <Metadata content="trade.bestPrice" />
                         <MetadataBold text={`${toFixedNum(bestPrice, basePrecision)} ${base}`} />
                     </FlexBox>

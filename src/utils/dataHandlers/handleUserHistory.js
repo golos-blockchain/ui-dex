@@ -50,7 +50,7 @@ const opHandlers = {
         const opType = userIsSender ? "send" : "receive";
 
         const {amount, symbol} = amountToObject(amountRaw);
-        const summ = <span><span className={`clr--${userIsSender ? "error" : "success"} bold`}>{change}{amount}</span> <span className="clr--brand">{symbol}</span></span>;
+        const summ = <span><span className={`clr--${userIsSender ? "error" : "success"} bold`}>{change}{amount}</span> <span className="clr--font-primary">{symbol}</span></span>;
         const descData = {
             amount: highlightText(amountRaw),
             from: highlightText(`@${from}`),
