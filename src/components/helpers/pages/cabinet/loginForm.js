@@ -7,6 +7,7 @@ import {MailIcon} from "../../../../svg";
 import {RequestError} from "../../form/helpers/requestError";
 import {BrandTextBtn} from "../../btn";
 import React from "react";
+import {Box, Metadata} from "../../global";
 
 export const LoginForm = ({onFinish}) => {
     const handleResult = (data) => {
@@ -24,6 +25,9 @@ export const LoginForm = ({onFinish}) => {
                 <Fragment>
                     <Input name="name" iconLeft={MailIcon} formData={formData} />
                     <PasswordInput name="activeKey" formData={formData} />
+                    <Box mw={37.4} mb={2.5}>
+                        <Metadata content="login.pwdDescription" />
+                    </Box>
                     <PasswordInput name="newPassword" formData={formData} />
                     <PasswordInput name="confirmPassword" formData={formData} />
                     <RequestError formData={formData} />
