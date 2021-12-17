@@ -64,6 +64,14 @@
   border-radius: .8rem;
   iframe{
     border-radius: .8rem;
+
+    .chart-page .chart-container{
+      border-color: green;
+    }
+  }
+
+  .chart-page .chart-container{
+    border-color: green;
   }
 }
 

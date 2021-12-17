@@ -31,8 +31,7 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
 
     const modificators = {
         price: (data) => {
-            const result = amountCalculation(data);
-            return {...data, result};
+            return {...data, amount: amountCalculation(data) || data.amount };
         },
         amount: (data) => {
             const result = resultCalculation(data);
@@ -44,7 +43,7 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
             const {price, range} = data;
 
             const result = toPrecision(userBalance * (range / 100), quotePrecision);
-            const amount = amountCalculation({price, result});
+            const amount = amountCalculation({price, result}) || data.amount;
 
             return {...data, amount, result};
         },

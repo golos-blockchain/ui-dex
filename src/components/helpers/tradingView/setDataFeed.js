@@ -24,7 +24,6 @@ export const setDataFeed = (pair, twData) => ({
         }, 10)
     ),
     resolveSymbol: (symbolName, onSymbolResolvedCallback) => {
-
         setTimeout(function () {
             if (!symbolName) return;
 
@@ -71,7 +70,7 @@ export const setDataFeed = (pair, twData) => ({
         }
 
         if(twData.list.length) {
-            onHistoryCallback([], {noData: true});
+            onHistoryCallback(twData.list, {noData: false});
             return;
         }
 

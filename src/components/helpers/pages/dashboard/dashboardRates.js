@@ -4,7 +4,7 @@ import {Body, Col, FlexBox, Metadata, Row, SubheadingBold} from "../../global";
 
 const RateDisplay = ({rate, rateChange = 0, img, fullName}) => {
     const [baseClass, setClass] = useClassSetter("dashboard-rate");
-    
+
     const rateChangeColor = rateChange === 0 ? "font-secondary" : rateChange > 0 ? "success" : "error";
     const rateChangeText = `${toFixedNum(rateChange, 0)}%`;
 
