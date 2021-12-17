@@ -165,6 +165,9 @@
   &__icon{
     width: 2.8rem;
     margin: 0 2.5rem 0 .6rem;
+    svg{
+      margin: 0 auto;
+    }
   }
   &__info{}
   &__date{

@@ -2,6 +2,7 @@ import {amountToObject} from "./handleAssets";
 import {getUserData} from "../../redux/actions/userData";
 
 export const handleUserOrdersByPair = (pair) => (res) => handleUserOrders(res, pair);
+export const filterOpenOrders = el => el.percent !== 1 && !el.isCancelled && !el.isExpired;
 
 export const handleUserOrders = (res, pair) => {
     const allTypes = ["limit_order_create", "fill_order", "limit_order_cancel", "limit_order_cancel_ex"];
@@ -16,8 +17,6 @@ export const handleUserOrders = (res, pair) => {
         if(!allTypes.includes(type)) return false;
 
         if (type === "limit_order_create") {
-            console.log({timestamp, ...operation});
-
             createdOrders.push({timestamp, ...operation});
         } else if (type === "fill_order") {
             const {current_orderid, open_orderid, open_pays, current_pays, current_owner} = operation;
@@ -49,17 +48,16 @@ export const handleUserOrders = (res, pair) => {
 
         const defaultBase = pair ? pair[0] : "GOLOS";
 
-        const {orderid: id, timestamp, amount_to_sell, min_to_receive} = el;
+        const {orderid: id, timestamp, expiration, amount_to_sell, min_to_receive} = el;
 
         const sellObj = amountToObject(amount_to_sell);
         const buyObj = amountToObject(min_to_receive);
 
         const isCancelled = cancelledOrders.includes(id);
+        const isExpired = new Date().getTime() > new Date(expiration).getTime();
 
         const filledSum = filledOrders[id];
         const percent = filledSum ? filledSum / sellObj.amount : 0;
-
-        if(percent !== 1 && !isCancelled) console.log(id, amount_to_sell, min_to_receive, filledSum);
 
         let base = buyObj;
         let quote = sellObj;
@@ -74,7 +72,7 @@ export const handleUserOrders = (res, pair) => {
         const {amount: baseAmount, symbol: baseSymbol} = base;
         const {amount: quoteAmount, symbol: quoteSymbol} = quote;
 
-        return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol, isCancelled};
+        return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol, isCancelled, isExpired};
     }).sort((prev, next) => {
         return prev.timestamp < next.timestamp ? 1 : -1;
     });

@@ -75,7 +75,8 @@
     "statuses": {
       "opened": "Открыта",
       "closed": "Закрыта",
-      "cancelled": "Отменена"
+      "cancelled": "Отменена",
+      "expired": "Истекла"
     }
   },
   "history": {

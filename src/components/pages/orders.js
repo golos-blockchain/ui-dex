@@ -13,7 +13,7 @@ import {getUserData} from "../../redux/actions/userData";
 import {clsx, LoadData, translateStr} from "../../utils";
 import {BackspaceIcon} from "../../svg";
 import {ApiRequest} from "../../utils/requests";
-import {handleUserOrders} from "../../utils/dataHandlers";
+import {filterOpenOrders, handleUserOrders} from "../../utils/dataHandlers";
 import {generateModal, initModal} from "../../redux/actions";
 import {CancelOrderConfirm, CancelAllOrderConfirm} from "../helpers/confirmModals/";
 
@@ -49,7 +49,10 @@ const tableHead = [
     {
         key: 'percent',
         translateTag: 'status',
-        handleItem: (item, row) => <Body content={`orders.statuses.${item === 1 ? "closed" : row.isCancelled ? "cancelled" : "opened"}`} />
+        handleItem: (item, row) => {
+            const status = item === 1 ? "closed" : row.isCancelled ? "cancelled" : row.isExpired ? "expired" : "opened";
+            return <Body content={`orders.statuses.${status}`} />
+        }
     },
     {
         key: 'baseAmount',
@@ -77,7 +80,7 @@ const tableHead = [
             <Box w="fit-content" mx="auto">
                 <TransparentBtn
                     onClick={generateModal(<CancelOrderConfirm id={id} reloadData={reloadData} />)}
-                    disabled={row.percent === 1 || row.isCancelled}
+                    disabled={row.percent === 1 || row.isCancelled || row.isExpired}
                 >
                     <BackspaceIcon />
                 </TransparentBtn>
@@ -104,7 +107,7 @@ export const Orders = () => {
     const rows = filterOrdersList(data, filtersState[0]);
 
     const onCancel = () => {
-        const allOpenOrders = data.filter(el => el.percent !== 1 && !el.isCancelled);
+        const allOpenOrders = data.filter(filterOpenOrders);
         initModal(<CancelAllOrderConfirm openOrders={allOpenOrders} reloadData={reloadData} />)
     };
 

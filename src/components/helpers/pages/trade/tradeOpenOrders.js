@@ -6,6 +6,7 @@ import {TransparentBtn} from "../../btn";
 import {generateModal} from "../../../../redux/actions";
 import {CancelOrderConfirm} from "../../confirmModals";
 import {BackspaceIcon} from "../../../../svg";
+import {filterOpenOrders} from "../../../../utils/dataHandlers";
 
 export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...props}) => {
     const tableHead = [
@@ -50,7 +51,7 @@ export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...pr
                 <Box w="fit-content" mx="auto">
                     <TransparentBtn
                         onClick={generateModal(<CancelOrderConfirm id={id} reloadData={reloadData} />)}
-                        disabled={row.percent === 1 || row.isCancelled}
+                        disabled={row.percent === 1 || row.isCancelled || row.isExpired}
                     >
                         <BackspaceIcon />
                     </TransparentBtn>
@@ -60,7 +61,7 @@ export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...pr
         }
     ];
 
-    const rows = userOrders.filter(el => el.percent !== 1 && !el.isCancelled);
+    const rows = userOrders.filter(filterOpenOrders);
 
     return <TradeOrdersTable {...props} tableHead={tableHead} rows={rows} reloadData={reloadData} />
 };
