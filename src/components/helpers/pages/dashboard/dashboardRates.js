@@ -1,13 +1,12 @@
 import React from "react";
-import {clsx, useClassSetter} from "../../../../utils";
+import {clsx, toFixedNum, useClassSetter} from "../../../../utils";
 import {Body, Col, FlexBox, Metadata, Row, SubheadingBold} from "../../global";
 
 const RateDisplay = ({rate, rateChange = 0, img, fullName}) => {
     const [baseClass, setClass] = useClassSetter("dashboard-rate");
-
-    const rateChangePrefix = rateChange === 0 ? "" : rateChange > 0 ? "+" : "-";
+    
     const rateChangeColor = rateChange === 0 ? "font-secondary" : rateChange > 0 ? "success" : "error";
-    const rateChangeText = `${rateChangePrefix}${rateChange}%`;
+    const rateChangeText = `${toFixedNum(rateChange, 0)}%`;
 
     return(
         <div className={clsx(baseClass, "bg--secondary")}>
