@@ -20,9 +20,7 @@ const formDefaultParams = (nightMode) => ({
         "paneProperties.background": nightMode ? "#342448" : "white",
         "paneProperties.vertGridProperties.color": nightMode ? "rgba(128, 255, 209, 0.2)" : "#D7FAEB",
         "paneProperties.horzGridProperties.color": nightMode ? "rgba(128, 255, 209, 0.2)" : "#D7FAEB",
-        // "symbolWatermarkProperties.transparency": "100",
         "scalesProperties.textColor": nightMode ? "#F5F2FA" : "#2C1B48",
-        // "scalesProperties.backgroundColor": "#ffffff",
         "mainSeriesProperties.candleStyle.wickUpColor": "#50A39A",
         "mainSeriesProperties.candleStyle.wickDownColor": '#DE5E57',
     },
@@ -50,13 +48,7 @@ const Display = ({settings, base, quote, tradingViewData}) => {
         const datafeed = setDataFeed(pair.join("_"), tradingViewData);
         const timezone = getTimezone();
 
-        const widget = new TradingView.widget({ ...defaultParams, symbol, datafeed, timezone });
-
-        // widget.changeTheme("Dark")
-        widget.onChartReady(() => {
-            console.log("ready")
-        });
-        // console.log(widget);
+        new TradingView.widget({ ...defaultParams, symbol, datafeed, timezone });
     }, [settings.nightMode]);
 
     return(

@@ -5,7 +5,7 @@ import {toFixedNum, translateStr} from "../../../../utils";
 export const PairParams = ({base, quote, ticker = {}}) => {
     const i18n = translateStr("trade.params");
     const list = [
-        { content: "change", key: "percent_change1" },
+        { content: "change", key: "percent_change1", handleData: (item) => toFixedNum(item, 2) + "%" },
         { content: "max", key: "highest_bid" },
         { content: "min", key: "lowest_ask" },
         { content: "baseVolume", key: "asset1_volume" },
@@ -14,14 +14,22 @@ export const PairParams = ({base, quote, ticker = {}}) => {
 
     return(
         <FlexBox justify="space-between">
-            {list.map(({content, key}) => ticker[key] && (
-                <div key={key}>
-                    <div>
-                        <Metadata content={i18n(content)} additionalData={{base, quote}} />
+            {list.map(({handleData, content, key}) => {
+                const item = ticker[key];
+
+                if(!item) return false;
+
+                const text = handleData ? handleData(item) : toFixedNum(item, 3);
+
+                return(
+                    <div key={key}>
+                        <div>
+                            <Metadata content={i18n(content)} additionalData={{base, quote}} />
+                        </div>
+                        <BodyBold text={text} color="brand" />
                     </div>
-                    <BodyBold text={toFixedNum(ticker[key], 3)} color="brand" />
-                </div>
-            ))}
+                );
+            })}
         </FlexBox>
     )
 };

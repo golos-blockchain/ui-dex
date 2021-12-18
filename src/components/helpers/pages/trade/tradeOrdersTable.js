@@ -1,10 +1,10 @@
-import {Box, Metadata} from "../../global";
+import {Body, Box, Metadata} from "../../global";
 import {filterOrdersList, OrdersFilter, Table, useOrdersFiltersState} from "../../table";
 import {Fragment} from "react";
 import React from "react";
 import {clsx} from "../../../../utils";
 
-export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadData, maxHeight}) => {
+export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadData, emptyTag, maxHeight}) => {
     const filtersState = useOrdersFiltersState();
     const rows = filterOrdersList(rawList, filtersState[0]);
 
@@ -26,9 +26,9 @@ export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadDat
                             maxHeight={maxHeight}
                             disableDivider
                         />
-                    ) : "No orders"
+                    ) : <Body content="orders.emptyFilter" />
                 }
             </Fragment>
         )
-        : "No orders";
+        : <Body content={`trade.${emptyTag}`} />;
 };

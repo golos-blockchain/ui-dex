@@ -63,5 +63,5 @@ export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...pr
 
     const rows = userOrders.filter(filterOpenOrders);
 
-    return <TradeOrdersTable {...props} tableHead={tableHead} rows={rows} reloadData={reloadData} />
+    return <TradeOrdersTable {...props} emptyTag="emptyOpenOrders" tableHead={tableHead} rows={rows} reloadData={reloadData} />
 };

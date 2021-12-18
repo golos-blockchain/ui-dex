@@ -108,7 +108,7 @@ export const Orders = () => {
 
     const onCancel = () => {
         const allOpenOrders = data.filter(filterOpenOrders);
-        initModal(<CancelAllOrderConfirm openOrders={allOpenOrders} reloadData={reloadData} />)
+        initModal({content: <CancelAllOrderConfirm openOrders={allOpenOrders} reloadData={reloadData} /> })
     };
 
     return(

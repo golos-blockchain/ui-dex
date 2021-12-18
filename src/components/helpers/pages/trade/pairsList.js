@@ -4,7 +4,7 @@ import {Input} from "../../form/helpers";
 import {Body, Box, FlexBox, Metadata} from "../../global";
 import {FavIcon, SearchIcon} from "../../../../svg";
 import {TabsHeader} from "../../tabs";
-import {getAssetsList} from "../../../../redux/actions/assets";
+import {getAssets, getAssetsList} from "../../../../redux/actions/assets";
 import {getStorage, LoadData, setStorage, toFixedNum} from "../../../../utils";
 import {getAllRates, getRate} from "../../../../utils/dataHandlers";
 import {Table} from "../../table";
@@ -105,7 +105,18 @@ const PairListTable = ({rows, onFavsChange}) => {
 };
 
 const PairListContent = ({base, search}) => {
-    const req = () => getAllRates(base);
+    // const req = () => getAllRates(base);
+    const req = async () => {
+        const {list: rawList, params} = getAssets();
+        const whitelist = params[base].whitelist;
+
+        const fullList = whitelist.length ? whitelist : rawList.filter(symbol => symbol !== base);
+
+        return Promise.all(fullList.map(async symbol => {
+            const pair = [symbol, base];
+            return getRate(pair);
+        }));
+    };
     const [data, isLoading, reloadData, reloadPage] = LoadData(req);
     const [favs, setFavsList] = useState(getStorage("favorites") || []);
 

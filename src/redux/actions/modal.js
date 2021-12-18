@@ -21,4 +21,4 @@ export const closeModal = () => {
     // blockContent(false);
     reduxDispatch(CLOSE_MODAL);
     setTimeout(() => reduxDispatch(REMOVE_MODAL_CONTENT), 450);
-}
+};

@@ -41,5 +41,5 @@ export const TradeUserOrders = ({userOrders = [], base, quote, ...props}) => {
         }
     ];
 
-    return <TradeOrdersTable {...props} tableHead={tableHead} rows={userOrders} />
+    return <TradeOrdersTable {...props} emptyTag="emptyUserOrders" tableHead={tableHead} rows={userOrders} />
 };

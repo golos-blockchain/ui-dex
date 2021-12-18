@@ -30,10 +30,14 @@ export class BroadcastRequest extends Request{
         const sell = this.amountToString(amountToSell, assetToSell);
         const buy = this.amountToString(amountToBuy, assetToBuy);
 
-        let expiration = new Date();
+        // legacy from documentation
+        // creation of order with expiration date in one hour
 
-        expiration.setHours(expiration.getHours() + 1);
-        expiration = expiration.toISOString().substr(0, 19); // i.e. 2020-09-07T11:33:00
+        // let expiration = new Date();
+        // expiration.setHours(expiration.getHours() + 1);
+        // expiration = expiration.toISOString().substr(0, 19); // i.e. 2020-09-07T11:33:00
+
+        const expiration = "1969-12-31T23:59:59"; // so order will never be closed
 
         return (
             this.asyncRequest("limitOrderCreate", wif, owner, orderid, sell, buy, fillOrKill, expiration).catch(err => console.error(err))

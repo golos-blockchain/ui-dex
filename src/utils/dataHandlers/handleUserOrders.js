@@ -33,6 +33,8 @@ export const handleUserOrders = (res, pair) => {
         }
     });
 
+    console.log(createdOrders);
+
     return createdOrders.filter(el => {
         if(!el) return false;
         if(!pair) return true;
@@ -54,7 +56,9 @@ export const handleUserOrders = (res, pair) => {
         const buyObj = amountToObject(min_to_receive);
 
         const isCancelled = cancelledOrders.includes(id);
-        const isExpired = new Date().getTime() > new Date(expiration).getTime();
+        const isExpired = expiration !== "1969-12-31T23:59:59" && new Date().getTime() > new Date(expiration).getTime();
+
+        console.log(expiration, expiration !== "1969-12-31T23:59:59");
 
         const filledSum = filledOrders[id];
         const percent = filledSum ? filledSum / sellObj.amount : 0;
