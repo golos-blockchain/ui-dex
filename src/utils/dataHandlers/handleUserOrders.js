@@ -58,8 +58,6 @@ export const handleUserOrders = (res, pair) => {
         const isCancelled = cancelledOrders.includes(id);
         const isExpired = expiration !== "1969-12-31T23:59:59" && new Date().getTime() > new Date(expiration).getTime();
 
-        console.log(expiration, expiration !== "1969-12-31T23:59:59");
-
         const filledSum = filledOrders[id];
         const percent = filledSum ? filledSum / sellObj.amount : 0;
 

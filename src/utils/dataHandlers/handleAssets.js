@@ -31,7 +31,6 @@ const defaultCurrenciesList = currenciesList.map(symbol => ({
 
 export const handleAssetsRequest = res => {
     const customAssets = res
-        .sort((prev, next) => new Date(prev.created).getTime() > new Date(next.created).getTime() ? 1 : -1)
         .map(el => {
             const {json_metadata, max_supply, fee_percent, symbols_whitelist, precision} = el;
             const [_, symbol] = max_supply.split(" ");
@@ -43,7 +42,7 @@ export const handleAssetsRequest = res => {
         });
 
     const params = {};
-    const list = [...defaultCurrenciesList, ...customAssets].map((el, id) => {
+    const list = [...defaultCurrenciesList, ...customAssets].map((el) => {
         const symbol = el.symbol;
         params[symbol] = el;
         return symbol;
@@ -63,14 +62,20 @@ export const lastTradeToRate = (base) => (res) => {
     if(!item) return 0;
 
     const {amount: sellAmount, symbol: sellSymbol} = amountToObject(item.current_pays);
-    const {amount: buyAmount, symbol: buySymbol} = amountToObject(item.open_pays);
+    const {
+        amount: buyAmount,
+        // symbol: buySymbol
+    } = amountToObject(item.open_pays);
 
     const sellIsBase = sellSymbol === base;
 
     const rate = sellIsBase ? buyAmount / sellAmount : sellAmount / buyAmount;
-    const precision = getAssetParam(sellIsBase ? sellSymbol : buySymbol).precision;
 
-    return toFixedNum(rate, precision);
+    // there was precision getter for the "toFixedNum" func below, but...
+    // ...then we saw DOGECOIN precision and decided: no, three symbols are just enough!
+    // const precision = getAssetParam(sellIsBase ? sellSymbol : buySymbol).precision;
+
+    return toFixedNum(rate, 3);
 };
 
 export const getRate = async (pair) => {

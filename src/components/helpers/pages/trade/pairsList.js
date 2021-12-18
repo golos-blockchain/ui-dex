@@ -167,9 +167,9 @@ const FavListContent = ({search}) => {
         : "Empty";
 };
 
-export const PairsList = ({base}) => {
+export const PairsList = ({base, quote}) => {
     const list = getAssetsList();
-    const initialIndex = list.findIndex(symbol => symbol === base);
+    const initialIndex = list.findIndex(symbol => symbol === quote);
     const [activeTab, setActiveTab] = useState(initialIndex + 1);
     const [search, setSearch] = useState();
     const tabsHeading = [

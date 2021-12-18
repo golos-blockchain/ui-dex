@@ -42,14 +42,14 @@ export const UserHistory = () => {
     const fn = () => new ApiRequest().getUserHistoryByName(getUserData().name).then(handleUserHistory);
     const [data, isLoading] = LoadData(fn);
 
-    return(
-        <Card>
-            { isLoading
-                ? "Loading"
-                : data.length
+    return isLoading
+        ? "Loading"
+        : (
+            <Card>
+                { data.length
                     ? <Table tableHead={tableHead} rows={data} />
-                    : "No data"
-            }
-        </Card>
-    )
+                    : <Body content="history.emptyHistory" />
+                }
+            </Card>
+        )
 };

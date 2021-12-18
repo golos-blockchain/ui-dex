@@ -91,11 +91,9 @@ const tableHead = [
 ];
 
 export const OrdersTable = ({rows, reloadData}) => {
-    console.log(rows);
-
     return rows.length
         ? <Table tableHead={tableHead} rows={rows} reloadData={reloadData} />
-        : "No orders";
+        : <Body content="orders.emptyFilter" />;
 };
 
 export const Orders = () => {
@@ -122,7 +120,9 @@ export const Orders = () => {
             <Card mt={2}>
                 {isLoading
                     ? "Loading"
-                    : <OrdersTable rows={rows} reloadData={reloadData} />
+                    : rows.length
+                        ? <OrdersTable rows={rows} reloadData={reloadData} />
+                        : <Body content="trade.emptyUserOrders" />
                 }
             </Card>
         </Fragment>

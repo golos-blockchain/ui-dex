@@ -52,7 +52,6 @@
     "send": "Отправить",
     "history": "История",
     "orders": "Открытые ордера",
-    "blank": "Blank",
     "price": "Цена за 1 %(buySymbol)s:",
     "buyAmount": "Сумма покупки:"
   },
@@ -84,7 +83,8 @@
     }
   },
   "history": {
-    "title": "История"
+    "title": "История",
+    "emptyHistory": "У Вас пока что нет совершенных операций"
   },
   "settings": {
     "title": "Настройки",

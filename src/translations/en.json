@@ -83,7 +83,8 @@
     }
   },
   "history": {
-    "title": "History"
+    "title": "History",
+    "emptyHistory": "You don't have any trade or transaction type of operations"
   },
   "settings": {
     "title": "Settings",
