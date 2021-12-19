@@ -17,6 +17,7 @@ import {fetchUserData, getAllRates, handleUserHistory, handleUserOrders} from ".
 import {ApiRequest} from "../../utils/requests";
 import {getUserData, updateUserData} from "../../redux/actions/userData";
 import {TransferForm} from "../helpers/pages/cabinet";
+import {PageLoader} from "../layout";
 
 const loadDashboardData = async () => {
     const name = getUserData().name;
@@ -28,9 +29,9 @@ const loadDashboardData = async () => {
 };
 
 export const Dashboard = () => {
-    const [data, isLoading, reloadData] = LoadData(loadDashboardData);
+    const [data, isLoading, reloadData] = LoadData(loadDashboardData, 500);
 
-    if(isLoading) return "Loading";
+    if(isLoading) return <PageLoader />;
 
     const {rates, history, ordersList} = data;
 

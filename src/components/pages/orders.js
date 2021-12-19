@@ -16,6 +16,7 @@ import {ApiRequest} from "../../utils/requests";
 import {filterOpenOrders, handleUserOrders} from "../../utils/dataHandlers";
 import {generateModal, initModal} from "../../redux/actions";
 import {CancelOrderConfirm, CancelAllOrderConfirm} from "../helpers/confirmModals/";
+import {PageLoader} from "../layout";
 
 const tableHead = [
     {
@@ -99,9 +100,11 @@ export const OrdersTable = ({rows, reloadData}) => {
 export const Orders = () => {
     const i18n = translateStr("orders");
     const fn = () => new ApiRequest().getUserOrdersByName(getUserData().name).then(handleUserOrders);
-    const [data, isLoading, reloadData] = LoadData(fn);
-
+    const [data, isLoading, reloadData] = LoadData(fn, 500);
     const filtersState = useOrdersFiltersState();
+
+    if(isLoading) return <PageLoader />;
+
     const rows = filterOrdersList(data, filtersState[0]);
 
     const onCancel = () => {
@@ -118,11 +121,9 @@ export const Orders = () => {
                 </FlexBox>
             </Card>
             <Card mt={2}>
-                {isLoading
-                    ? "Loading"
-                    : rows.length
-                        ? <OrdersTable rows={rows} reloadData={reloadData} />
-                        : <Body content="trade.emptyUserOrders" />
+                {rows.length
+                    ? <OrdersTable rows={rows} reloadData={reloadData} />
+                    : <Body content="trade.emptyUserOrders" />
                 }
             </Card>
         </Fragment>

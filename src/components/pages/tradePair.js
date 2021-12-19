@@ -28,6 +28,7 @@ import {LoginModal} from "../helpers/pages/cabinet";
 import {TransparentBtn} from "../helpers/btn";
 import {connect} from "react-redux";
 import {ChartPage} from "../helpers/tradingView/chartBlock";
+import {PageLoader} from "../layout";
 
 const getPairData = async (base, quote) => {
     const userName = getUserData().name;
@@ -54,7 +55,7 @@ const Display = ({userData}) => {
     const [base, quote] = pair.split("_");
     const [baseClass] = useClassSetter("trade-pair");
 
-    const [data, isLoading, reloadData, reloadPage] = LoadData(() => getPairData(base, quote));
+    const [data, isLoading, reloadData, reloadPage] = LoadData(() => getPairData(base, quote), 500);
 
     useEffect(() => {
         if(isLoading) return;
@@ -69,7 +70,7 @@ const Display = ({userData}) => {
     //     return () => clearInterval(interval);
     // }, [pair]);
 
-    if(isLoading) return "Loading";
+    if(isLoading) return <PageLoader />;
 
     const i18n = translateStr("trade");
     const tradeTabs = ["buy", "sell"].map(el => ({content: i18n(el)}));

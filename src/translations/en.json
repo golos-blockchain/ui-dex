@@ -17,6 +17,8 @@
     "sell": "Sell",
     "balance": "Balance",
     "loginBtn": "Sign in",
+    "noFavPairs": "No favorite pairs",
+    "noPairs": "Pairs not found",
     "emptyOpenOrders": "No open orders",
     "emptyUserOrders": "No orders in history",
     "emptyHistory": "No orders in history",

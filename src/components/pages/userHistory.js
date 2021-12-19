@@ -5,6 +5,7 @@ import {handleUserHistory} from "../../utils/dataHandlers";
 import {LoadData} from "../../utils";
 import {Body, Card, Metadata} from "../helpers/global";
 import {Table} from "../helpers/table";
+import {PageLoader} from "../layout";
 
 const tableHead = [
     {
@@ -40,10 +41,10 @@ const tableHead = [
 
 export const UserHistory = () => {
     const fn = () => new ApiRequest().getUserHistoryByName(getUserData().name).then(handleUserHistory);
-    const [data, isLoading] = LoadData(fn);
+    const [data, isLoading] = LoadData(fn, 500);
 
     return isLoading
-        ? "Loading"
+        ? <PageLoader />
         : (
             <Card>
                 { data.length

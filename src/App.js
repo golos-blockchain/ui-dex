@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {DefaultRoutes, Header, Modal} from "./components/layout";
+import {DefaultRoutes, GlobalLoader, Header, Loader, Modal} from "./components/layout";
 import {initLocale} from "./utils/locale";
 import {getStorage, initNode, initSettings} from "./utils";
 import {logout} from "./redux/actions/userData";
@@ -42,7 +42,7 @@ function App() {
             .finally(() => setLoginAwaitState(false));
     }, []);
 
-    if(isLoading) return "Loading";
+    if(isLoading) return <GlobalLoader />;
 
     return (
         <Fragment>

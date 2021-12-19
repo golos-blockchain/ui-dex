@@ -10,6 +10,7 @@ import {getAllRates, getRate} from "../../../../utils/dataHandlers";
 import {Table} from "../../table";
 import ScrollContainer from "react-indiana-drag-scroll";
 import {updateActivePair} from "../../../../redux/actions/activePair";
+import {CardLoader} from "../../../layout";
 
 const PairListTable = ({rows, onFavsChange}) => {
     const history = useHistory();
@@ -126,7 +127,7 @@ const PairListContent = ({base, search}) => {
     //     return () => clearInterval(interval);
     // }, [base]);
 
-    if(isLoading) return "Loading";
+    if(isLoading) return <CardLoader />;
 
     const rows = data.filter(el => !search || el.symbol.includes(search) || el.symbol.includes(base));
 
@@ -139,7 +140,7 @@ const PairListContent = ({base, search}) => {
 
     return rows.length
         ? <PairListTable rows={rows} onFavsChange={onFavsChange} />
-        : "Empty";
+        : <Body content="trade.noPairs" />;
 };
 
 const FavListContent = ({search}) => {
@@ -158,13 +159,13 @@ const FavListContent = ({search}) => {
     //     return () => clearInterval(interval);
     // }, []);
 
-    if(isLoading) return "Loading";
+    if(isLoading) return <CardLoader />;
 
     const rows = data.filter(el => !search || el.symbol.includes(search));
 
     return rows.length
         ? <PairListTable rows={rows} onFavsChange={reloadData} />
-        : "Empty";
+        : <Body content="trade.noFavPairs" />;
 };
 
 export const PairsList = ({base, quote}) => {
