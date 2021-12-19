@@ -1,27 +1,30 @@
 import React from "react";
 import {Fragment, useState} from "react";
 import {translateStr} from "../../../../utils";
-import {Body, Box, HeadingBold} from "../../global";
+import {Body, Box, HeadingBold, Metadata} from "../../global";
 import {getAssets} from "../../../../redux/actions/assets";
 import {Select} from "../../dropdown";
 
 export const WalletWithdrawTab = () => {
-    const i18n = translateStr("wallet");
+    const i18n = translateStr("wallet.withdraw");
     const [selected, setSelected] = useState();
     const {list: rawList, params} = getAssets();
 
     const list = rawList
-        .filter(el => params[el].withdrawal)
-        .map((symbol, id) => ({id: String(id), text: symbol}));
+        .map((symbol, id) => ({id: String(id), text: symbol}))
+        .filter(el => params[el.text].withdrawal);
 
     const selectedAsset = rawList[selected];
     const activeWithdrawal = selectedAsset && params[selectedAsset].withdrawal;
+    const activeWithdrawalPrefix = activeWithdrawal && activeWithdrawal.ways && activeWithdrawal.ways[0].prefix;
+
+    const withdrawItemsList = [ "details", "to", "min_amount" ];
 
     return(
         <Fragment>
             <Box p={2}>
-                <HeadingBold content={i18n("withdraw")} />
-                <Body content={i18n("withdrawDesc")} />
+                <HeadingBold content={i18n("title")} />
+                <Body content={i18n("desc")} />
                 <Box mt={3}>
                     <Select
                         name="asset"
@@ -30,11 +33,26 @@ export const WalletWithdrawTab = () => {
                         onChange={({value}) => setSelected(value)}
                     />
                 </Box>
-                {activeWithdrawal && activeWithdrawal.details && (
+                {activeWithdrawal && (
                     <Fragment>
-                        <Box mt={2.5}>
-                            <Body text={activeWithdrawal.details} />
-                        </Box>
+                        {withdrawItemsList.map(key => (
+                            activeWithdrawal[key] && (
+                                <Box key={key} mt={2.5}>
+                                    <Box>
+                                        <Metadata content={i18n(key)} color="font-secondary"/>
+                                    </Box>
+                                    <Body text={activeWithdrawal[key]} />
+                                </Box>
+                            )))
+                        }
+                        {activeWithdrawalPrefix && (
+                            <Box mt={2.5}>
+                                <Box>
+                                    <Metadata content={i18n("memo")} color="font-secondary"/>
+                                </Box>
+                                <Body text={activeWithdrawalPrefix} />
+                            </Box>
+                        )}
                     </Fragment>
                 )}
             </Box>

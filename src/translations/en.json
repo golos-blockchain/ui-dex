@@ -60,12 +60,28 @@
   "wallet": {
     "title": "Wallet",
     "totalBalance": "Estimated Balance",
-    "trx": "Send",
-    "trxDesc": "Instant transfer in any available asset by login",
-    "deposit": "Deposit",
-    "depositDesc": "Choose a currency and follow the instructions",
-    "withdraw": "Withdraw",
-    "withdrawDesc": "Choose a currency and follow the instructions"
+    "trx": {
+      "title": "Send",
+      "desc": "Instant transfer in any available asset by login"
+    },
+    "deposit": {
+      "title": "Deposit",
+      "desc": "Choose a currency and follow the instructions",
+      "details": "Details:",
+      "fee": "Fee:",
+      "memo_transfer": "Memo for transfer:",
+      "min_amount": "Minimum amount:",
+      "to_transfer": "Receiver:"
+    },
+    "withdraw": {
+      "title": "Withdraw",
+      "desc": "Choose a currency and follow the instructions",
+      "details": "Details:",
+      "fee": "Fee:",
+      "min_amount": "Minimum amount:",
+      "to": "Receiver:",
+      "memo": "Memo prefix:"
+    }
   },
   "orders": {
     "title": "Orders",
