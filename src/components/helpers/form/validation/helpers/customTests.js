@@ -55,6 +55,18 @@ export const isNodeUrlSocket = {
     }
 };
 
+export const minAmount = (minAmount) => ({
+    message: "minAmount",
+    test: function(val){
+        if(!val) return true;
+        if(Number(minAmount) <= Number(val)) return true;
+
+        const {path, createError} = this;
+
+        return createError({ path, message: "minAmount", params: {minAmount} });
+    }
+});
+
 const checkUserBalance = (path, amount, assetId, createError) => {
     if(!amount || !assetId) return true;
     const message = "notEnoughCash";

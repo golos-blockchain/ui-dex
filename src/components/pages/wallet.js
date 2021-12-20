@@ -24,7 +24,7 @@ const Display = (props) => {
     const [isCardView] = cardViewState;
 
     const opsTabs = ["trx", "deposit", "withdraw"].map(el => ({content: i18n(el, "title")}));
-    
+
     return(
         <Row>
             <Col xl={7}>

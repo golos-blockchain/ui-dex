@@ -46,6 +46,15 @@
       fill: var(--success)
     }
   }
+  .disabled .active.select-btn{
+    border-color: var(--font-disabled);
+    .select-btn__label{
+      color: var(--font-disabled);
+    }
+    svg{
+      fill: var(--font-disabled);
+    }
+  }
   .error .active.select-btn{
     border-color: var(--error);
     .select-btn__label{

@@ -1,4 +1,4 @@
-const getFieldState = ({value, error, globalError, disabled}) => {
+const getFieldState = ({value, error, comment, globalError, disabled}) => {
     let fieldStateClass = "";
     let message = "";
     let messageParams = {};

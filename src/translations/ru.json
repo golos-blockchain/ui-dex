@@ -213,7 +213,8 @@
     "userNotExist": "Пользователя с таким логином не существует",
     "notEnoughCash": "Недостаточно средств",
     "pairNotUnique": "Ассет должен быть уникальным",
-    "wrongPrecision": "Макс. кол-во символов после запятой - %(precision)s"
+    "wrongPrecision": "Макс. кол-во символов после запятой - %(precision)s",
+    "minAmount": "Мин.сумма - %(minAmount)s"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
