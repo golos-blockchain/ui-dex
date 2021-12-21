@@ -14,9 +14,9 @@ const ModalComponent = ({modal}) => {
     };
 
     return(
-        <div className={clsx("modal", visible && "open", "custom-scroll")}>
+        <div className={clsx("modal", visible && "open")}>
             <div className="overlay" onClick={closeClick} />
-            <div className={clsx("card", "modal__body")}>
+            <div className={clsx("card", "modal__body", "custom-scroll")}>
                 {content}
                 <TransparentBtn className="modal__cross" onClick={closeClick}>
                     <CrossIcon />
