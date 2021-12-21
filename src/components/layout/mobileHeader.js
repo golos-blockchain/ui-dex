@@ -73,7 +73,7 @@ const MobileMenu = ({menuIsOpen, toggleMenu}) => {
                     </div>
                 </div>
                 <div className={setClass("user-wrapper")}>
-                    <MobileUserDisplay className={setClass("user-display")} />
+                    <MobileUserDisplay className={setClass("user-display")} toggleMenu={toggleMenu} />
                 </div>
             </div>
         </div>

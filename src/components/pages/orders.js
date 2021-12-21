@@ -123,9 +123,9 @@ export const Orders = () => {
                     <Box p="1rem 0">
                         <OrdersFilter filtersState={filtersState} />
                     </Box>
-                    <Box p="1rem 0">
-                        <BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />
-                    </Box>
+                    {/*<Box p="1rem 0">*/}
+                        {/*<BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />*/}
+                    {/*</Box>*/}
                 </FlexBox>
             </Card>
             <Card className="custom-scroll" mt={2}>

@@ -12,7 +12,7 @@ export const tradeSellSchema = schema({
         .test(balanceOnAmountChange("baseAssetId"))
         .test(precisionOnAmountChange("baseAssetId"))
         .required(),
-    range: yupNum(),
+    range: yupString(),
     result: yupString()
         .test(precisionOnAmountChange("quoteAssetId"))
         .required()

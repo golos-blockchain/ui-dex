@@ -11,7 +11,7 @@ export const tradeBuySchema = schema({
     amount: yupString()
         .test(precisionOnAmountChange("baseAssetId"))
         .required(),
-    range: yupNum(),
+    range: yupString(),
     result: yupString()
         .test(balanceOnAmountChange("quoteAssetId"))
         .test(precisionOnAmountChange("quoteAssetId"))

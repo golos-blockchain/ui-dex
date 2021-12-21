@@ -26,7 +26,7 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
 
     const toPrecision = (num, precision) => String(toFixedNum(num, precision));
     const resultCalculation = ({price, amount}) => price && amount ? toPrecision(price * amount, quotePrecision) : undefined;
-    const rangeCalculation = ({result}) => result && result / userBalance * 100;
+    const rangeCalculation = ({result}) => result && String(result / userBalance * 100);
     const amountCalculation = ({price, result}) => price && result ? toPrecision(result / price, basePrecision) : undefined;
 
     const modificators = {
