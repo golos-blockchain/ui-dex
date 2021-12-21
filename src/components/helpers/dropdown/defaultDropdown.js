@@ -27,7 +27,7 @@ export const DefaultDropdown = ({blockRef, btnLabel, btnContent, btnComponent, d
         top: elementPosition.top - 16 + window.scrollY,
         left: elementPosition.left - 16
     };
-    
+
     useEffect(() => {
         setTimeout(() => {
             setShown(true);

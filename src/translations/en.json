@@ -214,7 +214,8 @@
     "userNotExist": "User does not exist",
     "notEnoughCash": "Insufficient funds",
     "pairNotUnique": "The asset must be unique",
-    "wrongPrecision": "Max. number of characters after the decimal point - %(precision)s"
+    "wrongPrecision": "Max. number of characters after the decimal point - %(precision)s",
+    "minAmount": "Min amount - %(minAmount)s"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
