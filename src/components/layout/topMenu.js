@@ -11,6 +11,7 @@ export const TopMenu = () => {
         content: `${el.tag}.title`,
         to: el.link
     }));
+
     const defaultActiveId = topMenuList.findIndex(el => (
         location.pathname.includes(el.link)
     ));

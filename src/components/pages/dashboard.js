@@ -65,7 +65,7 @@ export const Dashboard = () => {
                 </Col>
             </Row>
             <Row>
-                <Col md={6}>
+                <Col xl={6}>
                     <DashboardCard title="operations">
                         <Box mt={-.7}>
                             <TabsWrapper headingList={opsTabsHeading}>
@@ -75,7 +75,7 @@ export const Dashboard = () => {
                         </Box>
                     </DashboardCard>
                 </Col>
-                <Col md={6}>
+                <Col xl={6}>
                     <DashboardCard title="history" linkContent="more" link={userHistory.link}>
                         <DashboardHistory list={history} />
                     </DashboardCard>

@@ -33,7 +33,7 @@ const Display = props => {
             </Box>
             <Row>
                 {balances.map((el, id) => (
-                    <Col key={id} lg={3}>
+                    <Col key={id} lg={3} md={12} sm={3} xs={6}>
                         <BalanceDisplay {...el} />
                     </Col>
                 ))}

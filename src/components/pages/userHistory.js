@@ -3,7 +3,7 @@ import {ApiRequest} from "../../utils/requests";
 import {getUserData} from "../../redux/actions/userData";
 import {handleUserHistory} from "../../utils/dataHandlers";
 import {LoadData} from "../../utils";
-import {Body, Card, Metadata} from "../helpers/global";
+import {Body, Box, Card, Metadata} from "../helpers/global";
 import {Table} from "../helpers/table";
 import {PageLoader} from "../layout";
 
@@ -46,9 +46,13 @@ export const UserHistory = () => {
     return isLoading
         ? <PageLoader />
         : (
-            <Card>
+            <Card className="custom-scroll">
                 { data.length
-                    ? <Table tableHead={tableHead} rows={data} />
+                    ? (
+                        <Box>
+                            <Table tableHead={tableHead} rows={data} />
+                        </Box>
+                    )
                     : <Body content="history.emptyHistory" />
                 }
             </Card>

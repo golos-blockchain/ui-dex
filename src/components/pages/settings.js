@@ -51,7 +51,7 @@ export const Settings = () => {
     const headingList = [{content: i18n("passwordChange")}, {content: i18n("permissions.title")}];
     return(
         <Row className={baseClass}>
-           <Col md={6}>
+           <Col lg={6}>
                <Card className={setClass("security")}>
                    <Heading content={i18n("security")} />
                    <Box mt={1}>
@@ -62,14 +62,14 @@ export const Settings = () => {
                    </Box>
                </Card>
            </Col>
-           <Col md={6}>
+           <Col lg={6}>
                <Card className={setClass("interface")}>
                    <Heading content={i18n("interface")} />
-                   <FlexBox mt={1} justify="space-between" align="center">
+                   <Box className={setClass("interface-params")} mt={1} justify="space-between" align="center">
                        <LanguageChange />
                        <div className={setClass("interface-divider")} />
                        <ThemeChange />
-                   </FlexBox>
+                   </Box>
                </Card>
                <Card mt={2}>
                    <Nodes />

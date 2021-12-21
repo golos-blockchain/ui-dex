@@ -25,7 +25,7 @@ const Display = ({nodes}) => {
                 <Heading content={i18n("nodes")} />
                 <BrandTextBtn content={i18n("addNode")} onClick={generateModal(<AddNodeModal />)} />
             </FlexBox>
-            <Box mt={.8}>
+            <Box className="custom-scroll" mt={.8}>
                 <Subheading content={i18n("connected")} />
                 <Box mt={1}>
                     <NodeTable
@@ -36,7 +36,7 @@ const Display = ({nodes}) => {
                 </Box>
             </Box>
             {!!defaultNodesList.length && (
-                <Box mt={1.7}>
+                <Box className="custom-scroll" mt={1.7}>
                     <Subheading content={i18n("defaultNodesList")} />
                     <Box mt={1}>
                         <NodeTable list={defaultNodesList} />
@@ -44,7 +44,7 @@ const Display = ({nodes}) => {
                 </Box>
             )}
             {!!userNodesList.length && (
-                <Box mt={1.7}>
+                <Box className="custom-scroll" mt={1.7}>
                     <Subheading content={i18n("userNodesList")} />
                     <Box mt={1}>
                         <NodeTable list={userNodesList} isUserNode />

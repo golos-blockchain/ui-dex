@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {DefaultRoutes, GlobalLoader, Header, Loader, Modal} from "./components/layout";
+import {DefaultRoutes, GlobalLoader, Header, Loader, MobileHeader, Modal} from "./components/layout";
 import {initLocale} from "./utils/locale";
 import {getStorage, initNode, initSettings} from "./utils";
 import {logout} from "./redux/actions/userData";
@@ -49,6 +49,7 @@ function App() {
             {!waitingForLogin && (
               <Fragment>
                   <Header />
+                  <MobileHeader />
                   <main>
                       <DefaultRoutes />
                   </main>

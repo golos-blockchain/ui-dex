@@ -93,7 +93,11 @@ const tableHead = [
 
 export const OrdersTable = ({rows, reloadData}) => {
     return rows.length
-        ? <Table tableHead={tableHead} rows={rows} reloadData={reloadData} />
+        ? (
+            <Box>
+                <Table tableHead={tableHead} rows={rows} reloadData={reloadData} />
+            </Box>
+        )
         : <Body content="orders.emptyFilter" />;
 };
 
@@ -114,13 +118,17 @@ export const Orders = () => {
 
     return(
         <Fragment>
-            <Card>
-                <FlexBox justify="space-between">
-                    <OrdersFilter filtersState={filtersState} />
-                    <BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />
+            <Card p="1rem 2rem">
+                <FlexBox justify="space-between" wrap>
+                    <Box p="1rem 0">
+                        <OrdersFilter filtersState={filtersState} />
+                    </Box>
+                    <Box p="1rem 0">
+                        <BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />
+                    </Box>
                 </FlexBox>
             </Card>
-            <Card mt={2}>
+            <Card className="custom-scroll" mt={2}>
                 {rows.length
                     ? <OrdersTable rows={rows} reloadData={reloadData} />
                     : <Body content="trade.emptyUserOrders" />

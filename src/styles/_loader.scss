@@ -7,8 +7,8 @@
     height: 15rem;
 
     position: absolute;
-    left: calc(50% - 6rem);
-    top: calc(50% - 6rem);
+    left: 50%;
+    top: 50%;
     transform: translate(-50%,-50%);
 
     display: flex;
@@ -47,6 +47,10 @@
 .page-loader{
   width: 100vw;
   height: calc(100vh - 7.5rem);
+  @include breakpoint(md){
+    width: 100%;
+    height: calc(100vh - 7.5rem);
+  }
 }
 
 .card-loader{
