@@ -24,10 +24,10 @@ export const DefaultDropdown = ({blockRef, btnLabel, btnContent, btnComponent, d
     const elementPosition = blockRef && blockRef.current ? blockRef.current.getBoundingClientRect() : {};
     const contentStyle = {
         width: elementPosition.width + 32,
-        top: elementPosition.top - 16,
+        top: elementPosition.top - 16 + window.scrollY,
         left: elementPosition.left - 16
     };
-
+    
     useEffect(() => {
         setTimeout(() => {
             setShown(true);

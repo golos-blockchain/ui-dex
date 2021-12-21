@@ -133,8 +133,6 @@ const PairListContent = ({base, search}) => {
 
     if(isLoading) return <CardLoader />;
 
-    console.log(data);
-
     const rows = data.filter(el => !search || el.symbol.includes(search) || el.base.includes(search));
 
     const onFavsChange = (base, symbol, isActive) => {

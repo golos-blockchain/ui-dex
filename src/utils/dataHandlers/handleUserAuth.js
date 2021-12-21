@@ -56,7 +56,6 @@ const authRequest = (userData) => new AuthRequest().login(userData);
 
 export const encodeUserData = ({name, activeKey, password}) => {
     const data = JSON.stringify({name, activeKey});
-    console.log(data);
     return CryptoJS.AES.encrypt(data, password).toString();
 };
 
