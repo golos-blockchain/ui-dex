@@ -11,6 +11,8 @@ import {Table} from "../../table";
 import ScrollContainer from "react-indiana-drag-scroll";
 import {updateActivePair} from "../../../../redux/actions/activePair";
 import {CardLoader} from "../../../layout";
+import {getReduxState} from "../../../../utils/store";
+import {closeModal} from "../../../../redux/actions";
 
 const PairListTable = ({rows, onFavsChange}) => {
     const history = useHistory();
@@ -48,10 +50,12 @@ const PairListTable = ({rows, onFavsChange}) => {
     };
 
     const changeTradePair = (row) => {
+        const isModal = getReduxState("modal").visible;
         const newActivePair = [row.base, row.symbol].join("_");
         setStorage("active_pair", newActivePair);
         updateActivePair(newActivePair);
         history.push(`/trade/${newActivePair}`);
+        if(isModal) closeModal();
     };
 
     const tableHead = [
@@ -129,7 +133,9 @@ const PairListContent = ({base, search}) => {
 
     if(isLoading) return <CardLoader />;
 
-    const rows = data.filter(el => !search || el.symbol.includes(search) || el.symbol.includes(base));
+    console.log(data);
+
+    const rows = data.filter(el => !search || el.symbol.includes(search) || el.base.includes(search));
 
     const onFavsChange = (base, symbol, isActive) => {
         const newFavs = {...favs};
@@ -161,7 +167,7 @@ const FavListContent = ({search}) => {
 
     if(isLoading) return <CardLoader />;
 
-    const rows = data.filter(el => !search || el.symbol.includes(search));
+    const rows = data.filter(el => !search || el.symbol.includes(search) || el.base.includes(search));
 
     return rows.length
         ? <PairListTable rows={rows} onFavsChange={reloadData} />
@@ -195,11 +201,13 @@ export const PairsList = ({base, quote}) => {
                         handleClick={setActiveTab}
                     />
                 </ScrollContainer>
-                <div className="pairs-list__content">
-                    {activeTab === 0
-                        ? <FavListContent search={search} />
-                        : <PairListContent base={list[activeTab - 1]} search={search} />
-                    }
+                <div className="pairs-list__content custom-scroll">
+                    <Box>
+                        {activeTab === 0
+                            ? <FavListContent search={search} />
+                            : <PairListContent base={list[activeTab - 1]} search={search} />
+                        }
+                    </Box>
                 </div>
             </div>
         </Fragment>

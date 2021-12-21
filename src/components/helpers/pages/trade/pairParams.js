@@ -1,9 +1,10 @@
 import React from "react";
 import {BodyBold, FlexBox, Metadata} from "../../global";
-import {toFixedNum, translateStr} from "../../../../utils";
+import {toFixedNum, translateStr, useClassSetter} from "../../../../utils";
 
 export const PairParams = ({base, quote, ticker = {}}) => {
     const i18n = translateStr("trade.params");
+    const [baseClass, setClass] = useClassSetter("pair-params");
     const list = [
         { content: "change", key: "percent_change1", handleData: (item) => toFixedNum(item, 2) + "%" },
         { content: "max", key: "highest_bid" },
@@ -13,7 +14,7 @@ export const PairParams = ({base, quote, ticker = {}}) => {
     ];
 
     return(
-        <FlexBox justify="space-between">
+        <FlexBox className={baseClass} justify="space-between" wrap>
             {list.map(({handleData, content, key}) => {
                 const item = ticker[key];
 
@@ -22,7 +23,7 @@ export const PairParams = ({base, quote, ticker = {}}) => {
                 const text = handleData ? handleData(item) : toFixedNum(item, 3);
 
                 return(
-                    <div key={key}>
+                    <div key={key} className={setClass("item")}>
                         <div>
                             <Metadata content={i18n(content)} additionalData={{base, quote}} />
                         </div>

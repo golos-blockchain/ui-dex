@@ -9,6 +9,7 @@
   },
   "trade": {
     "title": "Market",
+    "changePair": "Change Pair",
     "bestPrice": "Best price",
     "openOrders": "Open orders",
     "myOrders": "My orders",

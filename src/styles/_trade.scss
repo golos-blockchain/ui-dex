@@ -12,6 +12,16 @@
 }
 
 .trade-pair{
+  .table__row .table__cell{
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    &:not(:last-child){
+      padding-right: 1rem;
+    }
+  }
+}
+
+.pair-display{
   &__change-btn{
     margin-top: -.25rem;
     margin-left: .5rem;
@@ -28,12 +38,24 @@
       }
     }
   }
+}
 
-  .table__row .table__cell{
-    padding-top: .1rem;
-    padding-bottom: .1rem;
-    &:not(:last-child){
-      padding-right: 1rem;
+.pair-params{
+  padding: 1.3rem 4.6rem;
+  &__item:not(:last-child){
+    margin-right: 2rem;
+  }
+  @include breakpoint(md){
+    padding: 1.3rem 2rem;
+  }
+  @include breakpoint(sm){
+    &__item{
+      width: 50%;
+      display: block;
+      &:not(:last-child){
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
     }
   }
 }

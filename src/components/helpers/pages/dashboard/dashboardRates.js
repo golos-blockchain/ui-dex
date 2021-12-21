@@ -27,7 +27,7 @@ const RateDisplay = ({rate, rateChange = 0, img, fullName}) => {
 export const DashboardRates = ({rates}) => (
     <Row>
         {rates.map((el, id) => (
-            <Col key={id} lg={4} md={12} sm={4} xs={12}>
+            <Col key={id} lg={4} md={6} sm={4} xs={12}>
                 <RateDisplay {...el} />
             </Col>
         ))}

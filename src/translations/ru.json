@@ -9,6 +9,7 @@
   },
   "trade": {
     "title": "Биржа",
+    "changePair": "Изменить пару",
     "bestPrice": "Лучшая цена",
     "openOrders": "Открытые ордера",
     "myOrders": "Мои ордера",

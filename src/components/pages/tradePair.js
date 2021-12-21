@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router";
 import ScrollContainer from 'react-indiana-drag-scroll'
-import {BodyBold, Box, Card, Col, FlexBox, Row} from "../helpers/global";
+import {BodyBold, Box, Card, Col, FlexBox, Heading, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
 import {LoadData, toFixedNum, translateStr, useClassSetter} from "../../utils";
 import {trade} from "../routing/path";
@@ -25,7 +25,7 @@ import {
 import {connectUserData, getUserData, updateUserData} from "../../redux/actions/userData";
 import {generateModal} from "../../redux/actions";
 import {LoginModal} from "../helpers/pages/cabinet";
-import {TransparentBtn} from "../helpers/btn";
+import {BrandTextBtn, TransparentBtn} from "../helpers/btn";
 import {connect} from "react-redux";
 import {ChartPage} from "../helpers/tradingView/chartBlock";
 import {PageLoader} from "../layout";
@@ -48,6 +48,103 @@ const getPairData = async (base, quote) => {
     const tradingViewData = handleTradingViewData(pair);
 
     return { ticker, rate, orderBook, userOrders, ordersHistory, tradingViewData };
+};
+
+const DesktopDisplay = (props) => {
+    const { pairDisplay, pairParams, pairsList, ordersCreationTabs, chart, historyTabs, orderBook } = props.components;
+
+    return(
+        <Row className="trade-pair">
+            <Col md={9}>
+                <Row>
+                    <Col xl={2} lg={3}>
+                        <Card py={.8} px={2}>{pairDisplay}</Card>
+                    </Col>
+                    <Col xl={10} lg={9}>
+                        <Card p="0">{pairParams}</Card>
+                    </Col>
+                    <Col md={4}>
+                        <Card mb={1}>{pairsList}</Card>
+                        <Card>{ordersCreationTabs}</Card>
+                    </Col>
+                    <Col md={8}>
+                        <Card h={50} mb={1} p="0">{chart}</Card>
+                        <Card>{historyTabs}</Card>
+                    </Col>
+                </Row>
+            </Col>
+            <Col md={3}>
+                <Card>{orderBook}</Card>
+            </Col>
+        </Row>
+    )
+};
+
+const PairModal = ({pairsList}) => {
+    return(
+        <Fragment>
+            <Heading content="trade.changePair" />
+            <Box mt={2}>
+                {pairsList}
+            </Box>
+        </Fragment>
+    )
+};
+
+const MobileDisplay = (props) => {
+    const { pairDisplay, pairParams, pairsList, ordersCreationTabs, chart, historyTabs, orderBook } = props.components;
+
+    return(
+        <div className="trade-pair">
+            <Box>
+                <Card py={.8} px={2}>
+                    <FlexBox justify="space-between">
+                        {pairDisplay}
+                        <BrandTextBtn content="trade.changePair" onClick={generateModal(<PairModal pairsList={pairsList} />)} />
+                    </FlexBox>
+                </Card>
+            </Box>
+            <Box mt={1}>
+                <Card p="0">{pairParams}</Card>
+            </Box>
+            <Box mt={1}>
+                <Card h={50} mb={1} p="0">{chart}</Card>
+            </Box>
+            <Box mt={1}>
+                <Card>{orderBook}</Card>
+            </Box>
+            <Box mt={1}>
+                <Card>{ordersCreationTabs}</Card>
+            </Box>
+            <Box mt={1}>
+                <Card>{historyTabs}</Card>
+            </Box>
+        </div>
+    )
+};
+
+const LayoutWrapper = props => {
+    const [isMobile, setMobileState] = useState(window.innerWidth <= 900);
+
+    useEffect(() => {
+        const resizeListener = () => {
+            const width = window.innerWidth;
+
+            if(width <= 900){
+                setMobileState(true);
+            } else if(width > 900){
+                setMobileState(false);
+            }
+        };
+
+        window.addEventListener("resize", resizeListener);
+
+        return () => {
+            window.removeEventListener("resize", resizeListener);
+        }
+    }, []);
+
+    return isMobile ? <MobileDisplay {...props} /> : <DesktopDisplay {...props} />
 };
 
 const Display = ({userData}) => {
@@ -93,64 +190,37 @@ const Display = ({userData}) => {
         </Box>
     );
 
-    return(
-        <Row className={baseClass}>
-            <Col md={9}>
-                <Row>
-                    <Col xl={2} lg={3}>
-                        <Card py={.8} px={2} >
-                            <PairDisplay {...defaultProps} rate={data.rate} />
-                        </Card>
-                    </Col>
-                    <Col xl={10} lg={9}>
-                        <Card py={1.3} px={4.6}>
-                            <PairParams {...defaultProps} ticker={data.ticker} />
-                        </Card>
-                    </Col>
-                    <Col md={4}>
-                        <Card mb={1}>
-                            <PairsList {...defaultProps} />
-                        </Card>
-                        <Card>
-                            {!!userData.name
-                                ? (
-                                    <TabsWrapper headingList={tradeTabs}>
-                                        <TradeBuyForm {...defaultFormsProps} />
-                                        <TradeSellForm {...defaultFormsProps} />
-                                    </TabsWrapper>
-                                ) : loginBtn
-                            }
-                        </Card>
-                    </Col>
-                    <Col md={8}>
-                        <Card h={50} mb={1} p="0">
-                            <ChartPage {...defaultProps} tradingViewData={data.tradingViewData} />
-                        </Card>
-                        <Card>
-                            <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>
-                                {!!userData.name
-                                    ? (
-                                        <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadDataWithBalance} />
-                                    ) : loginBtn
-                                }
-                                {!!userData.name
-                                    ? (
-                                        <TradeUserOrders {...defaultHistoryProps} userOrders={data.userOrders} />
-                                    ) : loginBtn
-                                }
-                                <TradeHistory {...defaultHistoryProps} ordersHistory={data.ordersHistory} />
-                            </TabsWrapper>
-                        </Card>
-                    </Col>
-                </Row>
-            </Col>
-            <Col md={3}>
-                <Card>
-                    <TradeOrderBook {...defaultProps} ordersHistory={data.ordersHistory} orderBook={data.orderBook} />
-                </Card>
-            </Col>
-        </Row>
-    )
+    const pairDisplay = <PairDisplay {...defaultProps} rate={data.rate} />;
+    const pairParams = <PairParams {...defaultProps} ticker={data.ticker} />;
+    const pairsList = <PairsList {...defaultProps} />;
+    const ordersCreationTabs = !!userData.name
+        ? (
+            <TabsWrapper headingList={tradeTabs}>
+                <TradeBuyForm {...defaultFormsProps} />
+                <TradeSellForm {...defaultFormsProps} />
+            </TabsWrapper>
+        ) : loginBtn;
+    const chart = <ChartPage {...defaultProps} tradingViewData={data.tradingViewData} />;
+    const historyTabs = (
+        <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>
+            {!!userData.name
+                ? (
+                    <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadDataWithBalance} />
+                ) : loginBtn
+            }
+            {!!userData.name
+                ? (
+                    <TradeUserOrders {...defaultHistoryProps} userOrders={data.userOrders} />
+                ) : loginBtn
+            }
+            <TradeHistory {...defaultHistoryProps} ordersHistory={data.ordersHistory} />
+        </TabsWrapper>
+    );
+    const orderBook = <TradeOrderBook {...defaultProps} ordersHistory={data.ordersHistory} orderBook={data.orderBook} />;
+
+    const components = { pairDisplay, pairParams, pairsList, ordersCreationTabs, chart, historyTabs, orderBook };
+
+    return <LayoutWrapper components={components} />
 };
 
 export const TradePair = connect(connectUserData)(Display);
