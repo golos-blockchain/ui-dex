@@ -8,7 +8,6 @@ import {i18nGlobal, toFixedNum} from "../../../../utils";
 import {RedTextBtn} from "../../btn";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeSellConfirm} from "../../confirmModals";
-import {fetchUserData} from "../../../../utils/dataHandlers";
 
 export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
     const bestPrice = orderBook.bids[0] ? orderBook.bids[0].price : 0;

@@ -1,4 +1,5 @@
 export * from "./clsx";
+export * from "./blockContent";
 export * from "./loadData";
 export * from "./stringOperations";
 export * from "./generateRipples";

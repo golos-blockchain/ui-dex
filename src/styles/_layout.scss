@@ -147,6 +147,12 @@ body{
   &__user-display{
     padding: 2rem 3rem;
     box-sizing: border-box;
+    .btn{
+      width: 100%;
+    }
+    .btn-content{
+      margin: 0 auto;
+    }
   }
 }
 
