@@ -304,6 +304,7 @@
     background: var(--brand-bg-light);
     border: 1px solid transparent;
     border-radius: .8rem;
+    overflow-x: auto;
     transition: var(--qSpeed);
     &.shown{
       border-color: var(--font-disabled);
