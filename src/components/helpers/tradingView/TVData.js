@@ -77,14 +77,8 @@ class TVData{
         return this.request(this.lastStartDate, this.lastEndDate).then(history => {
             if(!history.length) return [];
 
-            console.log(history);
-
             const lastElem = history[history.length - 1];
-
             const newBlocksByTime = history.filter(el => el.time > this.lastPriceTime);
-
-            console.log(this.lastPriceTime);
-            console.log(lastElem);
 
             newBlocksByTime.length
                 ? newBlocksByTime.forEach(this.updateFunc)
