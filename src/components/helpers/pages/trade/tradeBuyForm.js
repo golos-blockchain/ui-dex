@@ -73,10 +73,10 @@ export const TradeBuyForm = ({base, quote, orderBook, reloadData}) => {
             return (
                 <Fragment>
                     <Row>
-                        <Col md={6}>
+                        <Col xl={6} md={12} sm={6} xs={12}>
                             <NumberInput name="price" assetSymbol={quote} formData={formData} />
                         </Col>
-                        <Col md={6}>
+                        <Col xl={6} md={12} sm={6} xs={12}>
                             <NumberInput name="amount" assetSymbol={base} formData={formData} />
                         </Col>
                     </Row>

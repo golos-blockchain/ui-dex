@@ -10,6 +10,7 @@ export const LoginScreen = () => {
         <BodyBold
             component="a"
             content={i18n("reg")}
+            color="brand"
             href="https://golos.app/register?invite=graphenelab"
             target="_blank"
             rel="nofollow"
@@ -23,7 +24,7 @@ export const LoginScreen = () => {
                 <Box mt={.2}>
                     <BodyBold content={i18n("desc")} additionalData={{regLink}} />
                 </Box>
-                <Box mt={2.2}>
+                <Box mt={1.75}>
                     <LoginForm />
                 </Box>
             </Card>
