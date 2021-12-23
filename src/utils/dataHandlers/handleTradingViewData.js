@@ -9,7 +9,6 @@ export const handleTradingViewData = (pair) => {
     if(createNewTWData) {
         twData = new TVData().init(pair);
     } else if(updateTWData) {
-        console.log(twData);
         twData.updateLastItem();
     }
 
