@@ -33,8 +33,6 @@ export const handleUserOrders = (res, pair) => {
         }
     });
 
-    console.log(createdOrders);
-
     return createdOrders.filter(el => {
         if(!el) return false;
         if(!pair) return true;

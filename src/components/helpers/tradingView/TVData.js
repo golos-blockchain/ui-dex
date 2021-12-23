@@ -19,48 +19,45 @@ const getBucketFromResolution = (r) => {
 class TVData{
     constructor(){
         this.pair = ["", ""];
-        this.list = [];
         this.resolution = 0;
+        this.lastStartDate = 0;
+        this.lastEndDate = 0;
         this.lastPriceTime = 0;
         this.updateFunc = false;
     }
     init(pair){
         this.pair = pair;
-        return this;
-    }
-    setResolution(resolution){
-        this.list = [];
-        this.resolution = resolution;
+        this.lastStartDate = 0;
+        this.lastEndDate = 0;
+        this.lastPriceTime = 0;
+        this.updateFunc = false;
         return this;
     }
     getPair(){
         return this.pair.join("_")
     }
-    getList(){
+    request(from, to){
         const [base, quote] = this.pair;
 
         const basePrecision = getAssetParam(base).precision;
         const quotePrecision = getAssetParam(quote).precision;
 
         const formatDate = (date) => new Date(date).toISOString().split(".")[0];
-
-        const time = new Date().getTime();
-        const startDate = formatDate(time - 1000*60*60*24*360*2);
-        const endDate = formatDate(time + 1000*60*60*24*360);
-
-        const bucket = getBucketFromResolution(this.resolution);
-
         const calculatePrice = (baseAmount, quoteAmount) => {
             const price = toFixedNum(quoteAmount, quotePrecision) / toFixedNum(baseAmount, basePrecision);
             return toFixedNum(price, basePrecision);
         };
+
+        const bucket = getBucketFromResolution(this.resolution);
+
+        const startDate = formatDate(from * 1000);
+        const endDate = formatDate(to * 1000);
 
         return new ApiRequest().getPriceHistory(this.pair, bucket, startDate, endDate)
             .then(res => {
                 if(!res || !res.length) return [];
 
                 return res.map(el => {
-
                     const time = new Date(el.open).getTime();
                     let low, high, volume, open, close;
 
@@ -72,34 +69,50 @@ class TVData{
 
                     return { time, high, low, open, close, volume };
                 })
-            }).then(history => {
-                if(!history.length) return this.list;
+            })
+    }
+    updateLastItem(){
+        if(!this.updateFunc) return [];
 
-                const lastElem = history[history.length - 1];
+        return this.request(this.lastStartDate, this.lastEndDate).then(history => {
+            if(!history.length) return [];
 
-                if(this.list.length && this.updateFunc) {
-                    const newBlocksByTime = history.filter(el => el.time > this.lastPriceTime);
-                    newBlocksByTime.length
-                        ? newBlocksByTime.forEach(this.updateFunc)
-                        : this.updateFunc(lastElem)
-                }
+            console.log(history);
 
-                this.list = history;
-                this.lastPriceTime = history[history.length - 1].time;
+            const lastElem = history[history.length - 1];
 
-                // // store.dispatch({type: 'SET_TV', payload: this});
-                return this.list;
-            });
+            const newBlocksByTime = history.filter(el => el.time > this.lastPriceTime);
+
+            console.log(this.lastPriceTime);
+            console.log(lastElem);
+
+            newBlocksByTime.length
+                ? newBlocksByTime.forEach(this.updateFunc)
+                : this.updateFunc(lastElem)
+        });
+    }
+    getList(resolution, from, to){
+        let setPriceTime = false;
+
+        if(this.resolution !== resolution){
+            this.resolution = resolution;
+            this.lastStartDate = from;
+            this.lastEndDate = to;
+
+            setPriceTime = true;
+        }
+
+        return this.request(from, to).then(history => {
+            if(setPriceTime) {
+                const lastElem = history[history.length - 1] || {};
+                this.lastPriceTime = lastElem.time;
+            }
+
+            return history;
+        });
     }
     setUpdate(updateFunc){
         this.updateFunc = updateFunc;
-    }
-    cleadData(){
-        this.pair = ["", ""];
-        this.list = [];
-        this.resolution = 0;
-        this.lastPriceTime = 0;
-        this.updateFunc = false;
     }
 };
 

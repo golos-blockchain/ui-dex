@@ -65,22 +65,13 @@ export const setDataFeed = (pair, twData) => ({
         to,
         onHistoryCallback
     ) => {
-        if(twData.resolution !== resolution){
-            twData.setResolution(resolution);
-        }
-
-        if(twData.list.length) {
-            onHistoryCallback(twData.list, {noData: false});
-            return;
-        }
-
-        twData.getList(from, to).then(history => {
+        twData.getList(resolution, from, to).then(history => {
             if (!history.length) {
                 onHistoryCallback([], {noData: true});
                 return;
             }
 
-            onHistoryCallback(history);
+            onHistoryCallback(history, {noData: false});
         });
     },
     subscribeBars: (symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) => {
