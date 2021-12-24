@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {useHistory} from "react-router";
 import {Input} from "../../form/helpers";
 import {Body, Box, FlexBox, Metadata} from "../../global";
@@ -6,7 +6,7 @@ import {FavIcon, SearchIcon} from "../../../../svg";
 import {TabsHeader} from "../../tabs";
 import {getAssets, getAssetsList} from "../../../../redux/actions/assets";
 import {getStorage, LoadData, setStorage, toFixedNum} from "../../../../utils";
-import {getAllRates, getRate} from "../../../../utils/dataHandlers";
+import {getRate} from "../../../../utils/dataHandlers";
 import {Table} from "../../table";
 import ScrollContainer from "react-indiana-drag-scroll";
 import {updateActivePair} from "../../../../redux/actions/activePair";

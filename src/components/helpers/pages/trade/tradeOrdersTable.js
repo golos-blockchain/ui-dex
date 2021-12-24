@@ -2,7 +2,6 @@ import {Body, Box, Metadata} from "../../global";
 import {filterOrdersList, OrdersFilter, Table, useOrdersFiltersState} from "../../table";
 import {Fragment} from "react";
 import React from "react";
-import {clsx} from "../../../../utils";
 
 export const TradeOrdersTable = ({tableHead, rows: rawList, className, reloadData, emptyTag, maxHeight}) => {
     const filtersState = useOrdersFiltersState();

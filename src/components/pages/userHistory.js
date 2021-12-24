@@ -11,31 +11,29 @@ const tableHead = [
     {
         key: 'icon',
         translateTag: '',
-        className: "align-center"
+        className: "fit-content align-center"
     },
     {
         key: 'timestamp',
         translateTag: 'dateAndTime',
         handleItem: (item) => new Date(item).toLocaleString(),
-        className: "fit-content",
         isSortable: true
     },
     {
         key: 'type',
         translateTag: 'type',
-        handleItem: (item) => <Body content={`historyTable.${item}.title`} />,
-        className: "fit-content"
+        handleItem: (item) => <Body content={`historyTable.${item}.title`} />
     },
     {
         key: 'summ',
         translateTag: 'summ',
-        className: "fit-content"
+        className: "summ"
     },
     {
         key: 'descData',
         translateTag: 'desc',
         handleItem: (item, row) => <Metadata content={`historyTable.${row.type}.description`} additionalData={item} />,
-        className: "fit-content"
+        className: "description"
     }
 ];
 

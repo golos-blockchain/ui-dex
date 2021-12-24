@@ -31,6 +31,9 @@
       padding-top: 1.6rem;
       padding-bottom: 1.6rem;
       border-bottom: 1px solid var(--line);
+      span{
+        white-space: nowrap;
+      }
     }
     &:last-child{
       .table__cell{
@@ -45,8 +48,7 @@
   }
 
   &__cell{
-    max-width:100%;
-    width: 1px;
+    width: auto;
     box-sizing: border-box;
     white-space:nowrap;
   }
@@ -62,8 +64,17 @@
     }
   }
   .fit-content{
-    width: auto;
-    white-space: nowrap;
+    max-width:100%;
+    width: 1px;
+  }
+  .summ{
+    min-width: 24rem;
+  }
+  .description{
+    min-width: 35rem;
+    span{
+      white-space: break-spaces;
+    }
   }
 }
 

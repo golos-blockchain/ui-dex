@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {getUserData, updateUserData} from "../../../../redux/actions/userData";
+import {getUserData} from "../../../../redux/actions/userData";
 import {getAssets} from "../../../../redux/actions/assets";
 import {Form, NumberInput, Range} from "../../form/helpers";
 import {tradeSellSchema} from "../../form/validation";

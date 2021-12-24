@@ -9,6 +9,7 @@ export const TradeUserOrders = ({userOrders = [], base, quote, ...props}) => {
             key: 'timestamp',
             translateTag: 'creationDate',
             handleItem: (item) => new Date(item).toLocaleString(),
+            className: "fit-content",
             isSortable: true
         },
         {

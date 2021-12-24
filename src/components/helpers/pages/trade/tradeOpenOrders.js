@@ -14,6 +14,7 @@ export const TradeOpenOrders = ({userOrders = [], base, quote, reloadData, ...pr
             key: 'timestamp',
             translateTag: 'creationDate',
             handleItem: (item) => new Date(item).toLocaleString(),
+            className: "fit-content",
             isSortable: true
         },
         {

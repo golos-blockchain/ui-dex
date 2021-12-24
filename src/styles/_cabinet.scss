@@ -184,12 +184,26 @@
     }
   }
   &__info{}
-  &__date{
+  &__summ span{
+    white-space: nowrap;
+  }
+  &__date-wrapper, &__date{
     text-align: right;
   }
   @include breakpoint(xl){
     max-height: 30rem;
     position: relative;
+  }
+  @include breakpoint(sm){
+    &__item{
+      display: block;
+    }
+    &__date-wrapper, &__date{
+      text-align: left;
+    }
+    &__date-wrapper{
+      margin-left: 6rem;
+    }
   }
 }
 

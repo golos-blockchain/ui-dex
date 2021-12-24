@@ -17,12 +17,12 @@ export const DashboardHistory = ({list}) => {
                                 </div>
                                 <div className={setClass("info")}>
                                     <Metadata content={`historyTable.${el.type}.title`} color="font-secondary" />
-                                    <div>{el.summ}</div>
+                                    <div className={setClass("summ")}>{el.summ}</div>
                                 </div>
                             </FlexBox>
-                            <div className={setClass("date")}>
+                            <div className={setClass("date-wrapper")}>
                                 <Metadata content="tableHeading.dateAndTime" color="font-secondary" />
-                                <Box>
+                                <Box className={setClass("date")}>
                                     <Body text={new Date(el.timestamp).toLocaleString()} />
                                 </Box>
                             </div>

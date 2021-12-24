@@ -19,21 +19,19 @@ export const WalletTableDisplay = ({ balances }) => {
                     )}
                     <Body text={fullName} />
                 </FlexBox>
-            ),
-            className: 'fit-content'
+            )
         },
         {
             key: 'amount',
             translateTag: 'balance',
             handleItem: (item, row) => <BodyBold text={`${item} ${row.symbol}`} />,
-            className: 'fit-content',
             isSortable: true
         },
         {
             key: 'amountInGolos',
             translateTag: 'balanceInGolos',
             handleItem: (item) => <Body text={item} color="font-secondary" />,
-            className: 'align-right',
+            className: 'fit-content align-right',
             isSortable: true
         }
     ];

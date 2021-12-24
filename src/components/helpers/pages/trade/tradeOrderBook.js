@@ -176,8 +176,10 @@ export const TradeOrderBook = ({base, quote, ordersHistory, orderBook}) => {
                     />
                 </Box>
             </FlexBox>
-            <Box mt={2}>
-                {contentDisplay[filtersState[0]]}
+            <Box className="custom-scroll" mt={2} mr={-2}>
+                <Box>
+                    {contentDisplay[filtersState[0]]}
+                </Box>
             </Box>
         </Fragment>
     )
