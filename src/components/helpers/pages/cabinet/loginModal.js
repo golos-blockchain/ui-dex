@@ -10,6 +10,7 @@ export const LoginModal = () => {
         <BodyBold
             component="a"
             content={i18n("reg")}
+			color="brand"
             href="https://golos.app/register?invite=graphenelab"
             target="_blank"
             rel="nofollow"
