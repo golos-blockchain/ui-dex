@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^4.0.3",
     "react-interpolate-component": "^0.12.0",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
@@ -27,7 +27,8 @@
     "react-indiana-drag-scroll": "^2.1.0",
     "golos-lib-js": "^0.9.18",
     "crypto-js": "^4.1.1",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "immer": "^9.0.6"
   },
   "resolutions": {
     "json-schema": "^0.4.0",
