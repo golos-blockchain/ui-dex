@@ -1,4 +1,5 @@
 export * from "./trade"
+export * from "./tradePair"
 export * from "./cabinet"
 export * from "./dashboard"
 export * from "./wallet"

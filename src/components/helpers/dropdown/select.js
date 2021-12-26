@@ -8,7 +8,7 @@ import {fieldHook} from "../form/hooks";
 const SelectBtn = ({btnLabel, btnContent, toggleOpenState}) => {
     const [baseClass, setClass] = useClassSetter("select-btn");
     return(
-        <button className={clsx(baseClass, btnContent && "active")} onClick={toggleOpenState}>
+        <button type="button" className={clsx(baseClass, btnContent && "active")} onClick={toggleOpenState}>
             { btnContent }
             { btnLabel && <BodyBold className={setClass("label")} content={`selects.${btnLabel}`} /> }
             <div className={setClass("caret")}>
@@ -19,7 +19,7 @@ const SelectBtn = ({btnLabel, btnContent, toggleOpenState}) => {
 };
 
 export const Select = ({id, label, list, className, ...props}) => {
-    let { name, value: selectedId, disabled, onChange } = fieldHook(props);
+    let { name, value: selectedId, error, disabled, onChange } = fieldHook(props);
 
     const btnLabel = label || name;
 
@@ -27,7 +27,7 @@ export const Select = ({id, label, list, className, ...props}) => {
         onChange({name, value: id});
     };
 
-    const selectedItem = list[selectedId];
+    const selectedItem = list.find(el => el.id === selectedId);
     const btnContent = selectedItem && <BodyBold content={selectedItem.content} text={selectedItem.text} />;
 
     return(
@@ -35,12 +35,13 @@ export const Select = ({id, label, list, className, ...props}) => {
             btnContent={btnContent}
             btnLabel={btnLabel}
             btnComponent={SelectBtn}
-            dropdownList={list.map((({content, text}, id) => (
-                <div key={id} onClick={handleChange(id)}>
+            dropdownList={list.map((({id, content, text}) => (
+                <div key={id} onClick={handleChange(String(id))}>
                     <BodyBold content={content} text={text} />
                 </div>
             )))}
             disabled={disabled}
+            error={error}
         />
     )
 };

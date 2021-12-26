@@ -1,8 +1,8 @@
 $breakpoints: (
     "xs": 1px,    //targeting <568px devices (e.g. all iPhones <6)
-    "sm": 450px,  //targeting >=500px devices (e.g. iPhones >=6)
-    "md": 768px,  //targeting >=768px tablets (e.g. portrait iPad)
-    "lg": 1100px,  //targeting >=1024px tablets (e.g. landscape iPad) and desktops but leaving room for the scroll bar
+    "sm": 560px,  //targeting >=500px devices (e.g. iPhones >=6)
+    "md": 780px,  //targeting >=768px tablets (e.g. portrait iPad)
+    "lg": 1200px,  //targeting >=1024px tablets (e.g. landscape iPad) and desktops but leaving room for the scroll bar
     "xl": 1366px
 );
 

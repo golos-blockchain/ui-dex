@@ -1,26 +1,291 @@
 {
   "global": {
-    "text": "%(text)s"
+    "text": "%(text)s",
+    "buy": "Buy %(asset)s",
+    "sell": "Sell %(asset)s",
+    "send": "Send",
+    "rate": "Rate:",
+    "commission": "Comission:"
   },
   "trade": {
-    "title": "Trade"
+    "title": "Market",
+    "changePair": "Change Pair",
+    "bestPrice": "Best price",
+    "openOrders": "Open orders",
+    "myOrders": "My orders",
+    "history": "History",
+    "buy": "Buy",
+    "sell": "Sell",
+    "balance": "Balance",
+    "loginBtn": "Sign in",
+    "noFavPairs": "No favorite pairs",
+    "noPairs": "Pairs not found",
+    "emptyOpenOrders": "No open orders",
+    "emptyUserOrders": "No orders in history",
+    "emptyHistory": "No orders in history",
+    "params": {
+      "change": "24h Change",
+      "max": "24h High",
+      "min": "24h Low",
+      "baseVolume": "24h Volume (%(base)s)",
+      "quoteVolume": "24h Volume (%(quote)s)"
+    }
   },
   "cabinet": {
-    "title": "Cabinet"
+    "title": "Account"
+  },
+  "login": {
+    "title": "Sign in",
+    "desc": "%(regLink)s if you don't have an account",
+    "reg": "Sign up",
+    "pwdDescription": "In order not to store your active key in clear text, we will encrypt it with a password.",
+    "secondLogin": "Re-entry",
+    "secondLoginDesc": "To make sure that the account belongs to you, enter the password you specified during authorization",
+    "logout": "Log out"
   },
   "dashboard": {
-    "title": "Dashboard"
+    "title": "Dashboard",
+    "more": "More",
+    "balance": "Balance",
+    "toWallet": "Overview",
+    "currencies": "%(defaultCurrency)s value",
+    "defaultCurrency": "%(defaultCurrency)s",
+    "operations": "Operations",
+    "buySell": "Quick market",
+    "send": "Send",
+    "history": "History",
+    "orders": "Open orders",
+    "price": "Price for 1 %(buySymbol)s:",
+    "buyAmount": "Buy amount:"
   },
   "wallet": {
-    "title": "Wallet"
+    "title": "Wallet",
+    "totalBalance": "Estimated Balance",
+    "trx": {
+      "title": "Send",
+      "desc": "Instant transfer in any available asset by login"
+    },
+    "deposit": {
+      "title": "Deposit",
+      "desc": "Choose a currency and follow the instructions",
+      "details": "Details:",
+      "fee": "Fee:",
+      "memo_transfer": "Memo for transfer:",
+      "min_amount": "Minimum amount:",
+      "to_transfer": "Receiver:"
+    },
+    "withdraw": {
+      "title": "Withdraw",
+      "desc": "Choose a currency and follow the instructions",
+      "details": "Details:",
+      "fee": "Fee:",
+      "min_amount": "Minimum amount:",
+      "to": "Receiver:",
+      "memo": "Memo prefix:"
+    }
   },
   "orders": {
-    "title": "Orders"
+    "title": "Orders",
+    "addOrder": "Add order",
+    "closeAllOrders": "Close all orders",
+    "emptyFilter": "There's no orders for this type of filter",
+    "types": {
+      "all": "All",
+      "buy": "Buy",
+      "sell": "Sell"
+    },
+    "statuses": {
+      "opened": "Opened",
+      "closed": "Filled",
+      "cancelled": "Canceled",
+      "expired": "Expired"
+    }
   },
   "history": {
-    "title": "History"
+    "title": "History",
+    "emptyHistory": "You don't have any trade or transaction type of operations"
   },
   "settings": {
-    "title": "Settings"
+    "title": "Settings",
+    "security": "Security",
+    "passwordChange": "Change Password",
+    "passwordChangeWarning": "If you forget your password, you will need to log out and log back in completely using the active key",
+    "updatePassword": "Update password",
+    "permissions": {
+      "title": "Permissions",
+      "showKey": "Show private key",
+      "hideKey": "Hide private key",
+      "posting": {
+        "title": "Posting key",
+        "desc": "The posting key is used for authorization on the site, writing posts, voting, sending donations"
+      },
+      "active": {
+        "title": "Active key",
+        "desc": "Active key is used for transfers and trading on the exchange"
+      },
+      "owner": {
+        "title": "Owner key",
+        "desc": "The owner key is the master key for the entire account and is required to change other keys. The owner's private key (if you received one) and the master password are best kept offline"
+      },
+      "memo": {
+        "title": "Memo key",
+        "desc": "Memo key for encrypted notes and instant messaging"
+      }
+    },
+    "interface": "Interface",
+    "theme": "Theme",
+    "lightTheme": "Light",
+    "darkTheme": "Dark",
+    "nodes": "Nodes",
+    "addNode": "Add node",
+    "connected": "Connected",
+    "defaultNodesList": "Main",
+    "userNodesList": "Users",
+    "connectNode": "Connect",
+    "editNode": "Edit",
+    "deleteNode": "Delete",
+    "deleteNodeDesc": "Are you sure you want to remove node %(url)s from the list?"
+  },
+  "tableHeading": {
+    "currency": "Currency",
+    "balance": "Balance",
+    "balanceInGolos": "GOLOS value",
+    "name": "Name",
+    "address": "Address",
+    "status": "Status",
+    "ping": "Ping",
+    "actions": "Actions",
+    "creationDate": "Date of creation",
+    "pair": "Pair",
+    "type": "Type",
+    "amount": "Amount",
+    "amountWithAsset": "Amount (%(asset)s)",
+    "price": "Price",
+    "priceWithAsset": "Price (%(asset)s)",
+    "completed": "% fill",
+    "dateAndTime": "Date and time",
+    "summ": "Sum",
+    "desc": "Desc.",
+    "quote": "%(quote)s",
+    "base": "%(base)s",
+    "total": "Total",
+    "lastPrice": "Lost price",
+    "change": "Change"
+  },
+  "fields": {
+    "name": "Name",
+    "activeKey": "Active key",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New password",
+    "amountToSell": "Sale amount",
+    "amountToBuy": "Buy amount",
+    "from": "From",
+    "to": "To",
+    "summ": "Sum",
+    "memo": "Memo",
+    "nodeTitle": "Node name",
+    "nodeUrl": "Node URL",
+    "price": "Price",
+    "amount": "Amount",
+    "result": "Result",
+    "currency": "Currency"
+  },
+  "selects": {
+    "language": "Language",
+    "asset": "Asset",
+    "assetToBuy": "Buy",
+    "assetToSell": "Sell"
+  },
+  "checkboxes": {
+    "passwordSaveWarning": "I have saved my new password securely",
+    "isSell": "Sell"
+  },
+  "errors": {
+    "required": "Required field",
+    "loginError": "Invalid login or active key",
+    "passwordIsWrong": "Invalid password",
+    "passwordsNotMatch": "Password mismatch",
+    "nodeNameIsExist": "This name is already in use",
+    "nodeUrlIsExist": "This URL is already in use.",
+    "urlIsNotSocket": "Enter the websocket address (wss://(адрес)/ws)",
+    "nodeNotRespond": "Node is unavailable",
+    "userNotExist": "User does not exist",
+    "notEnoughCash": "Insufficient funds",
+    "pairNotUnique": "The asset must be unique",
+    "wrongPrecision": "Max. number of characters after the decimal point - %(precision)s",
+    "minAmount": "Min amount - %(minAmount)s"
+  },
+  "fieldMessages": {
+    "success": "This is a SUCCESS message"
+  },
+  "historyTable": {
+    "empty": "N/A",
+    "send": {
+      "title": "Transfer",
+      "description": "Sent %(amount)s to user %(to)s"
+    },
+    "receive": {
+      "title": "Transfer",
+      "description": "Received %(amount)s from user %(to)s"
+    },
+    "limit_order_create": {
+      "title": "Order creation",
+      "description": "User %(owner)s created an order %(orderid)s to buy %(min_to_receive)s for %(amount_to_sell)s"
+    },
+    "limit_order_cancel": {
+      "title": "Cancel order",
+      "description": "User %(owner)s canceled an order %(orderid)s"
+    },
+    "limit_order_cancel_ex": {
+      "title": "Canceling a group of orders",
+      "description": "User %(owner)s canceled following orders: %(orderid)s"
+    },
+    "buy": {
+      "title": "Buy",
+      "description": "User %(open_owner)s bought %(open_pays)s for %(current_pays)s (order %(open_orderid)s)"
+    },
+    "sell": {
+      "title": "Sell",
+      "description": "User %(current_owner)s sold %(current_pays)s for %(open_pays)s (order %(current_orderid)s)"
+    }
+  },
+  "confirmModal": {
+    "cancelOrder": {
+      "title": "Cancel order",
+      "desc": "Are you sure you want to cancel the order №%(id)s",
+      "btn": "Continue"
+    },
+    "cancelAllOrders": {
+      "title": "Cancel all orders",
+      "desc": "Are you sure you want to cancel all open orders?",
+      "btn": "Continue"
+    },
+    "cancelAllOrdersEmpty": {
+      "title": "Error!",
+      "desc": "You have no open orders",
+      "btn": "Close"
+    },
+    "quickBuy": {
+      "title": "Fast buy",
+      "desc": "Check the data",
+      "btn": "Confirm"
+    },
+    "tradeBuy": {
+      "title": "Buy order",
+      "desc": "Check the data",
+      "btn": "Confirm"
+    },
+    "tradeSell": {
+      "title": "Sell order",
+      "desc": "Check the data",
+      "btn": "Confirm"
+    },
+    "trx": {
+      "title": "Transfer",
+      "desc": "Check the data",
+      "btn": "Confirm"
+    }
   }
 }

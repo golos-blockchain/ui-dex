@@ -2,7 +2,7 @@ import React from "react";
 import {BodyBold} from "../global";
 import {clsx, useClassSetter} from "../../../utils";
 
-export const BtnContent = ({iconLeft: IL, content, text, textComponent, iconRight: IR}) => {
+export const BtnContent = ({iconLeft: IL, content, text, additionalData, textComponent, iconRight: IR}) => {
     const [baseClass, setClass, setEffect] = useClassSetter("btn-content");
     const effectName = IL && IR ? "both-icons" : IL ? "left-icon" : IR ? "right-icon" : "";
     const C = textComponent || BodyBold;
@@ -17,7 +17,7 @@ export const BtnContent = ({iconLeft: IL, content, text, textComponent, iconRigh
             )}
             { (content || text) && (
                 <div className={setClass("text")}>
-                    <C content={content} text={text} />
+                    <C content={content} text={text} with={additionalData} />
                 </div>
             )}
             {IR && (

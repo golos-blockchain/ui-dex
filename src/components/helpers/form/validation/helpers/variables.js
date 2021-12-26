@@ -5,7 +5,7 @@ export const schema = (obj) => yup.object(obj);
 export const yupString = () => yup.string().max(256);
 export const yupBool = () => yup.bool();
 
-// export const yupNum = () => yup.number();
+export const yupNum = () => yup.number();
 // export const yupDate = () => yup.date();
 // export const yupArr = (type) => yup.array().of(type);
 

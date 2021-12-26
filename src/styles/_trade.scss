@@ -1,0 +1,161 @@
+.trade{
+  &__content{
+    padding: 2rem;
+  }
+  .row{
+    margin: 0 -.5rem;
+    > .col{
+      padding: 0 .5rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.trade-pair{
+  .table__row .table__cell{
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+    &:not(:last-child){
+      padding-right: 1rem;
+    }
+  }
+}
+
+.pair-display{
+  &__change-btn{
+    margin-top: -.25rem;
+    margin-left: .5rem;
+    padding: .5rem .5rem;
+    svg{
+      width: 2rem;
+      height: 1.4rem;
+      fill: var(--font-disabled);
+      transition: var(--qSpeed);
+    }
+    &:hover{
+      svg{
+        fill: var(--brand);
+      }
+    }
+  }
+}
+
+.pair-params{
+  padding: 1.3rem 4.6rem;
+  &__item:not(:last-child){
+    margin-right: 2rem;
+  }
+  @include breakpoint(md){
+    padding: 1.3rem 2rem;
+  }
+  @include breakpoint(sm){
+    &__item{
+      width: 50%;
+      display: block;
+      &:not(:last-child){
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.pairs-list{
+  &__header{
+    max-width: 100%;
+    overflow-x: scroll;
+    &:hover{
+      cursor: grab;
+      &:focus, &:active{
+        cursor: grabbing;
+      }
+    }
+    &:focus, &:active{
+      cursor: grabbing;
+    }
+  }
+  &__content{
+    margin-top: 1rem;
+  }
+}
+
+.tradingview{
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: .8rem;
+  iframe{
+    border-radius: .8rem;
+
+    .chart-page .chart-container{
+      border-color: green;
+    }
+  }
+
+  .chart-page .chart-container{
+    border-color: green;
+  }
+}
+
+.order-book{
+  position: relative;
+  &__table-wrapper{
+    position: relative;
+    z-index: 5;
+  }
+  &__lines-wrapper{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  &__line{
+    height: 2.6rem;
+    position: absolute;
+    right: 0;
+  }
+  .table__row .table__cell{
+    padding-top: .15rem;
+    padding-bottom: .15rem;
+    border-color: transparent;
+    &:not(:last-child){
+      padding-right: 1rem;
+    }
+  }
+}
+
+.book-price{
+  svg{
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: .5rem;
+    fill: var(--error);
+  }
+  &.is-buy {
+    svg{
+      fill: var(--success);
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.book-filter{
+  margin-right: 1rem;
+  opacity: .25;
+  transition: var(--qSpeed);
+  &.active, &:hover{
+    opacity: 1;
+  }
+}
+
+.trade-history{
+    .table__row .table__cell{
+      padding-top: .4rem;
+      padding-bottom: .4rem;
+      border-color: transparent;
+      &:not(:last-child){
+        padding-right: 1rem;
+      }
+    }
+}

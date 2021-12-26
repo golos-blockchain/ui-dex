@@ -23,28 +23,31 @@
   &--error{
     color: var(--error);
   }
+  &--disabled{
+    color: var(--font-disabled);
+  }
 }
 
 .bg{
   &--brand{
-    color: var(--brand-bg);
+    background: var(--brand-bg);
   }
   &--brand-light{
-    color: var(--brand-bg-light);
+    background: var(--brand-bg-light);
   }
   &--primary{
-    color: var(--bg-primary);
+    background: var(--bg-primary);
   }
   &--secondary{
-    color: var(--bg-secondary);
+    background: var(--bg-secondary);
   }
   &--success{
-    color: var(--success-light);
+    background: var(--success-light);
   }
   &--error{
-    color: var(--error-light);
+    background: var(--error-light);
   }
   &--warning{
-    color: var(--warning-light);
+    background: var(--warning-light);
   }
 }

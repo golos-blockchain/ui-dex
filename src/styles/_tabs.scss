@@ -18,18 +18,21 @@
     margin-right: 3rem;
     margin-bottom: 1.2rem;
 
-    color: var(--font-disabled);
-
     transition: var(--mSpeed);
 
     span{
       font-weight: 700;
+      color: var(--font-disabled);
     }
     &:hover{
-      color: var(--brand-dark);
+      span{
+        color: var(--brand);
+      }
     }
     &.active{
-      color: var(--brand);
+      span{
+        color: var(--brand);
+      }
     }
   }
   &__border{

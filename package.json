@@ -24,7 +24,9 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "react-qr-code": "^2.0.3",
+    "react-indiana-drag-scroll": "^2.1.0",
     "golos-lib-js": "^0.9.18",
+    "crypto-js": "^4.1.1",
     "yup": "^0.32.8"
   },
   "scripts": {

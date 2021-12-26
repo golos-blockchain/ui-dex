@@ -14,10 +14,14 @@
 @import "tabs";
 @import "dropdown";
 @import "card";
+@import "modal";;
+@import "loader";
 
 //form
 @import "input";
 @import "checkbox";
+@import "range";
 
 //pages
+@import "trade";
 @import "cabinet";

@@ -1,4 +1,16 @@
+.form{
+  padding-top: 0.5rem;
+  .col{
+    margin-bottom: 0;
+  }
+  .dropdown{
+    margin-bottom: 2.2rem;
+  }
+}
+
 .field{
+  --l: 1.6rem;
+
   width: 100%;
   height: 4.8rem;
   display: block;
@@ -20,14 +32,15 @@
     border: 1px solid transparent;
     border-radius: .8rem;
     transition: var(--qSpeed);
-    z-index: 1;
+    z-index: 5;
     &:focus, &:active, &:not(:placeholder-shown), &:-webkit-autofill {
       background: var(--white);
       ~ .field{
         &__label{
+          --l: 1.6rem;
+
           font-size: 1.2rem;
           top: -.5rem;
-          left: 1.6rem;
           background: var(--white);
           color: var(--font-disabled);
         }
@@ -52,21 +65,24 @@
     padding: 0 .4rem;
     position: absolute;
     top: 1.6rem;
-    left: 1.6rem;
+    left: var(--l);
     line-height: 1;
     transition: var(--qSpeed);
-    z-index: 1;
+    z-index: 6;
   }
-  &__icon-left, &__icon-right{
+  &__icon-left, &__icon-right, &__asset, &__prefix{
     position: absolute;
     top: 1.1rem;
     z-index: 10;
   }
-  &__icon-left{
+  &__icon-left, &__prefix{
     left: 1.6rem;
   }
-  &__icon-right{
+  &__icon-right, &__asset{
     right: 1.6rem;
+  }
+  &__asset, &__prefix{
+    top: 1.4rem;
   }
   &__message{
     width: 100%;
@@ -82,18 +98,28 @@
     opacity: 0;
     transform: translateY(-10%);
     transition: var(--qSpeed);
-    z-index: 0;
+    z-index: 1;
     &.shown{
       opacity: 1;
       transform: translateY(0);
     }
+  }
+  &__comment{
+    width: 100%;
+    height: 4rem;
+    position: absolute;
+    left: 0;
+    bottom: -1.25rem;
+    padding: 1.35rem 1.6rem 0.6rem;
+    box-sizing: border-box;
+    z-index: 0;
   }
 
   &.success .field{
     &__input{
       border-color: var(--success);
     }
-    &__label, &__message{
+    &__label, &__message span{
       color: var(--success);
     }
     &__message{
@@ -115,11 +141,16 @@
     &__input{
       border-color: var(--error);
     }
-    &__label, &__message{
+    &__label, &__message span{
       color: var(--error);
     }
     &__message{
       background: var(--error-light);
+    }
+    &__icon-left, &__icon-right{
+      svg{
+        fill: var(--error);
+      }
     }
   }
   &.disabled{
@@ -173,10 +204,31 @@
     }
   }
   &__label{
-    left: 4.4rem;
+    --l: 4.4rem;
+  }
+}
+
+.field--hasPrefix .field{
+  &__input{
+    padding-left: var(--l);
+    &:focus, &:active{
+      padding-left: var(--l);
+    }
+  }
+  &__label{
+    //--l: 4.4rem;
   }
 }
 
 .field--hasMessage{
   padding-bottom: 3.4rem;
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }

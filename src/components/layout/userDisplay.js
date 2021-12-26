@@ -5,11 +5,13 @@ import {LogoutIcon, MailIcon, SettingsIcon} from "../../svg";
 import {Dropdown} from "../helpers/dropdown/dropdown";
 import {connectUserData, logout} from "../../redux/actions/userData";
 import {useHistory} from "react-router";
-import {cabinet, settings} from "../routing/path";
+import {settings} from "../routing/path";
 import {BrandTextBtn} from "../helpers/btn";
+import {LoginModal} from "../helpers/pages/cabinet";
+import {generateModal} from "../../redux/actions";
 
 const LoginBtn = () => (
-    <BrandTextBtn content="login.title" to={cabinet.link} />
+    <BrandTextBtn className="header__login-btn" content="login.title" onClick={generateModal(<LoginModal />)} />
 );
 
 const LoggedUserDisplay = ({userData}) => {

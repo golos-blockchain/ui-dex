@@ -24,7 +24,7 @@ export const DefaultDropdown = ({blockRef, btnLabel, btnContent, btnComponent, d
     const elementPosition = blockRef && blockRef.current ? blockRef.current.getBoundingClientRect() : {};
     const contentStyle = {
         width: elementPosition.width + 32,
-        top: elementPosition.top - 16,
+        top: elementPosition.top - 16 + window.scrollY,
         left: elementPosition.left - 16
     };
 
@@ -48,12 +48,14 @@ export const DefaultDropdown = ({blockRef, btnLabel, btnContent, btnComponent, d
                     <Btn btnContent={btnContent} btnLabel={btnLabel} toggleOpenState={closeDropdown} />
                 </div>
                 <Divider />
-                <div className={setClass("body")}>
-                    {dropdownList && dropdownList.map((el, id) => (
-                        <button key={id} className={setClass("list-item")} onClick={closeDropdown}>
-                            {el}
-                        </button>
-                    ))}
+                <div className={clsx(setClass("body"), "custom-scroll")}>
+                    <div className={setClass("scroll-wrapper")}>
+                        {dropdownList && dropdownList.map((el, id) => (
+                            <button key={id} className={setClass("list-item")} onClick={closeDropdown}>
+                                {el}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className={setClass("bg-layer")} onClick={closeDropdown} />

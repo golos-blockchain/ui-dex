@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, FlexBox, Metadata, MetadataBold} from "../global";
+import {Box, FlexBox, Metadata} from "../global";
 import {useClassSetter} from "../../../utils";
 import {SortIcon} from "../../../svg";
 

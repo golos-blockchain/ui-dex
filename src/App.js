@@ -1,38 +1,63 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {DefaultRoutes, Header} from "./components/layout";
+import {DefaultRoutes, GlobalLoader, Header, Loader, MobileHeader, Modal} from "./components/layout";
 import {initLocale} from "./utils/locale";
-import {getStorage, initSettings} from "./utils";
-import {setUserData} from "./redux/actions/userData";
-import {handleUserAuth} from "./utils/dataHandlers";
+import {getStorage, initNode, initSettings} from "./utils";
+import {logout} from "./redux/actions/userData";
+import {handleAssetsRequest} from "./utils/dataHandlers";
+import {ApiRequest} from "./utils/requests";
+import {setAssets} from "./redux/actions/assets";
+import {closeModal, generatePromiseModal} from "./redux/actions";
+import {SecondLoginModal} from "./components/helpers/pages/cabinet/secondLoginModal";
+import {updateActivePair} from "./redux/actions/activePair";
 
+const loginInit = async () => {
+    if(getStorage("user")) {
+        await generatePromiseModal(SecondLoginModal).catch(err => {
+            logout();
+            closeModal();
+            console.error(err);
+        });
+    }
+};
 
 const appInit = async () => {
     //base app initialising
     initLocale();
     initSettings();
 
-    //user check
-    const user = getStorage("user");
-    if(user) await handleUserAuth(user).then(setUserData);
+    updateActivePair(getStorage("active_pair") || "GOLOS_GBG");
+
+    await new ApiRequest().getAssets().then(handleAssetsRequest).then(setAssets);
 };
 
 function App() {
     const [isLoading, setLoadingState] = useState(true);
+    const [waitingForLogin, setLoginAwaitState] = useState(true);
 
     useEffect(() => {
-        appInit().then(() => setLoadingState(false));
+        initNode()
+            .then(appInit)
+            .then(() => setLoadingState(false))
+            .then(loginInit)
+            .finally(() => setLoginAwaitState(false));
     }, []);
 
-    return isLoading
-        ? <div>Loading</div>
-        : (
-            <Fragment>
-                <Header />
-                <main>
-                    <DefaultRoutes />
-                </main>
-            </Fragment>
-        );
+    if(isLoading) return <GlobalLoader />;
+
+    return (
+        <Fragment>
+            {!waitingForLogin && (
+              <Fragment>
+                  <Header />
+                  <MobileHeader />
+                  <main>
+                      <DefaultRoutes />
+                  </main>
+              </Fragment>
+            )}
+            <Modal />
+        </Fragment>
+    );
 }
 
 export default App;

@@ -28,12 +28,12 @@ export const LoadData = (req, throttling) => {
 
     const reloadData = () => {
         setReloadId(reloadId + 1);
-    }
+    };
 
     const reloadPage = () => {
         setLoadingState(true);
         reloadData();
-    }
+    };
 
     return [data, isLoading, reloadData, reloadPage];
 }

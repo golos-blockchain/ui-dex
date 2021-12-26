@@ -1,0 +1,31 @@
+.range{
+  width: 100%;
+  &__input{
+    -webkit-appearance: none;
+    width: 100%;
+    height: .2rem;
+    background: var(--brand-bg);
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 1.2rem;
+      height: 1.2rem;
+      border: 2px solid var(--brand);
+      border-radius: 50%;
+      background: var(--white);
+      cursor: grab;
+      &:focus, &:active{
+        cursor: grabbing;
+      }
+    }
+    &:focus, &:active{
+      cursor: grabbing;
+    }
+  }
+  &__percents-wrapper{
+    width: 100%;
+  }
+}

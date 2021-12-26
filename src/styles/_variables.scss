@@ -11,6 +11,8 @@
   --font-secondary: #A4A4A4;
   --font-disabled: #B3ADBD;
 
+  --btn-text-color: #FFFFFF;
+
   --bg-primary: #FCFCFC;
   --bg-secondary: #F7F9FC;
 
@@ -35,5 +37,31 @@
 }
 
 .dark-theme{
+  //brand
+  --brand: #8B46FB;
+  --brand-dark: #2E0571;
+  --brand-bg: #936FC1;
+  --brand-bg-light: #1B1339;
 
+  //neutral
+  --font-active: #ECE3FF;
+  --font-primary: #F5F2FA;
+  --font-secondary: #B192F3;
+  --font-disabled: #927BB8;
+
+  --btn-text-color: #F7F3FF;
+
+  --bg-primary: #2C1F47;
+  --bg-secondary: #4A3663;
+
+  --line: #483362;
+  --white: #342448;
+
+  //accent
+  --success: #50A39A;
+  --success-light: rgba(128, 255, 209, 0.2);
+  --error: #DE5E57;
+  --error-light: rgba(255, 97, 97, 0.3);
+  --warning: #FAC300;
+  --warning-light: rgba(255, 236, 64, 0.2);
 }

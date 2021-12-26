@@ -11,14 +11,15 @@ export const TopMenu = () => {
         content: `${el.tag}.title`,
         to: el.link
     }));
+
     const defaultActiveId = topMenuList.findIndex(el => (
         location.pathname.includes(el.link)
     ));
-
+    
     return(
         <TabsHeader
             itemComponent={NavLink}
-            defaultActiveId={defaultActiveId}
+            defaultActiveId={defaultActiveId > 0 ? defaultActiveId : 0}
             list={list}
         />
     )

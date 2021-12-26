@@ -1,4 +1,5 @@
 export { ReactComponent as Logo } from './logo.svg';
+export { ReactComponent as LogoDark } from './logo-dark.svg';
 
 //theme switcher icons
 export { ReactComponent as NightThemeIcon } from './theme-night.svg';
@@ -29,6 +30,18 @@ export { ReactComponent as CheckInactiveIcon } from './check-inactive.svg';
 export { ReactComponent as PasswordShowIcon } from './password-show.svg';
 export { ReactComponent as PasswordHideIcon } from './password-hide.svg';
 
+//history icons
+export { ReactComponent as HistoryReceiveIcon } from './history-receive.svg';
+export { ReactComponent as HistorySendIcon } from './history-send.svg';
+export { ReactComponent as HistoryPlusIcon } from './history-plus.svg';
+export { ReactComponent as HistoryFillIcon } from './history-fill.svg';
+export { ReactComponent as HistoryDeleteIcon } from './history-delete.svg';
+
+//order book table icon
+export { ReactComponent as BookAllIcon } from './orderbook-all.svg';
+export { ReactComponent as BookSellIcon } from './orderbook-sell.svg';
+export { ReactComponent as BookBuyIcon } from './orderbook-buy.svg';
+
 //coins icon
 export { ReactComponent as GolosIcon } from './coins/golos.svg';
 export { ReactComponent as SbdIcon } from './coins/sbd.svg';
@@ -48,4 +61,9 @@ export { ReactComponent as SearchIcon } from './search.svg';
 export { ReactComponent as LogoutIcon } from './logout.svg';
 export { ReactComponent as SortIcon } from './sort.svg';
 export { ReactComponent as TableActionsIcon } from './table-actions.svg';
+export { ReactComponent as ArrowIcon } from './arrow.svg';
 export { ReactComponent as ArrowRightIcon } from './arrow-right.svg';
+export { ReactComponent as BackspaceIcon } from './backspace.svg';
+export { ReactComponent as CrossIcon } from './cross.svg';
+export { ReactComponent as FavIcon } from './fav.svg';
+export { ReactComponent as ConnectIcon } from './connect.svg';

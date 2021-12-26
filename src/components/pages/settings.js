@@ -1,14 +1,20 @@
 import React, {Fragment} from "react";
-import {Card, Box, Col, FlexBox, H1, MetadataBold, Row} from "../helpers/global";
-import {translateStr, useClassSetter} from "../../utils";
+import {Card, Box, Col, FlexBox, MetadataBold, Row, Heading} from "../helpers/global";
+import {setStorage, translateStr, useClassSetter} from "../../utils";
 import {TabsWrapper} from "../helpers/tabs";
 import {LanguageChange, Nodes, Permissions, ThemeChange} from "../helpers/pages/settings";
-import {Checkbox, Form, Input} from "../helpers/form/helpers";
+import {Checkbox, Form, Input, PasswordInput} from "../helpers/form/helpers";
 import {getUserData} from "../../redux/actions/userData";
 import {MailIcon} from "../../svg";
-import {BorderedTextBtn, BrandTextBtn} from "../helpers/btn";
-import {FormatterRequest} from "../../utils/requests";
+import {BrandTextBtn} from "../helpers/btn";
 import {passwordChangeSchema} from "../helpers/form/validation";
+import {decodeUserData, encodeUserData} from "../../utils/dataHandlers";
+
+const pwdChange = async ({password, newPassword}) => {
+    const userData = decodeUserData({password})
+    const ciphertext = encodeUserData({...userData, password: newPassword});
+    setStorage("user", ciphertext);
+};
 
 const PasswordChange = () => {
     const i18n = translateStr("settings");
@@ -22,29 +28,17 @@ const PasswordChange = () => {
             </Box>
             <Form
                 schema={passwordChangeSchema}
+                request={pwdChange}
+                clearOnFinish
             >{formData => (
                 <Fragment>
-                    <Box>
-                        <Input name="currentPassword" type="password" formData={formData} />
-                    </Box>
-                    <FlexBox align="start">
-                        <Box f="1">
-                            <Input name="generatedPassword" formData={formData} disabled />
-                        </Box>
-                        <Box w="fit-content" ml={1.5}>
-                            <BorderedTextBtn content={i18n("generateNewPassword")} onClick={() => {
-                                const newPassword = new FormatterRequest().generatePassword();
-                                formData.onChange({name: "generatedPassword", value: newPassword});
-                            }} />
-                        </Box>
-                    </FlexBox>
-                    <Box mt={1} mb={2.6}>
-                        <Checkbox name="passwordRestoreWarning" formData={formData} />
-                    </Box>
+                    <PasswordInput name="password" label="currentPassword" formData={formData} />
+                    <PasswordInput name="newPassword" formData={formData} />
+                    <PasswordInput name="confirmPassword" formData={formData} />
                     <Box mb={2.6}>
                         <Checkbox name="passwordSaveWarning" formData={formData} />
                     </Box>
-                    <BrandTextBtn type="submit" content={i18n("updatePassword")} />
+                    <BrandTextBtn type="submit" content={i18n("updatePassword")} disabled={formData.props.disableForm} />
                 </Fragment>
             )}</Form>
         </Box>
@@ -57,9 +51,9 @@ export const Settings = () => {
     const headingList = [{content: i18n("passwordChange")}, {content: i18n("permissions.title")}];
     return(
         <Row className={baseClass}>
-           <Col md={6}>
+           <Col lg={6}>
                <Card className={setClass("security")}>
-                   <H1 content={i18n("security")} />
+                   <Heading content={i18n("security")} />
                    <Box mt={1}>
                        <TabsWrapper headingList={headingList}>
                            <PasswordChange />
@@ -68,14 +62,14 @@ export const Settings = () => {
                    </Box>
                </Card>
            </Col>
-           <Col md={6}>
+           <Col lg={6}>
                <Card className={setClass("interface")}>
-                   <H1 content={i18n("interface")} />
-                   <FlexBox mt={1} justify="space-between" align="center">
+                   <Heading content={i18n("interface")} />
+                   <Box className={setClass("interface-params")} mt={1} justify="space-between" align="center">
                        <LanguageChange />
                        <div className={setClass("interface-divider")} />
                        <ThemeChange />
-                   </FlexBox>
+                   </Box>
                </Card>
                <Card mt={2}>
                    <Nodes />

@@ -1,0 +1,41 @@
+.chart-page .chart-container {
+    border: 0;
+    border-left: 1px solid #936FC1;
+    border-top: 1px solid #936FC1;
+}
+
+.favored-list-container span, .header-chart-panel .button{
+    color: #F5F2FA;
+    background: #342448 !important;
+    border-color: #936FC1;
+}
+
+.favored-list-container span.submenu.interval-dialog-button i{
+    background: #F5F2FA;
+}
+
+.button.properties svg, .button.indicators svg, .chart-style-widget svg, .button.fullscreen svg, .on-widget .getimage .icon{
+    fill: #F5F2FA;
+}
+
+.feature-no-touch .favored-list-container span:hover{
+    color: #F5F2FA;
+    background: #8B46FB !important;
+}
+
+.feature-no-touch .chart-style-widget span:hover svg, .button.fullscreen span:hover svg{
+    fill: #F5F2FA;
+}
+
+.separator-3cgsM4c1-{
+    background: #936FC1;
+}
+
+.tv-close-panel.bottom, .tv-close-panel.top{
+    border-width: 1px 1px 1px 1px;
+}
+
+.tv-close-panel{
+    border-color: #936FC1;
+    background-color: #342448 !important;
+}

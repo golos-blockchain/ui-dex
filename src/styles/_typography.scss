@@ -5,15 +5,17 @@
   margin: 0;
   padding: 0;
 
+  color: var(--font-primary);
+
   white-space: break-spaces;
 }
 
-h1{
-  @include setTypo(3.3rem, 600, 5.1rem);
+.heading-bold{
+  @include setTypo(3.3rem, 700, 5.1rem);
 }
 
-h2{
-  @include setTypo(2.6rem, 700, 4.1rem);
+.heading{
+  @include setTypo(2.6rem, 600, 4.1rem);
 }
 
 .subheading-bold{
@@ -38,4 +40,8 @@ h2{
 
 .metadata{
   @include setTypo(1.3rem, 400, 2.2rem);
+}
+
+.bold{
+  font-weight: 700;
 }

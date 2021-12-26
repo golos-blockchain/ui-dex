@@ -1,0 +1,271 @@
+{
+  "global": {
+    "text": "%(text)s",
+    "buy": "Купить %(asset)s",
+    "sell": "Продать %(asset)s",
+    "send": "Отправить",
+    "rate": "Курс:",
+    "commission": "Комиссия:"
+  },
+  "trade": {
+    "title": "Торговля",
+    "bestPrice": "Лучшая цена",
+    "openOrders": "Открытые сделки",
+    "myOrders": "Мои сделки",
+    "history": "История сделок",
+    "buy": "Покупка",
+    "sell": "Продажа",
+    "balance": "Баланс",
+    "loginBtn": "Необходима авторизация",
+    "emptyOpenOrders": "Открытые сделки отсутствуют",
+    "emptyUserOrders": "У Вас не было сделок",
+    "params": {
+      "change": "Изменение за 24ч",
+      "max": "Макс за 24ч",
+      "min": "Мин за 24ч",
+      "baseVolume": "Объем 24ч (%(base)s)",
+      "quoteVolume": "Объем 24ч (%(quote)s)"
+    }
+  },
+  "cabinet": {
+    "title": "Личный кабинет"
+  },
+  "login": {
+    "title": "Вход",
+    "desc": "Если у вас нет аккаунта, пройдите %(regLink)s",
+    "reg": "регистрацию",
+    "pwdDescription": "Чтобы не хранить Ваш активный ключ в открытом виде после авторизации мы зашифруем его при помощи пароля.",
+    "secondLogin": "Повторный вход",
+    "secondLoginDesc": "Чтобы убедиться, что аккаунт принадлежит Вам, введите пароль, указанный при авторизации.",
+    "logout": "Выйти"
+  },
+  "dashboard": {
+    "title": "Дэшборд",
+    "more": "Подробнее",
+    "balance": "Баланс",
+    "toWallet": "В кошелек",
+    "currencies": "Валюты %(defaultCurrency)s",
+    "defaultCurrency": "в %(defaultCurrency)s",
+    "operations": "Операции",
+    "buySell": "Быстрая покупка",
+    "send": "Отправить",
+    "history": "История",
+    "orders": "Открытые сделки",
+    "price": "Цена за 1 %(buySymbol)s:",
+    "buyAmount": "Сумма покупки:"
+  },
+  "wallet": {
+    "title": "Кошелек",
+    "totalBalance": "Общий баланс",
+    "trx": "Перевод",
+    "trxDesc": "Быстрая передача средств в любой доступной валюте по логину Голоса",
+    "deposit": "Пополнение",
+    "depositDesc": "Выберите валюту и следуйте появившейся инструкции",
+    "withdraw": "Вывод",
+    "withdrawDesc": "Выберите валюту и следуйте появившейся инструкции по выводу средств"
+  },
+  "orders": {
+    "title": "Сделки",
+    "addOrder": "Добавить сделку",
+    "closeAllOrders": "Закрыть все сделки",
+    "types": {
+      "all": "Все",
+      "buy": "Покупка",
+      "sell": "Продажа"
+    },
+    "statuses": {
+      "opened": "Открыта",
+      "closed": "Закрыта",
+      "cancelled": "Отменена",
+      "expired": "Истекла"
+    }
+  },
+  "history": {
+    "title": "История"
+  },
+  "settings": {
+    "title": "Настройки",
+    "security": "Безопасность",
+    "passwordChange": "Изменение пароля",
+    "passwordChangeWarning": "1. Не теряйте свой пароль.\n2. Это серьёзно, запишите сгенерированный пароль.\n3. Мы не сможем восстановить его.\n4. Если вы легко можете запомнить пароль, значит не так он и безопасен.\n5. Лучше используйте сгенерированные случайным образом пароли.\n6. Никому не говорите свой пароль.\n7. Всегда надёжно храните свой пароль.",
+    "generateNewPassword": "Сгенерировать новый пароль",
+    "updatePassword": "Обновить пароль",
+    "permissions": {
+      "title": "Разрешения",
+      "showKey": "Показать приватный ключ",
+      "hideKey": "Скрыть приватный ключ",
+      "posting": {
+        "title": "Постинг ключ",
+        "desc": "Posting-ключ используется для авторизации на сайте, написания постов, голосования, отправки донатов."
+      },
+      "active": {
+        "title": "Активный ключ",
+        "desc": "Active-ключ используется для переводов, голосования за делегатов и заказов на внутренней бирже."
+      },
+      "owner": {
+        "title": "Ключ владельца",
+        "desc": "Owner-ключ это главный ключ ко всему аккаунту, он необходим для изменения других ключей. Приватный ключ владельца (если вы его получали) и главный пароль лучше хранить в оффлайне."
+      },
+      "memo": {
+        "title": "Ключ заметок",
+        "desc": "Memo-ключ для зашифрованных заметок и обмена сообщениями через мессенджер."
+      }
+    },
+    "interface": "Интерфейс",
+    "theme": "Цветовая тема",
+    "lightTheme": "Светлая",
+    "darkTheme": "Темная",
+    "nodes": "Ноды",
+    "addNode": "Добавить ноду",
+    "connected": "Подключена",
+    "defaultNodesList": "Основные",
+    "userNodesList": "Пользовательские",
+    "connectNode": "Подключить",
+    "editNode": "Редактировать",
+    "deleteNode": "Удалить",
+    "deleteNodeDesc": "Вы уверены, что хотите удалить ноду %(url)s из списка?"
+  },
+  "tableHeading": {
+    "currency": "Валюта",
+    "balance": "Баланс",
+    "balanceInGolos": "Баланс (GOLOS)",
+    "name": "Имя",
+    "address": "Адрес",
+    "status": "Статус",
+    "ping": "Отклик",
+    "actions": "Действия",
+    "creationDate": "Дата создания",
+    "pair": "Пара",
+    "type": "Тип",
+    "amount": "Количество",
+    "amountWithAsset": "Кол-во (%(asset)s)",
+    "price": "Цена",
+    "priceWithAsset": "Цена (%(asset)s)",
+    "completed": "% выполнения",
+    "dateAndTime": "Дата и время",
+    "summ": "Сумма",
+    "desc": "Описание",
+    "quote": "%(quote)s",
+    "base": "%(base)s",
+    "total": "Всего",
+    "lastPrice": "Посл.цена",
+    "change": "Измен."
+  },
+  "fields": {
+    "name": "Имя пользователя",
+    "activeKey": "Активный ключ",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль",
+    "generatedPassword": "Сгенерированный пароль",
+    "amountToSell": "Сумма продажи",
+    "amountToBuy": "Сумма покупки",
+    "from": "От кого",
+    "to": "Кому",
+    "summ": "Сумма",
+    "memo": "Мемо",
+    "nodeTitle": "Название ноды",
+    "nodeUrl": "Адрес ноды",
+    "price": "Цена",
+    "amount": "Кол-во",
+    "result": "Итого",
+    "currency": "Валюта"
+  },
+  "selects": {
+    "language": "Язык",
+    "asset": "Валюта",
+    "assetToBuy": "Купить",
+    "assetToSell": "Продать"
+  },
+  "checkboxes": {
+    "passwordRestoreWarning": "Я понимаю, что GOLOS не сможет восстановить потерянные пароли",
+    "passwordSaveWarning": "Я надежно сохранил новый пароль",
+    "isSell": "Продажа"
+  },
+  "errors": {
+    "required": "Обязательное поле",
+    "loginError": "Логин или активный ключ были введены неверно!",
+    "passwordIsWrong": "Пароль введен неверно!",
+    "passwordsNotMatch": "Пароли не совпадают!",
+    "nodeNameIsExist": "Нода с таким именем уже сохранена!",
+    "nodeUrlIsExist": "Нода с таким адресом уже сохранена!",
+    "urlIsNotSocket": "Введита адрес вебсокета (wss://(адрес)/ws)!",
+    "nodeNotRespond": "Нода не отвечает на запросы",
+    "userNotExist": "Пользователя не существует",
+    "notEnoughCash": "Недостаточно средств",
+    "pairNotUnique": "Ассет должен быть уникальным",
+    "wrongPrecision": "Макс. кол-во символов после запятой - %(precision)s"
+  },
+  "fieldMessages": {
+    "success": "This is a SUCCESS message"
+  },
+  "historyTable": {
+    "empty": "Отсутствует",
+    "send": {
+      "title": "Перевод",
+      "description": "Отправлено %(amount)s пользователю %(to)s"
+    },
+    "receive": {
+      "title": "Перевод",
+      "description": "Получено %(amount)s от пользователя %(to)s"
+    },
+    "limit_order_create": {
+      "title": "Создание ордера",
+      "description": "Пользователь %(owner)s создал ордер %(orderid)s на покупку %(min_to_receive)s за %(amount_to_sell)s"
+    },
+    "limit_order_cancel": {
+      "title": "Отмена ордера",
+      "description": "Пользователь %(owner)s отменил ордер %(orderid)s"
+    },
+    "limit_order_cancel_ex": {
+      "title": "Отмена группы ордеров",
+      "description": "Пользователь %(owner)s отменил следующие ордера: %(orderid)s"
+    },
+    "buy": {
+      "title": "Покупка",
+      "description": "Пользователь %(open_owner)s купил %(open_pays)s за %(current_pays)s (ордер %(open_orderid)s)"
+    },
+    "sell": {
+      "title": "Продажа",
+      "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s (ордер %(current_orderid)s)"
+    }
+  },
+  "confirmModal": {
+    "cancelOrder": {
+      "title": "Отмена ордера",
+      "desc": "Вы уверены, что хотите отменить ордер №%(id)s",
+      "btn": "Продолжить"
+    },
+    "cancelAllOrders": {
+      "title": "Отмена всех ордеров",
+      "desc": "Вы уверены, что хотите отменить все актуальные на данный момент ордера?",
+      "btn": "Продолжить"
+    },
+    "cancelAllOrdersEmpty": {
+      "title": "Ошибка!",
+      "desc": "В данный момент у вас нет открытых ордеров",
+      "btn": "Закрыть окно"
+    },
+    "quickBuy": {
+      "title": "Быстрая покупка",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить покупку"
+    },
+    "tradeBuy": {
+      "title": "Ордер на покупку",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить создание"
+    },
+    "tradeSell": {
+      "title": "Ордер на продажу",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить создание"
+    },
+    "trx": {
+      "title": "Перевод",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить перевод"
+    }
+  }
+}

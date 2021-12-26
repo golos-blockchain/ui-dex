@@ -1,0 +1,68 @@
+.loader{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &__body{
+    width: 15rem;
+    height: 15rem;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__circle{
+    width: 5rem;
+    height: 5rem;
+
+    transition: all 0.7s ease-in-out;
+
+    border: 10px solid var(--brand-bg-light);
+    border-bottom-color: var(--brand);
+    border-radius: 50%;
+    -webkit-font-smoothing: antialiased !important;
+    -webkit-animation: loader-spin 0.5s linear infinite;
+  }
+}
+
+@keyframes loader-spin{
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+
+}
+
+.global-loader{
+  width: 100vw;
+  height: 100vh;
+}
+
+.page-loader{
+  width: 100vw;
+  height: calc(100vh - 7.5rem);
+  @include breakpoint(md){
+    width: 100%;
+    height: calc(100vh - 7.5rem);
+  }
+}
+
+.card-loader{
+  width: fit-content;
+  margin: 2rem auto;
+  .loader__body{
+    width: 8rem;
+    height: 8rem;
+
+    position: relative;
+    left: unset;
+    top: unset;
+    transform: none;
+  }
+}

@@ -1,130 +1,58 @@
 import React, {Fragment} from "react";
-import {Box, FlexBox, H1, Metadata, Subheading} from "../../global";
+import {Box, FlexBox, H1, Heading, Subheading} from "../../global";
 import {BrandTextBtn} from "../../btn";
-import {clsx, translateStr} from "../../../../utils";
-import {Table} from "../../table";
-import {TableActionDropdown} from "../../dropdown";
+import {translateStr} from "../../../../utils";
+import {connect} from "react-redux";
+import {connectNodes} from "../../../../redux/actions/nodes";
+import {generateModal} from "../../../../redux/actions";
+import {NodeTable} from "./nodeTable";
+import {AddNodeModal} from "./nodeModals";
 
-const NodeActions = ({address}) => {
+const Display = ({nodes}) => {
     const i18n = translateStr("settings");
+    const list = nodes.list;
 
-    const list = [
-        {
-            content: "connectNode",
-            onClick: () => { console.log(address) }
-        },
-        {
-            content: "editNode",
-            onClick: () => { console.log(address) }
-        },
-        {
-            content: "deleteNode",
-            color: "error",
-            onClick: () => { console.log(address) }
-        }
-    ].map((({content, onClick, color}, id) => (
-        <div key={id} onClick={onClick}>
-            <Metadata content={i18n(content)} color={color} />
-        </div>
-    )));
+    const activeNode = [list[nodes.activeNode]];
+    const activeIsUserNode = !activeNode[0].isDefaultNode;
 
-    return <TableActionDropdown list={list} />
-};
-
-const NodeTable = ({list}) => {
-    const heading = [
-        {
-            key: 'name',
-            translateTag: 'name',
-            handleItem: (item) => <Metadata text={item} />,
-            className: 'fit-content',
-        },
-        {
-            key: 'address',
-            translateTag: 'address',
-            handleItem: (item) => <Metadata text={item} />,
-            className: 'fit-content'
-        },
-        {
-            key: 'isAvailable',
-            translateTag: 'status',
-            handleItem: (isAvailable) => <span className={clsx("status-dot", isAvailable ? "success" : "error")} />,
-            className: 'align-center'
-        },
-        {
-            key: 'ping',
-            translateTag: 'ping',
-            handleItem: (item) => <Metadata text={`${item}мс`} />,
-            className: 'align-center',
-        },
-        {
-            key: 'address',
-            translateTag: 'actions',
-            handleItem: (item) => <NodeActions address={item} />,
-            className: 'align-right'
-        }
-    ];
-
-    return <Table tableHead={heading} rows={list} />
-};
-
-
-export const Nodes = () => {
-    const i18n = translateStr("settings");
-
-    const activeNode = [
-        {
-            name: "Node 1",
-            address: "wss://www.zencorporation.com/",
-            isAvailable: true,
-            ping: 121
-        }
-    ];
-    const nodesList = [
-        {
-            name: "Node 1",
-            address: "wss://www.zencorporation.com/",
-            isAvailable: true,
-            ping: 121
-        },
-        {
-            name: "Node 1",
-            address: "wss://www.zencorporation.com/",
-            isAvailable: false,
-            ping: 0
-        },
-        {
-            name: "Node 1",
-            address: "wss://www.zencorporation.com/",
-            isAvailable: true,
-            ping: 121
-        },
-        {
-            name: "Node 1",
-            address: "wss://www.zencorporation.com/",
-            isAvailable: false,
-            ping: 0
-        }
-    ];
+    const nodesList = list.filter((el) => Number(el.id) !== Number(nodes.activeNode));
+    const defaultNodesList = nodesList.filter(el => el.isDefaultNode);
+    const userNodesList = nodesList.filter(el => !el.isDefaultNode);
 
     return(
         <Fragment>
             <FlexBox mt={1} justify="space-between" align="center">
-                <H1 content={i18n("nodes")} />
-                <BrandTextBtn content={i18n("addNode")} />
+                <Heading content={i18n("nodes")} />
+                <BrandTextBtn content={i18n("addNode")} onClick={generateModal(<AddNodeModal />)} />
             </FlexBox>
-            <Box mt={.8}>
+            <Box className="custom-scroll" mt={.8}>
                 <Subheading content={i18n("connected")} />
                 <Box mt={1}>
-                    <NodeTable list={activeNode} />
+                    <NodeTable
+                        list={activeNode}
+                        isUserNode={activeIsUserNode}
+                        isActiveNode
+                    />
                 </Box>
             </Box>
-            <Box mt={1.7}>
-                <Subheading content={i18n("nodesList")} />
-                <Box mt={1}>
-                    <NodeTable list={nodesList} />
+            {!!defaultNodesList.length && (
+                <Box className="custom-scroll" mt={1.7}>
+                    <Subheading content={i18n("defaultNodesList")} />
+                    <Box mt={1}>
+                        <NodeTable list={defaultNodesList} />
+                    </Box>
                 </Box>
-            </Box>
+            )}
+            {!!userNodesList.length && (
+                <Box className="custom-scroll" mt={1.7}>
+                    <Subheading content={i18n("userNodesList")} />
+                    <Box mt={1}>
+                        <NodeTable list={userNodesList} isUserNode />
+                    </Box>
+                </Box>
+            )}
         </Fragment>
     )
-}
+};
+
+export const Nodes = connect(connectNodes)(Display);

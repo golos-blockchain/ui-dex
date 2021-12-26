@@ -42,14 +42,14 @@ button{
 
 .btn{
   --bg: var(--brand);
-  --hover-bg: var(--brand);
+  --hover-bg: var(--bg);
   --active-bg: var(--brand-dark);
-  --disabled-bg: var(--disabled-bg);
+  --disabled-bg: transparent;
 
-  --color: var(--white);
-  --hover-color: var(--white);
-  --active-color: var(--white);
-  --disabled-color: var(--white);
+  --color: var(--btn-text-color);
+  --hover-color: var(--btn-text-color);
+  --active-color: var(--btn-text-color);
+  --disabled-color: var(--btn-text-color);
 
   --border: var(--bg);
   --hover-border: var(--hover-bg);
@@ -87,7 +87,7 @@ button{
     border-color: var(--active-border);
   }
   &:disabled, &:disabled:hover{
-    opacity: .2;
+    opacity: .75;
 
     background: var(--disabled-bg);
     border-color: var(--disabled-border);
@@ -95,19 +95,28 @@ button{
     color: var(--disabled-color);
   }
 
-  &--brand{}
-  &--green{}
-  &--red{}
+  &--brand{
+    --disabled-bg: var(--brand-bg);
+  }
+  &--green{
+    --bg: var(--success);
+    --active-bg: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), var(--success);
+  }
+  &--red{
+    --bg: var(--error);
+    --active-bg: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), var(--error);
+  }
 
   &--bordered{
     --bg: transparent;
     --hover-bg: var(--brand-bg-light);
+    --disabled-bg: var(--brand-bg-light);
     --active-bg: transparent;
 
     --border: var(--brand);
     --hover-border: var(--brand);
     --active-border: var(--brand-dark);
-    --disabled-border: var(--grey);
+    --disabled-border: var(--brand);
 
     --color: var(--brand);
     --hover-color: var(--brand);
@@ -139,13 +148,16 @@ button{
   }
   &__text{
     padding: var(--content-padding);
-    color: var(--color);
+    span{
+      color: var(--color);
+    }
   }
   &__icon-right{
     margin-right: -.4rem;
   }
 
   &__icon-left, &__icon-right{
+    margin-top: -0.25rem;
     svg{
       fill: var(--color);
     }

@@ -1,9 +1,35 @@
 {
   "global": {
-    "text": "%(text)s"
+    "text": "%(text)s",
+    "buy": "Купить %(asset)s",
+    "sell": "Продать %(asset)s",
+    "send": "Отправить",
+    "rate": "Курс:",
+    "commission": "Комиссия:"
   },
   "trade": {
-    "title": "Торговля"
+    "title": "Биржа",
+    "changePair": "Изменить пару",
+    "bestPrice": "Лучшая цена",
+    "openOrders": "Открытые ордера",
+    "myOrders": "Мои ордера",
+    "history": "История",
+    "buy": "Покупка",
+    "sell": "Продажа",
+    "balance": "Баланс",
+    "loginBtn": "Необходима авторизация",
+    "noFavPairs": "Нет любимых пар",
+    "noPairs": "Пары не найдены",
+    "emptyOpenOrders": "Открытые ордера отсутствуют",
+    "emptyUserOrders": "У Вас не было ордеров",
+    "emptyHistory": "История ордеров отсутствует",
+    "params": {
+      "change": "Изменение за 24ч",
+      "max": "Макс 24ч",
+      "min": "Мин 24ч",
+      "baseVolume": "Объем 24ч (%(base)s)",
+      "quoteVolume": "Объем 24ч (%(quote)s)"
+    }
   },
   "cabinet": {
     "title": "Личный кабинет"
@@ -11,26 +37,79 @@
   "login": {
     "title": "Вход",
     "desc": "Если у вас нет аккаунта, пройдите %(regLink)s",
-    "reg": "регистрацию"
+    "reg": "регистрацию",
+    "pwdDescription": "Чтобы не хранить Ваш активный ключ в открытом виде, мы зашифруем его при помощи пароля.",
+    "secondLogin": "Повторный вход",
+    "secondLoginDesc": "Чтобы убедиться, что аккаунт принадлежит Вам, введите пароль, указанный при авторизации.",
+    "logout": "Выйти"
   },
   "dashboard": {
-    "title": "Дэшборд"
+    "title": "Дашборд",
+    "more": "Подробнее",
+    "balance": "Баланс",
+    "toWallet": "Кошелек",
+    "currencies": "Курсы валют %(defaultCurrency)s",
+    "defaultCurrency": "в %(defaultCurrency)s",
+    "operations": "Операции",
+    "buySell": "Быстрая покупка",
+    "send": "Отправить",
+    "history": "История",
+    "orders": "Открытые ордера",
+    "price": "Цена за 1 %(buySymbol)s:",
+    "buyAmount": "Сумма покупки:"
   },
   "wallet": {
-    "title": "Кошелек"
+    "title": "Кошелек",
+    "totalBalance": "Общий баланс",
+    "trx": {
+      "title": "Перевод",
+      "desc": "Мгновенный перевод в любой доступной валюте по логину"
+    },
+    "deposit": {
+      "title": "Пополнение",
+      "desc": "Выберите валюту и следуйте появившейся инструкции",
+      "details": "Детали пополнения:",
+      "fee": "Комиссия:",
+      "memo_transfer": "Поле Memo:",
+      "min_amount": "Мин. сумма:",
+      "to_transfer": "Получатель:"
+    },
+    "withdraw": {
+      "title": "Вывод",
+      "desc": "Выберите валюту и следуйте появившейся инструкции по выводу средств",
+      "details": "Детали вывода:",
+      "fee": "Комиссия:",
+      "min_amount": "Мин. сумма:",
+      "to": "Получатель:",
+      "memo": "Префикс в поле Memo:"
+    }
   },
   "orders": {
-    "title": "Сделки"
+    "title": "Ордера",
+    "addOrder": "Добавить ордер",
+    "closeAllOrders": "Закрыть все ордера",
+    "emptyFilter": "Нет ордеров, подходящих по фильтру",
+    "types": {
+      "all": "Все",
+      "buy": "Покупка",
+      "sell": "Продажа"
+    },
+    "statuses": {
+      "opened": "Открыта",
+      "closed": "Закрыта",
+      "cancelled": "Отменена",
+      "expired": "Истекла"
+    }
   },
   "history": {
-    "title": "История"
+    "title": "История",
+    "emptyHistory": "У Вас пока что нет совершенных операций"
   },
   "settings": {
     "title": "Настройки",
     "security": "Безопасность",
     "passwordChange": "Изменение пароля",
-    "passwordChangeWarning": "1. Не теряйте свой пароль.\n2. Это серьёзно, запишите сгенерированный пароль.\n3. Мы не сможем восстановить его.\n4. Если вы легко можете запомнить пароль, значит не так он и безопасен.\n5. Лучше используйте сгенерированные случайным образом пароли.\n6. Никому не говорите свой пароль.\n7. Всегда надёжно храните свой пароль.",
-    "generateNewPassword": "Сгенерировать новый пароль",
+    "passwordChangeWarning": "В случае, если вы забудете пароль, вам потребется полностью выйти и снова войти с использованием активного ключа",
     "updatePassword": "Обновить пароль",
     "permissions": {
       "title": "Разрешения",
@@ -42,7 +121,7 @@
       },
       "active": {
         "title": "Активный ключ",
-        "desc": "Active-ключ используется для переводов, голосования за делегатов и заказов на внутренней бирже."
+        "desc": "Active-ключ используется для переводов и торговле на бирже."
       },
       "owner": {
         "title": "Ключ владельца",
@@ -60,164 +139,153 @@
     "nodes": "Ноды",
     "addNode": "Добавить ноду",
     "connected": "Подключена",
-    "nodesList": "Доступны",
+    "defaultNodesList": "Основные",
+    "userNodesList": "Пользовательские",
     "connectNode": "Подключить",
     "editNode": "Редактировать",
-    "deleteNode": "Удалить"
+    "deleteNode": "Удалить",
+    "deleteNodeDesc": "Вы уверены, что хотите удалить ноду %(url)s из списка?"
   },
   "tableHeading": {
     "currency": "Валюта",
     "balance": "Баланс",
-    "balanceUsd": "Баланс ($)",
+    "balanceInGolos": "Баланс в GOLOS",
     "name": "Имя",
     "address": "Адрес",
     "status": "Статус",
     "ping": "Отклик",
-    "actions": "Действия"
+    "actions": "Действия",
+    "creationDate": "Дата создания",
+    "pair": "Пара",
+    "type": "Тип",
+    "amount": "Количество",
+    "amountWithAsset": "Кол-во (%(asset)s)",
+    "price": "Цена",
+    "priceWithAsset": "Цена (%(asset)s)",
+    "completed": "% выполнения",
+    "dateAndTime": "Дата и время",
+    "summ": "Сумма",
+    "desc": "Описание",
+    "quote": "%(quote)s",
+    "base": "%(base)s",
+    "total": "Всего",
+    "lastPrice": "Посл.цена",
+    "change": "Измен."
   },
   "fields": {
-    "test": "Test",
     "name": "Имя пользователя",
-    "priv": "Пароль или активный ключ",
+    "activeKey": "Активный ключ",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
     "currentPassword": "Текущий пароль",
-    "generatedPassword": "Сгенерированный пароль"
+    "newPassword": "Новый пароль",
+    "amountToSell": "Сумма продажи",
+    "amountToBuy": "Сумма покупки",
+    "from": "От кого",
+    "to": "Кому",
+    "summ": "Сумма",
+    "memo": "Комментарий",
+    "nodeTitle": "Название ноды",
+    "nodeUrl": "Адрес ноды",
+    "price": "Цена",
+    "amount": "Кол-во",
+    "result": "Итого",
+    "currency": "Валюта"
   },
   "selects": {
-    "language": "Язык"
+    "language": "Язык",
+    "asset": "Валюта",
+    "assetToBuy": "Купить",
+    "assetToSell": "Продать"
   },
   "checkboxes": {
-    "passwordRestoreWarning": "Я понимаю, что GOLOS не сможет восстановить потерянные пароли",
-    "passwordSaveWarning": "Я надежно сохранил сгенерированный пароль"
+    "passwordSaveWarning": "Я надежно сохранил новый пароль",
+    "isSell": "Продажа"
   },
   "errors": {
     "required": "Обязательное поле",
-    "loginError": "Логин или пароль были введены неверно!",
-    "passwordIsWrong": "Пароль введен неверно!"
+    "loginError": "Логин или активный ключ были введены неверно",
+    "passwordIsWrong": "Пароль введен неверно",
+    "passwordsNotMatch": "Пароли не совпадают",
+    "nodeNameIsExist": "Нода с таким именем уже сохранена",
+    "nodeUrlIsExist": "Нода с таким адресом уже сохранена",
+    "urlIsNotSocket": "Введита адрес вебсокета (wss://(адрес)/ws)",
+    "nodeNotRespond": "Нода не отвечает на запросы",
+    "userNotExist": "Пользователя с таким логином не существует",
+    "notEnoughCash": "Недостаточно средств",
+    "pairNotUnique": "Ассет должен быть уникальным",
+    "wrongPrecision": "Макс. кол-во символов после запятой - %(precision)s",
+    "minAmount": "Мин.сумма - %(minAmount)s"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
   },
   "historyTable": {
-    "account_create": {
-      "title": "Account Creation",
-      "description": "%(registrar)s registered the account %(user)s"
-    },
+    "empty": "N/A",
     "send": {
-      "title": "Send",
-      "description": "%(sender)s send %(quantity)s to %(receiver)s. %(memo)s"
+      "title": "Перевод",
+      "description": "Отправлено %(amount)s пользователю %(to)s"
     },
     "receive": {
-      "title": "Receive",
-      "description": "%(receiver)s received %(quantity)s from %(sender)s. %(memo)s"
+      "title": "Перевод",
+      "description": "Получено %(amount)s от пользователя %(to)s"
     },
     "limit_order_create": {
-      "title": "Create Order",
-      "description": "%(creator)s placed order #%(id)s at %(marketLink)s to buy %(buy)s for %(sell)s"
+      "title": "Создание ордера",
+      "description": "Пользователь %(owner)s создал ордер %(orderid)s на покупку %(min_to_receive)s за %(amount_to_sell)s"
     },
     "limit_order_cancel": {
-      "title": "Cancel Order",
-      "description": "%(user)s cancelled order #%(id)s"
+      "title": "Отмена ордера",
+      "description": "Пользователь %(owner)s отменил ордер %(orderid)s"
     },
-    "fill_order": {
-      "title": "Order Filled",
-      "description": "%(user)s bought %(receives)s for %(pays)s at %(marknodesetLink)s for order #%(id)s"
+    "limit_order_cancel_ex": {
+      "title": "Отмена группы ордеров",
+      "description": "Пользователь %(owner)s отменил следующие ордера: %(orderid)s"
     },
-    "account_update": {
-      "title": "Account Updated",
-      "description": "%(user)s updated account data"
+    "buy": {
+      "title": "Покупка",
+      "description": "Пользователь %(open_owner)s купил %(open_pays)s за %(current_pays)s (ордер %(open_orderid)s)"
     },
-    "account_upgrade": {
-      "title": "Account Upgraded",
-      "description": "%(user)s upgraded account to lifetime member"
+    "sell": {
+      "title": "Продажа",
+      "description": "Пользователь %(current_owner)s продал %(current_pays)s за %(open_pays)s (ордер %(current_orderid)s)"
+    }
+  },
+  "confirmModal": {
+    "cancelOrder": {
+      "title": "Отмена ордера",
+      "desc": "Вы уверены, что хотите отменить ордер №%(id)s",
+      "btn": "Продолжить"
     },
-    "worker_create": {
-      "title": "Worker Created",
-      "description": "%(user)s created a worker proposal with daily pay of %(dailyPay)s"
+    "cancelAllOrders": {
+      "title": "Отмена всех ордеров",
+      "desc": "Вы уверены, что хотите отменить все актуальные на данный момент ордера?",
+      "btn": "Продолжить"
     },
-    "proposal_create": {
-      "title": "Proposal Create",
-      "description": ""
+    "cancelAllOrdersEmpty": {
+      "title": "Ошибка!",
+      "desc": "В данный момент у вас нет открытых ордеров",
+      "btn": "Закрыть окно"
     },
-    "transfer": {
-      "title": "Transfer",
-      "description": "",
-      "memo": "\nThis operation include encrypted memo. %(memoBtn)s",
-      "memoBtn": "Click here to decrypt it."
+    "quickBuy": {
+      "title": "Быстрая покупка",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить покупку"
     },
-    "asset_fund_fee_pool": {
-      "title": "Fund Asset Fee Pool",
-      "description": "%(from)s funded %(symbol)s fee pool with %(amount)s"
+    "tradeBuy": {
+      "title": "Ордер на покупку",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить создание"
     },
-    "account_whitelist": {
-      "title": "Account Whitelist",
-      "description": "%(issuer)s %(status)s the account %(listed)s"
+    "tradeSell": {
+      "title": "Ордер на продажу",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить создание"
     },
-    "asset_create": {
-      "title": "Asset Create",
-      "description": "%(issuer)s created the asset %(assetName)s"
-    },
-    "asset_issue": {
-      "title": "Issue Asset",
-      "description": "%(issuer)s issued %(assetAmount)s to %(receiver)s"
-    },
-    "asset_update": {
-      "title": "Update Asset",
-      "description": "%(issuer)s updated asset %(asset)s"
-    },
-    "asset_update_bitasset": {
-      "title": "Update BitAsset",
-      "description": "%(issuer)s updated smart params of asset %(asset)s"
-    },
-    "asset_claim_pool": {
-      "title": "Claim asset fee pool",
-      "description": "%(issuer)s claimed %(claimed)s from %(asset)s fee pool"
-    },
-    "asset_update_issuer": {
-      "title": "Update asset issuer",
-      "description": "%(issuer)s transferred rights for %(asset)s to %(newOwner)s"
-    },
-    "asset_update_feed_producers": {
-      "title": "Update asset feed producers",
-      "description": "%(issuer)s updated the feed producers for the asset %(asset)s"
-    },
-    "bid_collateral": {
-      "title": "Collateral bid",
-      "description": "bidder: %(bidder)s, debt cover: %(debt)s, additional collateral: %(collateral)s"
-    },
-    "execute_bid ": {
-      "title": "Execute bid",
-      "description": "bidder: %(bidder)s, debt cover: %(debt)s, additional collateral: %(collateral)s"
-    },
-    "asset_publish_feed": {
-      "title": "Publish feed",
-      "description": "%(publisher)s published feed price of %(price)s %(pair)s"
-    },
-    "call_order_update": {
-      "title": "Update margin",
-      "description": "%(funder)s changed %(debtSymbol)s debt by %(debt)s and collateral by %(collateral)s"
-    },
-    "asset_settle": {
-      "title": "Asset settlement",
-      "description": "%(user)s requested settlement of %(asset)s"
-    },
-    "asset_settle_cancel": {
-      "title": "Cancel asset settlement",
-      "description": "%(user)s cancelled settlement of %(asset)s"
-    },
-    "witness_create": {
-      "title": "Create witness",
-      "description": "%(witness)s was upgraded to become a witness"
-    },
-    "proposal_update": {
-      "title": "Update proposal",
-      "description": "%(user)s updated a proposal #%(proposal)s.\n%(additionalInfo)s",
-      "active_approvals_to_add": "Active approval(s) added: %(keys)s",
-      "active_approvals_to_remove": "Active approval(s) removed: %(keys)s",
-      "key_approvals_to_add": "Key approval(s) added: %(keys)s",
-      "key_approvals_to_remove": "Key approval(s) removed: %(keys)s",
-      "owner_approvals_to_add": "Owner approval(s) added: %(keys)s",
-      "owner_approvals_to_remove": "Owner approval(s) removed: %(keys)s"
-
+    "trx": {
+      "title": "Перевод",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить перевод"
     }
   }
 }

@@ -9,47 +9,57 @@ export class Form extends Component {
         isLoading: false
     };
 
+    focusOn = (fieldName) => {
+        const field = document.getElementsByName(fieldName)[0];
+        if(field) {
+            field.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            field.focus();
+        }
+    }
+
     checkErrors = (name, data) => {
         const schema = this.props.schema;
 
         if(!schema) return {};
 
         let newError = "";
+        let path = name;
 
         try {
             schema.validateSyncAt(name, data);
         } catch(err){
-            const {type, message, params} = err;
+            const {path: customPath, type, message, params} = err;
+
+            path = customPath || name;
             newError = {type: type || message, params};
         }
 
-        return newError ? {[name]: newError} : {};
+        return newError ? {[path]: newError} : {};
     };
 
     saveErrors = (name, error) => this.setState({errors: {[name]: error}});
 
     handleRequestError = (err) => {
         if(typeof err === "object"){
-            this.saveErrors("request", {type: err.message});
+            this.saveErrors(err.field || "request", {type: err.message});
             return;
         }
 
         if(typeof err === "string"){
-            console.log(err);
             if(err.includes("{")){
                 const {field, msg: type, params} = JSON.parse(err);
                 this.saveErrors(field, {type, params});
 
                 return;
             } else {
-                console.log("HERE!");
                 this.saveErrors("request", {type: err});
-
                 return;
             }
         }
 
-        console.log("ERRRRRRR!", typeof err);
+        console.error("Error!", err);
+
+        if(!err) return;
     };
 
     onChange = (e) => {
@@ -77,8 +87,6 @@ export class Form extends Component {
             return;
         }
 
-        console.log(schema);
-
         if(schema){
             try{
                 await schema.validate(this.state.data, {strict: true});
@@ -93,8 +101,6 @@ export class Form extends Component {
     };
 
     request = () => {
-        console.log("REQUEST!");
-
         const data = this.state.data;
         const request = this.props.request;
 
@@ -111,14 +117,14 @@ export class Form extends Component {
     handleResult = (data) => {
         // console.log(data)
 
-        const {handleResult} = this.props;
+        const {defaultData, clearOnFinish, handleResult} = this.props;
 
         // if(popUp) initPopUp({status: "success", content: popUp});
-
+        if(clearOnFinish) this.setState({data: defaultData || {}});
         if(!handleResult) return;
 
         handleResult(data, this);
-    }
+    };
 
 
     render(){
