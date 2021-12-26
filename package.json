@@ -29,6 +29,25 @@
     "crypto-js": "^4.1.1",
     "yup": "^0.32.8"
   },
+  "resolutions": {
+    "json-schema": "^0.4.0",
+    "ansi-regex": "^5.0.1",
+    "nth-check": "^2.0.1",
+    "tmpl": "^1.0.5",
+    "immer": "^9.0.6",
+    "path-parse": "^1.0.7",
+    "tar": "^6.1.9",
+    "url-parse": "^1.5.2",
+    "color-string": "^1.5.5",
+    "postcss": "^8.2.10",
+    "glob-parent": "^5.1.2",
+    "ws": "^7.4.6",
+    "browserslist": "^5.1.2",
+    "dns-packet": "^1.3.2",
+    "hosted-git-info": "^2.8.9",
+    "ssri": "^6.0.2",
+    "is-svg": "^4.3.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
