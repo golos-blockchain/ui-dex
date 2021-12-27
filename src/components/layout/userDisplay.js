@@ -17,7 +17,7 @@ const LoginBtn = () => (
 const LoggedUserDisplay = ({userData}) => {
     const history = useHistory();
     const btnContent = (
-        <FlexBox>
+        <FlexBox className="header__user-display">
             <MailIcon />
             <Box ml={.8}>
                 <BodyBold text={userData.name} />

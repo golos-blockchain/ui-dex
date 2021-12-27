@@ -165,9 +165,11 @@ export const TradeOrderBook = ({base, quote, ordersHistory, orderBook}) => {
 
     return(
         <Fragment>
-            <FlexBox mt={.7} justify="space-between">
-                <OrderBookFilters filtersState={filtersState} />
-                <Box w={12}>
+            <FlexBox mt={.7} justify="space-between" wrap>
+                <Box mb={2}>
+                    <OrderBookFilters filtersState={filtersState} />
+                </Box>
+                <Box w={12} mb={2}>
                     <Select
                         list={precisionsList.map((text, id) => ({text, id: String(id)}))}
                         value={selectedPrecision}
@@ -176,7 +178,7 @@ export const TradeOrderBook = ({base, quote, ordersHistory, orderBook}) => {
                     />
                 </Box>
             </FlexBox>
-            <Box className="custom-scroll" mt={2} mr={-2}>
+            <Box className="custom-scroll" mr={-2}>
                 <Box>
                     {contentDisplay[filtersState[0]]}
                 </Box>

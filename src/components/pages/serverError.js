@@ -1,11 +1,11 @@
-import React from "react";
+import {translateStr} from "../../utils";
 import {EmptyLayout} from "../layout";
 import {Box, Heading, HeadingBold} from "../helpers/global";
 import {BrandTextBtn} from "../helpers/btn";
-import {translateStr} from "../../utils";
+import React from "react";
 
-export const NotFound = () => {
-    const i18n = translateStr("emptyPage");
+export const ServerError = () => {
+    const i18n = translateStr("serverError");
     return(
         <EmptyLayout>
             <HeadingBold text="404" />

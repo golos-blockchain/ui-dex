@@ -15,7 +15,7 @@ export const TopMenu = () => {
     const defaultActiveId = topMenuList.findIndex(el => (
         location.pathname.includes(el.link)
     ));
-    
+
     return(
         <TabsHeader
             itemComponent={NavLink}

@@ -7,6 +7,14 @@
     "rate": "Rate:",
     "commission": "Comission:"
   },
+  "serverError": {
+    "desc": "Internal Server Error",
+    "btn": "Перезагрузить сайт"
+  },
+  "emptyPage": {
+    "desc": "Страница не найдена",
+    "btn": "На главную"
+  },
   "trade": {
     "title": "Market",
     "changePair": "Change Pair",
@@ -196,7 +204,8 @@
     "language": "Language",
     "asset": "Asset",
     "assetToBuy": "Buy",
-    "assetToSell": "Sell"
+    "assetToSell": "Sell",
+    "prefix": "Prefix"
   },
   "checkboxes": {
     "passwordSaveWarning": "I have saved my new password securely",
@@ -214,7 +223,7 @@
     "userNotExist": "User does not exist",
     "notEnoughCash": "Insufficient funds",
     "pairNotUnique": "The asset must be unique",
-    "wrongPrecision": "Max. number of characters after the decimal point - %(precision)s",
+    "wrongPrecision": "Precision = %(precision)s",
     "minAmount": "Min amount - %(minAmount)s"
   },
   "fieldMessages": {
@@ -228,7 +237,7 @@
     },
     "receive": {
       "title": "Transfer",
-      "description": "Received %(amount)s from user %(to)s"
+      "description": "Received %(amount)s from user %(from)s"
     },
     "limit_order_create": {
       "title": "Order creation",

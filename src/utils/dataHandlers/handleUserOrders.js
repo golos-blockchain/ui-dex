@@ -1,8 +1,39 @@
 import {amountToObject} from "./handleAssets";
 import {getUserData} from "../../redux/actions/userData";
+import {getAssetParam} from "../../redux/actions/assets";
 
 export const handleUserOrdersByPair = (pair) => (res) => handleUserOrders(res, pair);
 export const filterOpenOrders = el => el.percent !== 1 && !el.isCancelled && !el.isExpired;
+
+export const handleOpenOrders = pair => res => res.map(el => {
+    const {orderid: id, created, for_sale, asset1, asset2} = el;
+
+    const timestamp = new Date(created).getTime();
+
+    const buyObj = amountToObject(asset1);
+    const sellObj = amountToObject(asset2);
+
+    const sellPrecision = getAssetParam(sellObj.symbol).precision;
+
+    const amountToSale = for_sale /  Math.pow(10, sellPrecision);
+    const percent = for_sale ? 1 - sellObj.amount / amountToSale : 0;
+
+    let type = "buy";
+    let base = buyObj;
+    let quote = sellObj;
+
+    if (quote.symbol === pair[0]) {
+        type = "sell";
+
+        base = sellObj;
+        quote = buyObj;
+    }
+
+    const {amount: baseAmount, symbol: baseSymbol} = base;
+    const {amount: quoteAmount, symbol: quoteSymbol} = quote;
+
+    return {id, type, percent, timestamp, baseAmount, baseSymbol, quoteAmount, quoteSymbol};
+});
 
 export const handleUserOrders = (res, pair) => {
     const allTypes = ["limit_order_create", "fill_order", "limit_order_cancel", "limit_order_cancel_ex"];

@@ -16,7 +16,7 @@ import {
 } from "../helpers/pages/trade";
 import {ApiRequest} from "../../utils/requests";
 import {
-    fetchUserData,
+    fetchUserData, handleOpenOrders,
     handleOrderBook,
     handleTradeHistory, handleTradingViewData,
     handleUserOrdersByPair,
@@ -41,13 +41,17 @@ const getPairData = async (base, quote) => {
     const rate = lastTradeToRate(base)(lastTrades);
     const ordersHistory = handleTradeHistory(lastTrades, base);
     const orderBook = await apiRequest.getOrderBook(pair).then(handleOrderBook(pair));
+
+    const openOrders = userName
+        ? await apiRequest.getUserOpenOrdersByName(userName, pair).then(handleOpenOrders(pair))
+        : [];
     const userOrders = userName
         ? await apiRequest.getUserOrdersByName(userName).then(handleUserOrdersByPair(pair))
         : [];
 
     const tradingViewData = handleTradingViewData(pair);
 
-    return { ticker, rate, orderBook, userOrders, ordersHistory, tradingViewData };
+    return { ticker, rate, orderBook, userOrders, ordersHistory, tradingViewData, openOrders };
 };
 
 const DesktopDisplay = (props) => {
@@ -205,7 +209,7 @@ const Display = ({userData}) => {
         <TabsWrapper defaultActiveId={userData.name ? 0 : 2} headingList={ordersTabs}>
             {!!userData.name
                 ? (
-                    <TradeOpenOrders {...defaultHistoryProps} userOrders={data.userOrders} reloadData={reloadDataWithBalance} />
+                    <TradeOpenOrders {...defaultHistoryProps} userOrders={data.openOrders} reloadData={reloadDataWithBalance} />
                 ) : loginBtn
             }
             {!!userData.name

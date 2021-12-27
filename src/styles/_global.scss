@@ -71,7 +71,7 @@ a{
   }
   > div, > textarea, .ReactVirtualized__List{
     max-height: inherit;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-right: 1.5rem;
     /* width */
     &::-webkit-scrollbar {

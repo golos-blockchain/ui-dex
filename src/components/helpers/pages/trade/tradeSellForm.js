@@ -10,8 +10,6 @@ import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeSellConfirm} from "../../confirmModals";
 
 export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
-    const bestPrice = orderBook.bids[0] ? orderBook.bids[0].price : 0;
-
     const userBalance = getUserData().balances[base] ? getUserData().balances[base].amount : 0;
 
     const {list, params} = getAssets();
@@ -20,7 +18,7 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
     const quoteAssetId = list.findIndex(symbol => symbol === quote);
 
     const basePrecision = params[base].precision;
-    const { precision: quotePrecision, fee_percent } = params[base];
+    const { precision: quotePrecision, fee_percent } = params[quote];
 
     const toPrecision = (num, precision) => String(toFixedNum(num, precision));
     const resultCalculation = ({price, amount}) => price && amount ? toPrecision(price * amount, quotePrecision) : undefined;
@@ -60,6 +58,8 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
         return generatePromiseModal(TradeSellConfirm, args);
     };
 
+    const bestPrice = toFixedNum(orderBook.bids[0] ? orderBook.bids[0].price : 0, basePrecision);
+
     return(
         <Form
             defaultData={{baseAssetId, quoteAssetId}}
@@ -90,7 +90,9 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
                     </FlexBox>
                     <FlexBox mt={.4} justify="space-between">
                         <Metadata content="trade.bestPrice" />
-                        <MetadataBold text={`${toFixedNum(bestPrice, basePrecision)} ${base}`} />
+                        <button type="button" onClick={() => formData.onChange({name: "price", value: String(bestPrice)})}>
+                            <MetadataBold text={`${bestPrice} ${base}`} color="brand" />
+                        </button>
                     </FlexBox>
                     <FlexBox mt={.4} justify="space-between">
                         <Metadata content={i18nGlobal("commission")} />

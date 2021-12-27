@@ -18,6 +18,9 @@ body{
   &__login-btn{
     margin: -.7rem 0;
   }
+  &__user-display{
+    min-width: 11rem;
+  }
   @include breakpoint(md){
     display: none;
   }

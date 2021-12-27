@@ -46,6 +46,10 @@ export class ApiRequest extends Request{
         return this.asyncRequest("getAccountHistory", name, -1, 10000, {select_ops: [ 'limit_order_create', 'fill_order', "limit_order_cancel", "limit_order_cancel_ex" ]}).catch(err => console.error(err));
     };
 
+    getUserOpenOrdersByName = (name, pair) => {
+        return this.asyncRequest("getOpenOrders", name, pair).catch(err => console.error(err));
+    };
+
     getUserHistoryByName = name => {
         return this.asyncRequest("getAccountHistory", name, -1, 10000).catch(err => console.error(err));
     };

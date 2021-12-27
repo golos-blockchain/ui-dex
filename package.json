@@ -36,11 +36,8 @@
   "resolutions": {
     "json-schema": "^0.4.0",
     "ansi-regex": "^5.0.1",
-    "nth-check": "^2.0.1",
     "tmpl": "^1.0.5",
-    "immer": "^9.0.6",
     "path-parse": "^1.0.7",
-    "tar": "^6.1.9",
     "url-parse": "^1.5.2",
     "color-string": "^1.5.5",
     "postcss": "^8.2.10",

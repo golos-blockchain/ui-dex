@@ -1,6 +1,6 @@
 import React from "react";
 import {useClassSetter} from "../../../../utils";
-import {Body, BodyBold, Card, FlexBox} from "../../global";
+import {Body, BodyBold, Box, Card, FlexBox} from "../../global";
 import {Table} from "../../table";
 
 export const WalletTableDisplay = ({ balances }) => {
@@ -37,11 +37,13 @@ export const WalletTableDisplay = ({ balances }) => {
     ];
 
     return(
-        <Card>
-            {balances.length
-                ? <Table tableHead={tableHead} rows={balances} className="padding-medium" disableDivider />
-                : "No data"
-            }
+        <Card className="custom-scroll">
+            <Box>
+                {balances.length
+                    ? <Table tableHead={tableHead} rows={balances} className="padding-medium" disableDivider />
+                    : "No data"
+                }
+            </Box>
         </Card>
     )
 };

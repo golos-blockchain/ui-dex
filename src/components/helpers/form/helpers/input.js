@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {clsx, useClassSetter} from "../../../../utils";
 import {BodyBold, Box, FlexBox, Metadata, MetadataBold} from "../../global";
 import {ErrorIcon, MessageIcon, SuccessIcon, WarningIcon} from "../../../../svg";
@@ -23,6 +23,7 @@ const FieldMessage = ({className, type, message, messageParams}) => {
 };
 
 export const Input = ({id, label, className, type, inputMode, assetSymbol, prefix, iconLeft: IL, iconRight: IR, comment, hideLabel, ...props}) => {
+    const ref = useRef();
     const [baseClass, setClass, setEffect] = useClassSetter("field");
 
     let { name, value, disabled, onChange, fieldStateClass, message, messageParams } = fieldHook(props);
@@ -34,33 +35,34 @@ export const Input = ({id, label, className, type, inputMode, assetSymbol, prefi
     const classesList = [
         baseClass,
         className,
+        value && "hasValue",
         IL && setEffect("hasLeftIcon"),
-        prefix && setEffect("hasPrefix"),
         message && setEffect("hasMessage"),
         fieldStateClass,
         disabled && "disabled"
     ];
 
-    const prefixedLabelStyle = prefix && !hideLabel ? {"--l": (prefix.length * 6.66 + 20) / 10 + "rem" } : {};
-
     return(
-        <label htmlFor={id} className={clsx(...classesList)} style={prefixedLabelStyle}>
-            <input
-                id={id}
-                type={type}
-                name={name}
-                value={value || ""}
-                placeholder=" "
-                inputMode={inputMode}
-                className={setClass("input")}
-                onChange={onChange}
-                disabled={disabled}
-            />
-            {label && !hideLabel && <BodyBold className={setClass("label")} content={`fields.${label}`} />}
-            {IL && <div className={setClass("icon-left")}><IL /></div>}
-            {IR && <div className={setClass("icon-right")}><IR /></div>}
-            {prefix && <div className={setClass("prefix")}><MetadataBold text={prefix} color="font-secondary" /></div>}
-            {assetSymbol && <div className={setClass("asset")}><MetadataBold text={assetSymbol} color="font-secondary" /></div>}
+        <label htmlFor={id} className={clsx(...classesList)}>
+            <div className={setClass("body")}>
+                <input
+                    id={id}
+                    ref={ref}
+                    type={type}
+                    name={name}
+                    value={value || ""}
+                    placeholder=" "
+                    inputMode={inputMode}
+                    className={setClass("input")}
+                    onChange={onChange}
+                    disabled={disabled}
+                />
+                <div className={setClass("bg-layer")} />
+                {label && !hideLabel && <BodyBold className={setClass("label")} content={`fields.${label}`} />}
+                {IL && <div className={setClass("icon-left")}><IL /></div>}
+                {IR && <div className={setClass("icon-right")}><IR /></div>}
+                {assetSymbol && <div className={setClass("asset")}><MetadataBold text={assetSymbol} color="font-secondary" /></div>}
+            </div>
             {comment && <div className={setClass("comment")}><Metadata text={comment} color="font-secondary" /></div>}
             <FieldMessage className={setClass("message")} type={fieldStateClass} message={message} messageParams={messageParams} />
         </label>
