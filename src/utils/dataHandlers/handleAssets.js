@@ -69,7 +69,7 @@ export const lastTradeToRate = (base) => (res) => {
 
     const sellIsBase = sellSymbol === base;
 
-    const rate = sellIsBase ? buyAmount * sellAmount : sellAmount / buyAmount;
+    const rate = sellIsBase ? buyAmount / sellAmount : sellAmount / buyAmount;
 
     // there was precision getter for the "toFixedNum" func below, but...
     // ...then we saw DOGECOIN precision and decided: no, three symbols are just enough!

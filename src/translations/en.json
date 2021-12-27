@@ -177,7 +177,7 @@
     "quote": "%(quote)s",
     "base": "%(base)s",
     "total": "Total",
-    "lastPrice": "Lost price",
+    "lastPrice": "Last price",
     "change": "Change"
   },
   "fields": {
