@@ -12,6 +12,7 @@ import {Orders} from "./orders";
 import {UserHistory} from "./userHistory";
 import {Settings} from "./settings";
 import {LoginScreen} from "../helpers/pages/cabinet";
+import {AssetCreate} from "./assetCreate";
 
 const CabinetLayout = () => {
     const [baseClass, setClass] = useClassSetter("cabinet-layout");
@@ -21,6 +22,7 @@ const CabinetLayout = () => {
         wallet: Wallet,
         orders: Orders,
         history: UserHistory,
+        assetCreate: AssetCreate,
         settings: Settings
     };
 
@@ -30,7 +32,7 @@ const CabinetLayout = () => {
                 {cabinetMenu.map(({icon: IC, tag, link}, id) => {
                     return (
                         <Fragment key={id}>
-                            {id === cabinetMenu.length - 1 && (
+                            {id === cabinetMenu.length - 2 && (
                                 <Box w={17.8} mx="auto" pt={1.5} pb={2.5}><Divider /></Box>
                             )}
                             <NavLink className={setClass("menu-item")} to={link} exact>

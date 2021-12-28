@@ -1,10 +1,8 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {useLocation, useParams} from "react-router";
-import ScrollContainer from 'react-indiana-drag-scroll'
+import {useParams} from "react-router";
 import {BodyBold, Box, Card, Col, FlexBox, Heading, Row} from "../helpers/global";
 import {TabsWrapper} from "../helpers/tabs";
-import {LoadData, toFixedNum, translateStr, useClassSetter} from "../../utils";
-import {trade} from "../routing/path";
+import {LoadData, translateStr, useClassSetter} from "../../utils";
 import {
     PairDisplay,
     PairParams,
@@ -146,6 +144,7 @@ const LayoutWrapper = props => {
         return () => {
             window.removeEventListener("resize", resizeListener);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return isMobile ? <MobileDisplay {...props} /> : <DesktopDisplay {...props} />
@@ -161,10 +160,12 @@ const Display = ({userData}) => {
     useEffect(() => {
         if(isLoading) return;
         reloadPage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pair]);
     useEffect(() => {
         if(isLoading) return;
         reloadData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData.name]);
     // useEffect(() => {
     //     const interval = setInterval(reloadData, 5000);

@@ -4,7 +4,7 @@ import {useClassSetter} from "../../../utils";
 import {SortIcon} from "../../../svg";
 
 export const TableHeading = ({baseClass, tableHead, sortState}) => {
-    const [_, setClass] = useClassSetter(baseClass);
+    const setClass = useClassSetter(baseClass)[1];
     const [sort, setSort] = sortState;
 
     const handleSortChange = (key) => () => {

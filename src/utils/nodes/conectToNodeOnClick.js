@@ -1,6 +1,6 @@
 import {getStorage, setStorage} from "../storage";
 import {connectToNode} from "./connectToNode";
-import {fetchUserData, handleUserAuth} from "../dataHandlers";
+import {fetchUserData} from "../dataHandlers";
 import {getUserData, setUserData, updateUserData} from "../../redux/actions/userData";
 import {setActiveNode} from "../../redux/actions/nodes";
 

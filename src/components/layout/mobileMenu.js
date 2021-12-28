@@ -1,7 +1,7 @@
 import {useClassSetter} from "../../utils";
 import {NavLink} from "react-router-dom";
 import {cabinet, cabinetMenu, trade} from "../routing";
-import {Body, Box, Divider, FlexBox, Subheading} from "../helpers/global";
+import {Body, Divider, FlexBox, Subheading} from "../helpers/global";
 import {MobileUserDisplay} from "./mobileUserDisplay";
 import React from "react";
 import {ThemeSwitch} from "./themeSwitch";

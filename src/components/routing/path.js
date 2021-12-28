@@ -1,4 +1,4 @@
-import {DashboardIcon, HistoryIcon, OrdersIcon, SettingsIcon, WalletIcon} from "../../svg";
+import {DashboardIcon, HistoryIcon, NewAssetIcon, OrdersIcon, SettingsIcon, WalletIcon} from "../../svg";
 
 const isExact = true;
 
@@ -12,4 +12,5 @@ export const dashboard = { tag: "dashboard", link: "/cabinet/", icon: DashboardI
 export const wallet = { tag: "wallet", link: "/cabinet/wallet", icon: WalletIcon, isExact };
 export const orders = { tag: "orders", link: "/cabinet/orders", icon: OrdersIcon, isExact };
 export const userHistory = { tag: "history", link: "/cabinet/history", icon: HistoryIcon, isExact };
+export const assetCreate = { tag: "assetCreate", link: "/cabinet/asset-create", icon: NewAssetIcon, isExact };
 export const settings = { tag: "settings", link: "/cabinet/settings", icon: SettingsIcon, isExact };

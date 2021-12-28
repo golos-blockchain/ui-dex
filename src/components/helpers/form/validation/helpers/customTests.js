@@ -1,5 +1,5 @@
 import {getStorage} from "../../../../../utils";
-import {getAssetById} from "../../../../../redux/actions/assets";
+import {getAssetById, getAssetsList} from "../../../../../redux/actions/assets";
 import {getUserData} from "../../../../../redux/actions/userData";
 
 export const oldPasswordValidation = {
@@ -139,6 +139,126 @@ export const precisionOnAssetChange = (amountKey) => ({
         return checkPrecision(amountKey, amount, assetId, this.createError);
     }
 });
+
+const getSplitSymbol = (amount) => {
+    let splitSymbol = "";
+
+    if(amount.includes(".")){
+        splitSymbol = ".";
+    } else if(amount.includes(",")){
+        splitSymbol = ",";
+    }
+
+    return splitSymbol;
+};
+
+export const maxNumHasPrecision = ({
+    message: "assetWithoutPrecision",
+    test: function(amount){
+        let splitSymbol = getSplitSymbol(amount);
+
+        if(!splitSymbol) return false;
+
+        const decimal = amount.split(splitSymbol)[1];
+
+        if(!decimal || !decimal.length) return false;
+
+        return true;
+    }
+});
+
+const checkMaxNum = (maxNum, path, createError) => {
+    let splitSymbol = getSplitSymbol(maxNum);
+
+    if(!splitSymbol) {
+        return createError({path, message: "assetWithoutPrecision"});
+    }
+
+    const [num, precision] = maxNum.split(splitSymbol);
+
+    if(!precision || !precision.length){
+        return createError({path, message: "assetWithoutPrecision"});
+    }
+
+    if(precision.length > 8){
+        return createError({path, message: "wrongMaxPrecisionLength"});
+    }
+
+    if(num.length + precision.length > 16){
+        return createError({path, message: "wrongMaxNumLength"});
+    }
+
+    return true;
+};
+
+export const checkAssetPrecision = ({
+    test: function(){
+        const maxNum = this.parent.maxNum;
+        return checkMaxNum(maxNum, "maxNum", this.createError);
+    }
+});
+
+export const checkAssetMaxNum = ({
+    message: "assetMaxNum",
+    test: function(amount){
+        return checkMaxNum(amount, this.path, this.createError);
+    }
+});
+
+export const checkAssetLength = ({
+    message: "wrongAssetLength",
+    test: function(assetName){
+        if(!assetName) return true;
+        return assetName.length < 14;
+    }
+});
+
+export const isAssetUnique = ({
+    message: "assetNotUnique",
+    test: function(assetName){
+        if(!assetName) return true;
+        const list = getAssetsList();
+        return !list.includes(assetName);
+    }
+});
+
+export const isLink = ({
+    message: "isNotLink",
+    test: function(link){
+        if(!link) return true;
+        const expression = /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi;
+        const regex = new RegExp(expression);
+        return link.match(regex);
+    }
+});
+
+export const userCanCreate = ({
+    message: "userCantCreateToken",
+    test: function(token){
+        if(!token || token.length <= 2) return true;
+        let price = 500;
+
+        if(token.length === 3){
+            price = 25000;
+        } else if(token.length === 4) {
+            price = 5000;
+        }
+
+        const balance = getUserData().balances.GBG;
+        const userAmount = balance ? balance.amount : 0;
+
+        return userAmount > price;
+    }
+});
+
+export const onlySymbols = ({
+    message: "onlySymbols",
+    test: function(token){
+        if(!token) return true;
+        const regex = new RegExp(/^[a-zA-Z]+$/);
+        return token.match(regex);
+    }
+})
 
 export const checkPairUniquness = {
     message: "pairNotUnique",

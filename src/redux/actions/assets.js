@@ -1,5 +1,5 @@
 import {getReduxState, reduxDispatch} from "../../utils/store";
-import {SET_ACTIVE_NODE, SET_ASSETS, SET_NODES_DATA, UPDATE_NODES_LIST} from "../constants";
+import {SET_ASSETS} from "../constants";
 
 export const connectAssets = state => ({assets: state.assets});
 export const setAssets = payload => reduxDispatch(SET_ASSETS, payload);

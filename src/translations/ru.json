@@ -113,6 +113,13 @@
     "title": "История",
     "emptyHistory": "У Вас пока что нет совершенных операций"
   },
+  "assetCreate": {
+    "title": "Новый UIA",
+    "create": "Создание актива",
+    "warning": "Вы не сможете изменить разрешения после создания актива!",
+    "price": "Стоимость создания:",
+    "btn": "Создать"
+  },
   "settings": {
     "title": "Настройки",
     "security": "Безопасность",
@@ -198,7 +205,12 @@
     "price": "Цена",
     "amount": "Кол-во",
     "result": "Итого",
-    "currency": "Валюта"
+    "currency": "Валюта",
+    "maxNum": "Макс. кол-во",
+    "ticker": "Тикер",
+    "precision": "Кол-во знаков после запятой",
+    "tokenIcon": "Ссылка на изображение тикера (48x48)",
+    "tokenDesc": "Ссылка на описание токена"
   },
   "selects": {
     "language": "Язык",
@@ -209,7 +221,9 @@
   },
   "checkboxes": {
     "passwordSaveWarning": "Я надежно сохранил новый пароль",
-    "isSell": "Продажа"
+    "isSell": "Продажа",
+    "allowFee": "Разрешить устанавливать торговую комиссию",
+    "allowOverrideTransfer": "Разрешить отзывать токены эмитентом актива"
   },
   "errors": {
     "required": "Обязательное поле",
@@ -224,7 +238,16 @@
     "notEnoughCash": "Недостаточно средств",
     "pairNotUnique": "Ассет должен быть уникальным",
     "wrongPrecision": "После запятой - %(precision)s симв.",
-    "minAmount": "Мин.сумма - %(minAmount)s"
+    "minAmount": "Мин.сумма - %(minAmount)s",
+    "assetWithoutPrecision": "Пресижн обязателен",
+    "wrongMaxPrecisionLength": "Макс. пресижн - 8 знаков",
+    "wrongMaxNumLength": "Макс. количество знаков - 16",
+    "wrongAssetLength": "Макс. длина - 14 знаков",
+    "assetNotUnique": "Токен существует",
+    "isNotLink": "Вставьте URL",
+    "userCantCreateToken": "Недостаточно средств",
+    "min": "Мин. - %(min)s симв.",
+    "onlySymbols": "Только латинница"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
@@ -295,6 +318,11 @@
       "title": "Перевод",
       "desc": "Проверьте правильность заполненных данных",
       "btn": "Подтвердить перевод"
+    },
+    "newAsset": {
+      "title": "Создание ассета",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить создание"
     }
   }
 }

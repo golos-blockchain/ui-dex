@@ -10,6 +10,7 @@ export { ReactComponent as DashboardIcon } from './dashboard.svg';
 export { ReactComponent as WalletIcon } from './wallet.svg';
 export { ReactComponent as OrdersIcon } from './orders.svg';
 export { ReactComponent as HistoryIcon } from './userHistory.svg';
+export { ReactComponent as NewAssetIcon } from './newAsset.svg';
 export { ReactComponent as SettingsIcon } from './settings.svg';
 
 //views icons

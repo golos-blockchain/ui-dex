@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Body, BodyBold} from "../global";
+import {Body} from "../global";
 import {clsx, useClassSetter} from "../../../utils";
 import {connectLocale} from "../../../redux/actions";
 import {connect} from "react-redux";

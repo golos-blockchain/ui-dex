@@ -11,6 +11,7 @@ const TradeRoot = () => {
     useEffect(() => {
         const activePair = getActivePair();
         history.push(trade.link + activePair);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return <span />;

@@ -15,6 +15,13 @@ export class BroadcastRequest extends Request{
         return {wif: keys.active, owner: name};
     };
 
+    assetCreate = (max, allowFee, allowOverrideTransfer, metadata) => {
+        const {wif, owner: from} = this.getUserCreds();
+        return (
+            this.asyncRequest("assetCreate", wif, from, max, allowFee, allowOverrideTransfer, metadata, []).catch(err => console.error(err))
+        );
+    };
+
     transfer = ({to, amount: rawAmount, asset, memo = ""}) => {
         const {wif, owner: from} = this.getUserCreds();
         const amount = this.amountToString(rawAmount, asset);

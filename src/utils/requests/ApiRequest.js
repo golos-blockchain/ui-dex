@@ -1,5 +1,4 @@
 import Request from "./Request";
-import {amountToObject} from "../dataHandlers";
 
 export class ApiRequest extends Request{
     type = "api";
@@ -8,12 +7,8 @@ export class ApiRequest extends Request{
         return this.asyncRequest("getConfig");
     };
 
-    getDGP = () => {
-        return this.asyncRequest("getDynamicGlobalProperties");
-    };
-
     getAssets = () => {
-        return this.asyncRequest("getAssets", "",[],"0","20","0");
+        return this.asyncRequest("getAssets", "",[],"0","100","0");
     };
 
     checkUserExistence = (name) => {
@@ -22,20 +17,6 @@ export class ApiRequest extends Request{
 
     getAccByName = (name) => {
         return this.asyncRequest("getAccounts", [name]).then(res => res && res[0]);
-    };
-
-    getAccMetadata = (name) => {
-        return this.getAccByName(name).then(res => {
-            let metadata = {};
-
-            if(!res.json_metadata) return metadata;
-
-            try{
-                metadata = JSON.parse(res.json_metadata).profile;
-            } catch(err) {}
-
-            return metadata;
-        });
     };
 
     getBalanceByName = (name) => {
@@ -56,10 +37,6 @@ export class ApiRequest extends Request{
 
     getTicker = ticker => {
         return this.asyncRequest("getTicker", ticker);
-    };
-
-    getTickerToGolos = base => {
-        return this.getTicker([base, "GOLOS"]);
     };
 
     getLastTrades = (ticker, limit) => {

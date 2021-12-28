@@ -1,21 +1,19 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import {Body, Box, Card, FlexBox, MetadataBold} from "../helpers/global";
 import {
     filterOrdersList,
     OrdersFilter,
-    ordersFiltersList,
     Table,
-    useFiltersState,
     useOrdersFiltersState
 } from "../helpers/table";
-import {BrandTextBtn, TransparentBtn} from "../helpers/btn";
+import {TransparentBtn} from "../helpers/btn";
 import {getUserData} from "../../redux/actions/userData";
-import {clsx, LoadData, translateStr} from "../../utils";
+import {clsx, LoadData} from "../../utils";
 import {BackspaceIcon} from "../../svg";
 import {ApiRequest} from "../../utils/requests";
-import {filterOpenOrders, handleUserOrders} from "../../utils/dataHandlers";
-import {generateModal, initModal} from "../../redux/actions";
-import {CancelOrderConfirm, CancelAllOrderConfirm} from "../helpers/confirmModals/";
+import {handleUserOrders} from "../../utils/dataHandlers";
+import {generateModal} from "../../redux/actions";
+import {CancelOrderConfirm} from "../helpers/confirmModals/";
 import {PageLoader} from "../layout";
 
 const tableHead = [
@@ -102,7 +100,6 @@ export const OrdersTable = ({rows, reloadData}) => {
 };
 
 export const Orders = () => {
-    const i18n = translateStr("orders");
     const fn = () => new ApiRequest().getUserOrdersByName(getUserData().name).then(handleUserOrders);
     const [data, isLoading, reloadData] = LoadData(fn, 500);
     const filtersState = useOrdersFiltersState();
@@ -111,11 +108,6 @@ export const Orders = () => {
 
     const rows = filterOrdersList(data, filtersState[0]);
 
-    const onCancel = () => {
-        const allOpenOrders = data.filter(filterOpenOrders);
-        initModal({content: <CancelAllOrderConfirm openOrders={allOpenOrders} reloadData={reloadData} /> })
-    };
-
     return(
         <Fragment>
             <Card p="1rem 2rem">
@@ -123,9 +115,6 @@ export const Orders = () => {
                     <Box p="1rem 0">
                         <OrdersFilter filtersState={filtersState} />
                     </Box>
-                    {/*<Box p="1rem 0">*/}
-                        {/*<BrandTextBtn content={i18n("closeAllOrders")} onClick={onCancel} />*/}
-                    {/*</Box>*/}
                 </FlexBox>
             </Card>
             <Card className="custom-scroll" mt={2}>

@@ -110,7 +110,6 @@ const PairListTable = ({rows, onFavsChange}) => {
 };
 
 const PairListContent = ({base, search}) => {
-    // const req = () => getAllRates(base);
     const req = async () => {
         const {list: rawList, params} = getAssets();
         const whitelist = params[base].whitelist;
@@ -125,7 +124,7 @@ const PairListContent = ({base, search}) => {
     const [data, isLoading, reloadData, reloadPage] = LoadData(req);
     const [favs, setFavsList] = useState(getStorage("favorites") || []);
 
-    useEffect(reloadPage, [base]);
+    useEffect(reloadPage, [base]); // eslint-disable-next-line react-hooks/exhaustive-deps
     // useEffect(() => {
     //     const interval = setInterval(reloadData, 5000);
     //     return () => clearInterval(interval);
@@ -157,7 +156,7 @@ const FavListContent = ({search}) => {
     };
     const [data, isLoading, reloadData, reloadPage] = LoadData(req);
 
-    useEffect(reloadPage, []);
+    useEffect(reloadPage, []); // eslint-disable-next-line react-hooks/exhaustive-deps
     // useEffect(() => {
     //     const interval = setInterval(reloadData, 5000);
     //     return () => clearInterval(interval);
