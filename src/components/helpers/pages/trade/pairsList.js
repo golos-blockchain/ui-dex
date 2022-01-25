@@ -4,7 +4,7 @@ import {Input} from "../../form/helpers";
 import {Body, Box, FlexBox, Metadata} from "../../global";
 import {FavIcon, SearchIcon} from "../../../../svg";
 import {TabsHeader} from "../../tabs";
-import {getAssets, getAssetsList} from "../../../../redux/actions/assets";
+import {getAssets, getAssetsList, getWhitelist} from "../../../../redux/actions/assets";
 import {getStorage, LoadData, setStorage, toFixedNum} from "../../../../utils";
 import {getRate} from "../../../../utils/dataHandlers";
 import {Table} from "../../table";
@@ -13,6 +13,7 @@ import {updateActivePair} from "../../../../redux/actions/activePair";
 import {CardLoader} from "../../../layout";
 import {getReduxState} from "../../../../utils/store";
 import {closeModal} from "../../../../redux/actions";
+import {ApiRequest} from "../../../../utils/requests";
 
 const PairListTable = ({rows, onFavsChange}) => {
     const history = useHistory();
@@ -95,6 +96,14 @@ const PairListTable = ({rows, onFavsChange}) => {
                 return <Metadata text={text} color={color} />
             },
             className: 'align-right'
+        },
+        {
+            key: 'volume',
+            translateTag: 'volume',
+            handleItem: (item) => {
+                return <Metadata text={item} />
+            },
+            className: 'align-right'
         }
     ];
 
@@ -111,14 +120,13 @@ const PairListTable = ({rows, onFavsChange}) => {
 
 const PairListContent = ({base, search}) => {
     const req = async () => {
-        const {list: rawList, params} = getAssets();
-        const whitelist = params[base].whitelist;
+        const whitelist = getWhitelist(base);
 
-        const fullList = whitelist.length ? whitelist : rawList.filter(symbol => symbol !== base);
-
-        return Promise.all(fullList.map(async symbol => {
+        return Promise.all(whitelist.map(async symbol => {
             const pair = [symbol, base];
-            return getRate(pair);
+            const rate = await getRate(pair);
+            const volume = await new ApiRequest().getTicker(pair).then(res => Number(res.asset1_volume.split(" ")[0]));
+            return {...rate, volume};
         }));
     };
     const [data, isLoading, reloadData, reloadPage] = LoadData(req);
@@ -149,9 +157,11 @@ const PairListContent = ({base, search}) => {
 const FavListContent = ({search}) => {
     const req = async () => {
         const favList = getStorage("favorites") || [];
-        return Promise.all(favList.map(el => {
+        return Promise.all(favList.map(async el => {
             const pair = el.split("/");
-            return getRate(pair);
+            const rate = await getRate(pair);
+            const volume = await new ApiRequest().getTicker(pair).then(res => Number(res.asset1_volume.split(" ")[0]));
+            return {...rate, volume};
         }));
     };
     const [data, isLoading, reloadData, reloadPage] = LoadData(req);

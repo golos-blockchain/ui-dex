@@ -9,13 +9,14 @@ import {RedTextBtn} from "../../btn";
 import {generatePromiseModal} from "../../../../redux/actions";
 import {TradeSellConfirm} from "../../confirmModals";
 
-export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
+export const TradeSellForm = ({base, quote, orderBook, selectedPrice = {}, reloadData}) => {
+    const {isAsset, ...defaultData} = selectedPrice;
     const userBalance = getUserData().balances[base] ? getUserData().balances[base].amount : 0;
 
     const {list, params} = getAssets();
 
-    const baseAssetId = list.findIndex(symbol => symbol === base);
-    const quoteAssetId = list.findIndex(symbol => symbol === quote);
+    const baseAssetId = String(list.findIndex(symbol => symbol === base));
+    const quoteAssetId = String(list.findIndex(symbol => symbol === quote));
 
     const basePrecision = params[base].precision;
     const { precision: quotePrecision, fee_percent } = params[quote];
@@ -59,10 +60,11 @@ export const TradeSellForm = ({base, quote, orderBook, reloadData}) => {
     };
 
     const bestPrice = toFixedNum(orderBook.bids[0] ? orderBook.bids[0].price : 0, basePrecision);
+    const defaultRange = defaultData.amount ? rangeCalculation(defaultData) : "0";
 
     return(
         <Form
-            defaultData={{baseAssetId, quoteAssetId}}
+            defaultData={{...defaultData, range: defaultRange, baseAssetId, quoteAssetId}}
             modificators={modificators}
             schema={tradeSellSchema}
             request={request}

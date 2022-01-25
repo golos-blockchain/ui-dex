@@ -6,8 +6,11 @@ import {getAssetParam} from "../../../../redux/actions/assets";
 import {BookAllIcon, BookBuyIcon, BookSellIcon, CaretIcon} from "../../../../svg";
 import {Select} from "../../dropdown";
 
-const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableHeading}) => {
+const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableHeading, handlePriceSelect}) => {
     let total = 0;
+
+    const [hoverPos, setHoverPos] = useState(0);
+    const [hoverMaxHeight, setHoverMaxHeight] = useState(0);
 
     const list = rawList.reduce((acc, next) => {
         total += next.quote;
@@ -26,10 +29,50 @@ const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableH
             acc.push({ ...next, price: nextFixedPrice });
         }
 
-
-
         return acc;
     }, []);
+
+    const onHover = (e) => {
+        let currentTargetRect = e.currentTarget.getBoundingClientRect();
+        const offsetY = isAsks
+            ? currentTargetRect.height + currentTargetRect.top - e.pageY
+            : e.pageY - currentTargetRect.top;
+
+        const position = Math.ceil(offsetY / 2.6 / 10) * 2.6;
+
+        const maxHeight = isAsks ? currentTargetRect.height / 10 - 2.4 : currentTargetRect.height / 10 - .2;
+
+        if(!hoverMaxHeight) setHoverMaxHeight(maxHeight);
+
+        setHoverPos(position);
+    };
+    const clearHover = () => {
+        setHoverPos(0);
+    };
+
+    const selectPrice = () => {
+        const rawList = isAsks ? list.reverse() : list;
+        const selectedItemsNumber = Math.round(hoverPos / 2.6);
+        const selectedItems = rawList.slice(0, selectedItemsNumber);
+
+        const basePrecision = getAssetParam(base).precision;
+        const quotePrecision = getAssetParam(quote).precision;
+
+        const price = toFixedNum(selectedItems[selectedItems.length - 1].price, quotePrecision);
+
+        let amount = 0,
+            result = 0;
+
+        selectedItems.forEach(el => {
+            amount += el.base;
+            result += el.quote;
+        });
+
+        amount = toFixedNum(amount, basePrecision);
+        result = toFixedNum(result, quotePrecision);
+
+        if(handlePriceSelect) handlePriceSelect({isAsks, price: String(price), amount: String(amount), result: String(result)});
+    };
 
     const [baseClass, setClass] = useClassSetter("order-book");
     const priceColor = isAsks ? "error" : "success";
@@ -53,8 +96,14 @@ const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableH
         }
     ];
 
+    const hoverClasses = clsx(setClass("hover-display"), isAsks && "is-asks", hoverPos > 0 && "show-border");
+    const hoverStyles = {
+        "--hoverY": hoverPos + "rem",
+        "--hoverMH": hoverMaxHeight + "rem"
+    };
+
     return(
-        <div className={baseClass}>
+        <div className={baseClass} onMouseOver={onHover} onMouseLeave={clearHover} onClick={selectPrice}>
             <div className={setClass("table-wrapper")}>
                 <Table
                     tableHead={tableHead}
@@ -73,6 +122,9 @@ const OrderBookTable = ({base, quote, precision, list: rawList, isAsks, disableH
                         <div key={id} className={classNames} style={style} />
                     )
                 })}
+            </div>
+            <div className={hoverClasses} style={hoverStyles}>
+                <div className={setClass("hover-bg")} />
             </div>
         </div>
     )
@@ -120,7 +172,7 @@ const OrderBookFilters = ({filtersState}) => {
     )
 };
 
-export const TradeOrderBook = ({base, quote, ordersHistory, orderBook}) => {
+export const TradeOrderBook = ({base, quote, ordersHistory, orderBook, handlePriceSelect}) => {
     const filtersState = useState("all");
     const activeFilter = filtersState[0];
 
@@ -132,7 +184,7 @@ export const TradeOrderBook = ({base, quote, ordersHistory, orderBook}) => {
     const asks = [...orderBook.asks].reverse();
     const bids = orderBook.bids;
 
-    const defaultProps = {base, quote, precision};
+    const defaultProps = {base, quote, precision, handlePriceSelect};
 
     const blancTable = <OrderBookTable {...defaultProps} list={[]} />;
     const asksTable = <OrderBookTable {...defaultProps} list={asks} isAsks disableHeading={activeFilter !== "all"} />;
@@ -178,7 +230,7 @@ export const TradeOrderBook = ({base, quote, ordersHistory, orderBook}) => {
                     />
                 </Box>
             </FlexBox>
-            <Box className="custom-scroll" mr={-2}>
+            <Box className="book-content custom-scroll" mr={-2}>
                 <Box>
                     {contentDisplay[filtersState[0]]}
                 </Box>

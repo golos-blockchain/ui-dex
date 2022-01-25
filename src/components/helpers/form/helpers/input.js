@@ -22,7 +22,7 @@ const FieldMessage = ({className, type, message, messageParams}) => {
     );
 };
 
-export const Input = ({id, label, className, type, inputMode, assetSymbol, prefix, iconLeft: IL, iconRight: IR, comment, hideLabel, ...props}) => {
+export const Input = ({id, label, className, type, inputMode, assetSymbol, prefix, iconLeft: IL, iconRight: IR, inputParams = {}, comment, hideLabel, ...props}) => {
     const ref = useRef();
     const [baseClass, setClass, setEffect] = useClassSetter("field");
 
@@ -56,6 +56,7 @@ export const Input = ({id, label, className, type, inputMode, assetSymbol, prefi
                     className={setClass("input")}
                     onChange={onChange}
                     disabled={disabled}
+                    {...inputParams}
                 />
                 <div className={setClass("bg-layer")} />
                 {label && !hideLabel && <BodyBold className={setClass("label")} content={`fields.${label}`} />}

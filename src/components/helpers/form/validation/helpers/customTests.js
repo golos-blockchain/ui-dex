@@ -191,6 +191,13 @@ const checkMaxNum = (maxNum, path, createError) => {
     return true;
 };
 
+export const checkAssetIssue = ({
+    message: "assetIssueMax",
+    test: function(amount){
+        return amount < Number(this.parent.can_issue);
+    }
+});
+
 export const checkAssetPrecision = ({
     test: function(){
         const maxNum = this.parent.maxNum;
@@ -258,7 +265,7 @@ export const onlySymbols = ({
         const regex = new RegExp(/^[a-zA-Z]+$/);
         return token.match(regex);
     }
-})
+});
 
 export const checkPairUniquness = {
     message: "pairNotUnique",

@@ -100,9 +100,9 @@ export const DashboardBuyForm = ({onUpdate}) => {
                             <Box mb={2}>
                                 <AssetSelect
                                     name="assetToBuy"
-                                    whiteList={assetToSellData.whitelist}
-                                    formData={formData}
+                                    whitelistBase={assetToSellData.symbol}
                                     disabled={!assetToSellSelected}
+                                    formData={formData}
                                 />
                             </Box>
                         </Col>

@@ -12,7 +12,7 @@ import {Orders} from "./orders";
 import {UserHistory} from "./userHistory";
 import {Settings} from "./settings";
 import {LoginScreen} from "../helpers/pages/cabinet";
-import {AssetCreate} from "./assetCreate";
+import {AssetPage} from "./assetPage";
 
 const CabinetLayout = () => {
     const [baseClass, setClass] = useClassSetter("cabinet-layout");
@@ -22,7 +22,7 @@ const CabinetLayout = () => {
         wallet: Wallet,
         orders: Orders,
         history: UserHistory,
-        assetCreate: AssetCreate,
+        assetPage: AssetPage,
         settings: Settings
     };
 

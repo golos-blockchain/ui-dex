@@ -11,6 +11,10 @@ export class ApiRequest extends Request{
         return this.asyncRequest("getAssets", "",[],"0","100","0");
     };
 
+    getCreatedAssets = (name) => {
+        return this.asyncRequest("getAssets", name,[],"0","100","0");
+    };
+
     checkUserExistence = (name) => {
         return this.asyncRequest("lookupAccountNames", [name]).then(res => Boolean(res[0]));
     };

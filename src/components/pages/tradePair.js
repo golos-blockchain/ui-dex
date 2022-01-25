@@ -10,7 +10,7 @@ import {
     TradeBuyForm,
     TradeUserOrders,
     TradeSellForm,
-    TradeHistory, TradeOpenOrders, TradeOrderBook
+    TradeHistory, TradeOpenOrders, TradeOrderBook, OrderCreationTabs
 } from "../helpers/pages/trade";
 import {ApiRequest} from "../../utils/requests";
 import {
@@ -67,16 +67,18 @@ const DesktopDisplay = (props) => {
                     </Col>
                     <Col md={4}>
                         <Card mb={1}>{pairsList}</Card>
-                        <Card>{ordersCreationTabs}</Card>
                     </Col>
                     <Col md={8}>
                         <Card h={50} mb={1} p="0">{chart}</Card>
+                    </Col>
+                    <Col>
                         <Card>{historyTabs}</Card>
                     </Col>
                 </Row>
             </Col>
             <Col md={3}>
                 <Card>{orderBook}</Card>
+                <Card mt={1}>{ordersCreationTabs}</Card>
             </Col>
         </Row>
     )
@@ -154,16 +156,19 @@ const Display = ({userData}) => {
     const {pair} = useParams();
     const [base, quote] = pair.split("_");
     const [baseClass] = useClassSetter("trade-pair");
+    const [selectedPrice, handlePriceSelect] = useState(false);
 
     const [data, isLoading, reloadData, reloadPage] = LoadData(() => getPairData(base, quote), 500);
 
     useEffect(() => {
         if(isLoading) return;
+        handlePriceSelect(false);
         reloadPage();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pair]);
     useEffect(() => {
         if(isLoading) return;
+        handlePriceSelect(false);
         reloadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData.name]);
@@ -175,7 +180,6 @@ const Display = ({userData}) => {
     if(isLoading) return <PageLoader />;
 
     const i18n = translateStr("trade");
-    const tradeTabs = ["buy", "sell"].map(el => ({content: i18n(el)}));
     const ordersTabs = ["openOrders", "myOrders", "history"].map(el => ({content: i18n(el)}));
 
     const reloadDataWithBalance = async () => {
@@ -185,7 +189,6 @@ const Display = ({userData}) => {
 
     const defaultProps = {baseClass, base, quote};
     const defaultHistoryProps = { ...defaultProps, className: "trade-history", maxHeight: "40rem" };
-    const defaultFormsProps = { ...defaultProps, orderBook: data.orderBook, reloadData: reloadDataWithBalance };
 
     const loginBtn = (
         <Box w="fit-content" mx="auto">
@@ -200,10 +203,13 @@ const Display = ({userData}) => {
     const pairsList = <PairsList {...defaultProps} />;
     const ordersCreationTabs = !!userData.name
         ? (
-            <TabsWrapper headingList={tradeTabs}>
-                <TradeBuyForm {...defaultFormsProps} />
-                <TradeSellForm {...defaultFormsProps} />
-            </TabsWrapper>
+            <OrderCreationTabs
+                {...defaultProps}
+                orderBook={data.orderBook}
+                selectedPrice={selectedPrice}
+                handlePriceSelect={handlePriceSelect}
+                reloadData={reloadDataWithBalance}
+            />
         ) : loginBtn;
     const chart = <ChartPage {...defaultProps} tradingViewData={data.tradingViewData} />;
     const historyTabs = (
@@ -221,7 +227,14 @@ const Display = ({userData}) => {
             <TradeHistory {...defaultHistoryProps} ordersHistory={data.ordersHistory} />
         </TabsWrapper>
     );
-    const orderBook = <TradeOrderBook {...defaultProps} ordersHistory={data.ordersHistory} orderBook={data.orderBook} />;
+    const orderBook = (
+        <TradeOrderBook
+            {...defaultProps}
+            ordersHistory={data.ordersHistory}
+            orderBook={data.orderBook}
+            handlePriceSelect={handlePriceSelect}
+        />
+    );
 
     const components = { pairDisplay, pairParams, pairsList, ordersCreationTabs, chart, historyTabs, orderBook };
 

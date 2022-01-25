@@ -1,4 +1,6 @@
-FROM node:14 as builder
+FROM node:10 as builder
+
+RUN apt-get update && apt-get install build-essential nasm && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /source
 
@@ -8,10 +10,19 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+ARG DEPLOY_TYPE=build
 
-FROM nginx:latest
+RUN npm run "$DEPLOY_TYPE"
 
-COPY --from=builder /source/build /usr/share/nginx/html
+FROM alpine:latest as deployer
 
-EXPOSE 80
+RUN apk update && apk add --no-cache sshpass rsync openssh-client
+
+COPY --from=builder /source/build ./dist
+
+ARG DEPLOY_HOST=127.0.0.1
+ARG DEPLOY_PASS=password
+ARG DEPLOY_NAME=awesomeproject
+ARG DEPLOY_PATH=/var/www
+
+RUN sshpass -p "$DEPLOY_PASS" rsync -e "ssh -o StrictHostKeyChecking=no" -avz --delete ./dist $DEPLOY_HOST:$DEPLOY_PATH/$DEPLOY_NAME

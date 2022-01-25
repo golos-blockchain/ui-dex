@@ -7,6 +7,6 @@ export const yupBool = () => yup.bool();
 
 export const yupNum = () => yup.number();
 // export const yupDate = () => yup.date();
-// export const yupArr = (type) => yup.array().of(type);
+export const yupArr = (type) => yup.array().of(type);
 
 export const email = yupString().email({type: "email"}).required();

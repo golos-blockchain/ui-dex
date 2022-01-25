@@ -22,6 +22,31 @@ export class BroadcastRequest extends Request{
         );
     };
 
+
+    assetUpdate = (symbol, symbols_whitelist, fee_percent, metadata) => {
+        const {wif, owner: from} = this.getUserCreds();
+        return (
+            this.asyncRequest("assetUpdate", wif, from, symbol, symbols_whitelist, fee_percent, metadata, []).catch(err => console.error(err))
+        );
+    };
+
+    assetIssue = (to, rawAmount, assetId) => {
+        const {wif, owner: from} = this.getUserCreds();
+        const amount = this.amountToString(rawAmount, assetId);
+
+        return (
+            this.asyncRequest("assetIssue", wif, from, amount, to, []).catch(err => console.error(err))
+        );
+    };
+
+    assetNewOwner = (symbol, new_owner) => {
+        const {wif, owner: from} = this.getUserCreds();
+
+        return (
+            this.asyncRequest("assetTransfer", wif, from, symbol, new_owner, []).catch(err => console.error(err))
+        );
+    };
+
     transfer = ({to, amount: rawAmount, asset, memo = ""}) => {
         const {wif, owner: from} = this.getUserCreds();
         const amount = this.amountToString(rawAmount, asset);

@@ -1,6 +1,7 @@
 export * from "./pairDisplay"
 export * from "./pairParams"
 export * from "./pairsList"
+export * from "./orderCreationTabs"
 export * from "./tradeBuyForm"
 export * from "./tradeSellForm"
 export * from "./tradeOpenOrders"

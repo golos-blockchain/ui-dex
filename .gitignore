@@ -8,9 +8,6 @@ node_modules/
 dist/
 
 # Compiled Java class files
-*.env
-
-# Compiled Java class files
 *.class
 
 # Compiled Python bytecode
