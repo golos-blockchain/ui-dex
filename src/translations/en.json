@@ -7,6 +7,14 @@
     "rate": "Rate:",
     "commission": "Comission:"
   },
+  "serverError": {
+    "desc": "Internal Server Error",
+    "btn": "Перезагрузить сайт"
+  },
+  "emptyPage": {
+    "desc": "Страница не найдена",
+    "btn": "На главную"
+  },
   "trade": {
     "title": "Market",
     "changePair": "Change Pair",
@@ -69,6 +77,7 @@
       "title": "Deposit",
       "desc": "Choose a currency and follow the instructions",
       "details": "Details:",
+      "address": "Address:",
       "fee": "Fee:",
       "memo_transfer": "Memo for transfer:",
       "min_amount": "Minimum amount:",
@@ -104,6 +113,22 @@
   "history": {
     "title": "History",
     "emptyHistory": "You don't have any trade or transaction type of operations"
+  },
+  "assetPage": {
+    "title": "My assets",
+    "list": "Assets list",
+    "create": "Create asset",
+    "warning": "You can't change permissions after UIA creation",
+    "price": "Creation price:",
+    "btn": "Create",
+    "edit": "Edit",
+    "issue": "Issue",
+    "newOwner": "New Owner",
+    "setNewOwnerFor": "New Owner for %(symbol)s",
+    "setNewOwner": "Set new owner",
+    "editAssetData": "Edit %(symbol)s params",
+    "whitelistTitle": "Choose assets to whitelist",
+    "editAssetBtn": "Save new data"
   },
   "settings": {
     "title": "Settings",
@@ -169,8 +194,13 @@
     "quote": "%(quote)s",
     "base": "%(base)s",
     "total": "Total",
-    "lastPrice": "Lost price",
-    "change": "Change"
+    "lastPrice": "Last price",
+    "change": "Change",
+    "maxSupply": "Max Supply",
+    "canIssue": "Can Issue",
+    "fee": "Fee",
+    "whitelist": "Whitelisted",
+    "volume": "Vol"
   },
   "fields": {
     "name": "Name",
@@ -190,17 +220,26 @@
     "price": "Price",
     "amount": "Amount",
     "result": "Result",
-    "currency": "Currency"
+    "currency": "Currency",
+    "maxNum": "Max number",
+    "ticker": "Ticker",
+    "precision": "Precision",
+    "tokenIcon": "Ticker image link (48x48)",
+    "tokenDesc": "Ticker description link",
+    "feePercent": "Fee percent"
   },
   "selects": {
     "language": "Language",
     "asset": "Asset",
     "assetToBuy": "Buy",
-    "assetToSell": "Sell"
+    "assetToSell": "Sell",
+    "prefix": "Prefix"
   },
   "checkboxes": {
     "passwordSaveWarning": "I have saved my new password securely",
-    "isSell": "Sell"
+    "isSell": "Sell",
+    "allowFee": "Allow fee setting",
+    "allowOverrideTransfer": "Allow revocation of tokens by the issuer"
   },
   "errors": {
     "required": "Required field",
@@ -214,8 +253,17 @@
     "userNotExist": "User does not exist",
     "notEnoughCash": "Insufficient funds",
     "pairNotUnique": "The asset must be unique",
-    "wrongPrecision": "Max. number of characters after the decimal point - %(precision)s",
-    "minAmount": "Min amount - %(minAmount)s"
+    "wrongPrecision": "Precision = %(precision)s",
+    "minAmount": "Min amount - %(minAmount)s",
+    "assetWithoutPrecision": "Precision is required",
+    "wrongMaxPrecisionLength": "Max precision - 8",
+    "wrongMaxNumLength": "Max length - 16",
+    "wrongAssetLength": "Max length - 14",
+    "assetNotUnique": "Token exists",
+    "isNotLink": "Enter URL",
+    "userCantCreateToken": "Not enough GBG",
+    "min": "Min symbols - %(min)s",
+    "onlySymbols": "Only latin chars"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
@@ -228,7 +276,7 @@
     },
     "receive": {
       "title": "Transfer",
-      "description": "Received %(amount)s from user %(to)s"
+      "description": "Received %(amount)s from user %(from)s"
     },
     "limit_order_create": {
       "title": "Order creation",
@@ -284,6 +332,11 @@
     },
     "trx": {
       "title": "Transfer",
+      "desc": "Check the data",
+      "btn": "Confirm"
+    },
+    "newAsset": {
+      "title": "Asset creation",
       "desc": "Check the data",
       "btn": "Confirm"
     }

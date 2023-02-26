@@ -1,5 +1,5 @@
 import {ApiRequest} from "../requests";
-import {getAssetById, getAssetParam, getAssets, getAssetsList} from "../../redux/actions/assets";
+import {getAssetParam, getAssets, getAssetsList} from "../../redux/actions/assets";
 import {toFixedNum} from "../numbersOperations";
 
 export const currenciesList = ["GOLOS", "GBG"];
@@ -33,7 +33,7 @@ export const handleAssetsRequest = res => {
     const customAssets = res
         .map(el => {
             const {json_metadata, max_supply, fee_percent, symbols_whitelist, precision} = el;
-            const [_, symbol] = max_supply.split(" ");
+            const symbol = max_supply.split(" ")[1];
             const {image_url, deposit, withdrawal} = JSON.parse(json_metadata);
             const img = currenciesImg[symbol] || image_url;
             const fullName = `${symbol.substr(0, 1).toUpperCase()}${symbol.substr(1,).toLowerCase()}`

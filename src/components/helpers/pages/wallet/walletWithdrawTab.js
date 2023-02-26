@@ -16,44 +16,57 @@ export const WithdrawForm = ({assetId, withdrawal}) => {
     const from = getUserData().name;
     const symbol = getAssetsList()[assetId];
     const {to, min_amount, ways} = withdrawal;
-    const way = ways && ways[0] || {};
-    const {memo, prefix} = way;
+    const waysList = ways && ways.map((el, id) => ({id: String(id), text: el.prefix}));
+    const hasPrefix = ways[0].prefix;
 
-    const req = async ({summ, memo: rawMemo}) => {
-        const memo = prefix ? `${prefix}${rawMemo}` : rawMemo;
+    const req = async ({summ, prefix: prefixIndex, memo: rawMemo}) => {
+        const memo = hasPrefix ? `${waysList[prefixIndex].text}${rawMemo}` : rawMemo;
         return generatePromiseModal(TrxConfirm, {from, to, summ, asset: assetId, memo});
     };
 
     return(
         <Form
-            defaultData={{asset: assetId}}
+            defaultData={{asset: assetId, prefix: "0"}}
             schema={withdrawSchemaGenerator(min_amount)}
-            req={req}
+            request={req}
             clearOnFinish
-        >{formData => (
-            <Fragment>
-                <Row>
-                    <Col md={6}>
-                        <Input name="from" iconLeft={MailIcon} value={from} disabled />
-                    </Col>
-                    <Col md={6}>
-                        <Input name="to" iconLeft={MailIcon} value={to} disabled />
-                    </Col>
-                    <Col md={7}>
-                        <NumberInput name="summ" comment={min_amount && `Мин.сумма: ${min_amount} ${symbol}`} formData={formData} />
-                    </Col>
-                    <Col md={5}>
-                        <AssetSelect name="asset" value={assetId} disabled />
-                    </Col>
-                </Row>
-                <Box mt={min_amount && 1}>
-                    <Input name="memo" prefix={prefix} comment={memo && `Введите ${memo}`} formData={formData} />
-                </Box>
-                <Box w="fit-content" mt={2} ml="auto">
-                    <BrandTextBtn content={i18nGlobal("send")} />
-                </Box>
-            </Fragment>
-        )}</Form>
+        >{formData => {
+            const prefixId = formData.state.data.prefix;
+            const memo = ways[prefixId].memo;
+            return (
+                <Fragment>
+                    <Row>
+                        <Col md={6}>
+                            <Input name="from" iconLeft={MailIcon} value={from} disabled />
+                        </Col>
+                        <Col md={6}>
+                            <Input name="to" iconLeft={MailIcon} value={to} disabled />
+                        </Col>
+                        <Col md={7}>
+                            <NumberInput name="summ" comment={min_amount && `Мин.сумма: ${min_amount} ${symbol}`} formData={formData} />
+                        </Col>
+                        <Col md={5}>
+                            <AssetSelect name="asset" value={assetId} disabled />
+                        </Col>
+                        {hasPrefix && (
+                            <Col md={4}>
+                                <Box mt={min_amount && 1}>
+                                    <Select name="prefix" list={waysList} formData={formData} disabled={waysList.length === 1} />
+                                </Box>
+                            </Col>
+                        )}
+                        <Col md={hasPrefix ? 8 : 12}>
+                            <Box mt={min_amount && 1}>
+                                <Input name="memo" comment={memo && `Введите ${memo}`} formData={formData} />
+                            </Box>
+                        </Col>
+                    </Row>
+                    <Box w="fit-content" mt={2} ml="auto">
+                        <BrandTextBtn type="submit" content={i18nGlobal("send")} />
+                    </Box>
+                </Fragment>
+            )
+        }}</Form>
     )
 }
 
@@ -68,9 +81,6 @@ export const WalletWithdrawTab = () => {
 
     const selectedAsset = rawList[selected];
     const activeWithdrawal = selectedAsset && params[selectedAsset].withdrawal;
-    // const activeWithdrawalPrefix = activeWithdrawal && activeWithdrawal.ways && activeWithdrawal.ways[0].prefix;
-
-    // const withdrawItemsList = [ "details", "to", "min_amount" ];
 
     return(
         <Fragment>

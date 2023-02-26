@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Box, FlexBox, H1, Heading, Subheading} from "../../global";
+import {Box, FlexBox, Heading, Subheading} from "../../global";
 import {BrandTextBtn} from "../../btn";
 import {translateStr} from "../../../../utils";
 import {connect} from "react-redux";

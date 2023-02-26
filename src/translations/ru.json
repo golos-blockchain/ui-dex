@@ -7,6 +7,14 @@
     "rate": "Курс:",
     "commission": "Комиссия:"
   },
+  "serverError": {
+    "desc": "Internal Server Error",
+    "btn": "Перезагрузить сайт"
+  },
+  "emptyPage": {
+    "desc": "Страница не найдена",
+    "btn": "На главную"
+  },
   "trade": {
     "title": "Биржа",
     "changePair": "Изменить пару",
@@ -69,6 +77,7 @@
       "title": "Пополнение",
       "desc": "Выберите валюту и следуйте появившейся инструкции",
       "details": "Детали пополнения:",
+      "address": "Address:",
       "fee": "Комиссия:",
       "memo_transfer": "Поле Memo:",
       "min_amount": "Мин. сумма:",
@@ -104,6 +113,22 @@
   "history": {
     "title": "История",
     "emptyHistory": "У Вас пока что нет совершенных операций"
+  },
+  "assetPage": {
+    "title": "Мои активы",
+    "list": "Список активов",
+    "create": "Создание актива",
+    "warning": "Вы не сможете изменить разрешения после создания актива!",
+    "price": "Стоимость создания:",
+    "btn": "Создать",
+    "edit": "Редактировать",
+    "issue": "Вывести",
+    "newOwner": "Новый обладатель",
+    "setNewOwnerFor": "Задать обладателя для %(symbol)s",
+    "setNewOwner": "Задать обладателя",
+    "editAssetData": "Редактировать параметры для %(symbol)s",
+    "whitelistTitle": "Вайтлист",
+    "editAssetBtn": "Сохранить изменения"
   },
   "settings": {
     "title": "Настройки",
@@ -170,7 +195,12 @@
     "base": "%(base)s",
     "total": "Всего",
     "lastPrice": "Посл.цена",
-    "change": "Измен."
+    "change": "Измен.",
+    "maxSupply": "Максимум",
+    "canIssue": "Можно исп.",
+    "fee": "Комиссия",
+    "whitelist": "В вайтлисте",
+    "volume": "Об."
   },
   "fields": {
     "name": "Имя пользователя",
@@ -190,17 +220,26 @@
     "price": "Цена",
     "amount": "Кол-во",
     "result": "Итого",
-    "currency": "Валюта"
+    "currency": "Валюта",
+    "maxNum": "Макс. кол-во",
+    "ticker": "Тикер",
+    "precision": "Кол-во знаков после запятой",
+    "tokenIcon": "Ссылка на изображение тикера (48x48)",
+    "tokenDesc": "Ссылка на описание токена",
+    "feePercent": "Fee percent"
   },
   "selects": {
     "language": "Язык",
     "asset": "Валюта",
     "assetToBuy": "Купить",
-    "assetToSell": "Продать"
+    "assetToSell": "Продать",
+    "prefix": "Префикс"
   },
   "checkboxes": {
     "passwordSaveWarning": "Я надежно сохранил новый пароль",
-    "isSell": "Продажа"
+    "isSell": "Продажа",
+    "allowFee": "Разрешить устанавливать торговую комиссию",
+    "allowOverrideTransfer": "Разрешить отзывать токены эмитентом актива"
   },
   "errors": {
     "required": "Обязательное поле",
@@ -214,8 +253,17 @@
     "userNotExist": "Пользователя с таким логином не существует",
     "notEnoughCash": "Недостаточно средств",
     "pairNotUnique": "Ассет должен быть уникальным",
-    "wrongPrecision": "Макс. кол-во символов после запятой - %(precision)s",
-    "minAmount": "Мин.сумма - %(minAmount)s"
+    "wrongPrecision": "После запятой - %(precision)s симв.",
+    "minAmount": "Мин.сумма - %(minAmount)s",
+    "assetWithoutPrecision": "Пресижн обязателен",
+    "wrongMaxPrecisionLength": "Макс. пресижн - 8 знаков",
+    "wrongMaxNumLength": "Макс. количество знаков - 16",
+    "wrongAssetLength": "Макс. длина - 14 знаков",
+    "assetNotUnique": "Токен существует",
+    "isNotLink": "Вставьте URL",
+    "userCantCreateToken": "Недостаточно средств",
+    "min": "Мин. - %(min)s симв.",
+    "onlySymbols": "Только латинница"
   },
   "fieldMessages": {
     "success": "This is a SUCCESS message"
@@ -228,7 +276,7 @@
     },
     "receive": {
       "title": "Перевод",
-      "description": "Получено %(amount)s от пользователя %(to)s"
+      "description": "Получено %(amount)s от пользователя %(from)s"
     },
     "limit_order_create": {
       "title": "Создание ордера",
@@ -286,6 +334,11 @@
       "title": "Перевод",
       "desc": "Проверьте правильность заполненных данных",
       "btn": "Подтвердить перевод"
+    },
+    "newAsset": {
+      "title": "Создание ассета",
+      "desc": "Проверьте правильность заполненных данных",
+      "btn": "Подтвердить создание"
     }
   }
 }

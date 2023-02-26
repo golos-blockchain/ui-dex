@@ -4,7 +4,6 @@ import {getStorage, setStorage} from "../storage";
 import {amountToObject, lastTradeToRate} from "./handleAssets";
 import {toFixedNum} from "../numbersOperations";
 import {getAssetParam} from "../../redux/actions/assets";
-import {getUserData} from "../../redux/actions/userData";
 
 export const fetchUserData = async (name) => {
     const defaultAssetSymbol = "GOLOS";
@@ -37,7 +36,7 @@ export const fetchUserData = async (name) => {
 
             const golosRate = await apiReq
                 .getLastTradeToGolos(symbol)
-                .then(lastTradeToRate(defaultAssetSymbol))
+                .then(lastTradeToRate(symbol))
                 .catch(err => console.error(err));
 
             amountInGolos = amount * golosRate;

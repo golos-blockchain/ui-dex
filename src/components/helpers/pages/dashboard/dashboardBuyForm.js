@@ -7,7 +7,7 @@ import {GreenTextBtn} from "../../btn";
 import {getAssetById} from "../../../../redux/actions/assets";
 import {ApiRequest} from "../../../../utils/requests";
 import {buySchema} from "../../form/validation";
-import {generatePromiseModal, initModal} from "../../../../redux/actions";
+import {generatePromiseModal} from "../../../../redux/actions";
 import {QuickBuyConfirm} from "../../confirmModals";
 
 export const DashboardBuyForm = ({onUpdate}) => {
@@ -100,9 +100,9 @@ export const DashboardBuyForm = ({onUpdate}) => {
                             <Box mb={2}>
                                 <AssetSelect
                                     name="assetToBuy"
-                                    whiteList={assetToSellData.whitelist}
-                                    formData={formData}
+                                    whitelistBase={assetToSellData.symbol}
                                     disabled={!assetToSellSelected}
+                                    formData={formData}
                                 />
                             </Box>
                         </Col>

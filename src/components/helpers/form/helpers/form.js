@@ -15,7 +15,7 @@ export class Form extends Component {
             field.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
             field.focus();
         }
-    }
+    };
 
     checkErrors = (name, data) => {
         const schema = this.props.schema;

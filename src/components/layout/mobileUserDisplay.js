@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {connectUserData, logout} from "../../redux/actions/userData";
-import {BodyBold, Box, Divider, FlexBox} from "../helpers/global";
+import {BodyBold, Box, FlexBox} from "../helpers/global";
 import {LogoutIcon, MailIcon} from "../../svg";
 import {BrandTextBtn} from "../helpers/btn";
 import {generateModal} from "../../redux/actions";

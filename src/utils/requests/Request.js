@@ -10,7 +10,6 @@ export default class Request{
     asyncRequest = (opName, ...params) => (
         this.type && new Promise((response, reject) => {
             golos[this.type][opName](...params, (err, res) => {
-                // console.error(err);
                 return err
                     ? reject(err)
                     : response(res);

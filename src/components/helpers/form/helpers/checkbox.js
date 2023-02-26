@@ -4,7 +4,7 @@ import {MetadataBold} from "../../global";
 import {clsx, useClassSetter} from "../../../../utils";
 import {CheckActiveIcon, CheckInactiveIcon} from "../../../../svg";
 
-export const Checkbox = ({id, label, className, type, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
+export const Checkbox = ({id, label, text, className, type, iconLeft: IL, iconRight: IR, hideLabel, ...props}) => {
     const [baseClass, setClass] = useClassSetter("checkbox");
 
     let { name, value, disabled, onChange, fieldStateClass } = fieldHook(props);
@@ -32,7 +32,7 @@ export const Checkbox = ({id, label, className, type, iconLeft: IL, iconRight: I
             <div className={setClass("icon")}>
                 {value ? <CheckActiveIcon /> : <CheckInactiveIcon />}
             </div>
-            <MetadataBold className={setClass("label")} content={`checkboxes.${label}`} />
+            <MetadataBold className={setClass("label")} content={text ? "global.text" : `checkboxes.${label}`} text={text} />
         </label>
     );
 };

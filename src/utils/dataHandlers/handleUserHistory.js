@@ -55,7 +55,7 @@ const opHandlers = {
             amount: highlightText(amountRaw),
             from: highlightText(`@${from}`),
             to: highlightText(`@${to}`),
-            memo
+            memo: highlightText(memo)
         };
 
         return { opType, summ, descData };

@@ -8,6 +8,7 @@ export const DropdownPortal = ({component}) => {
     useEffect(() => {
         body.appendChild(el);
         return () => body.removeChild(el);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return createPortal(

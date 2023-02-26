@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Card, Box, Col, FlexBox, MetadataBold, Row, Heading} from "../helpers/global";
+import {Card, Box, Col, MetadataBold, Row, Heading} from "../helpers/global";
 import {setStorage, translateStr, useClassSetter} from "../../utils";
 import {TabsWrapper} from "../helpers/tabs";
 import {LanguageChange, Nodes, Permissions, ThemeChange} from "../helpers/pages/settings";
@@ -11,7 +11,7 @@ import {passwordChangeSchema} from "../helpers/form/validation";
 import {decodeUserData, encodeUserData} from "../../utils/dataHandlers";
 
 const pwdChange = async ({password, newPassword}) => {
-    const userData = decodeUserData({password})
+    const userData = decodeUserData({password});
     const ciphertext = encodeUserData({...userData, password: newPassword});
     setStorage("user", ciphertext);
 };

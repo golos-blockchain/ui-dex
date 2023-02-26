@@ -49,6 +49,7 @@ const Display = ({settings, base, quote, tradingViewData}) => {
         const timezone = getTimezone();
 
         new TradingView.widget({ ...defaultParams, symbol, datafeed, timezone });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [settings.nightMode]);
 
     return(

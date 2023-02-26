@@ -27,5 +27,6 @@ export const withdrawSchemaGenerator = (min_amount) => schema({
         .test(balanceOnAssetChange("summ"))
         .test(precisionOnAssetChange("summ"))
         .required(),
+    prefix: yupString(),
     memo: yupString().required()
 });

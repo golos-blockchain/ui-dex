@@ -2,7 +2,6 @@ import {
     balanceOnAmountChange,
     precisionOnAmountChange,
     schema,
-    yupNum,
     yupString
 } from "./helpers";
 

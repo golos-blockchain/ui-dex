@@ -12,24 +12,13 @@ import {AssetSelect} from "../../dropdown";
 import {i18nGlobal} from "../../../../utils";
 import {BrandTextBtn} from "../../btn";
 import React from "react";
+import {isUserExist} from "../../../../utils/dataHandlers";
 
 export const TransferForm = ({onUpdate}) => {
     const from = getUserData().name;
 
     const req = async (props) => {
-        const userIsExist = await new ApiRequest().checkUserExistence(props.to);
-
-        //gusaru
-
-        if(!userIsExist){
-            const err = new Error();
-
-            err.field = "to";
-            err.message = "userNotExist";
-
-            throw err;
-        }
-
+        await isUserExist(props.to);
         return generatePromiseModal(TrxConfirm, {from, ...props});
     };
 

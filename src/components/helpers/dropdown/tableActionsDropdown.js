@@ -1,4 +1,4 @@
-import React from "react";
+import React, {createRef} from "react";
 import {useEffect, useState} from "react";
 import {clsx, useClassSetter} from "../../../utils";
 import {DropdownBtn} from "./defaultDropdown";
@@ -12,21 +12,26 @@ const TableActionsBtn = ({toggleOpenState}) => (
 );
 
 const OpenedDropdown = ({blockRef, btnLabel, btnContent, btnComponent, dropdownList, toggleOpenState}) => {
+    const DropdownRef = createRef();
     const Btn = btnComponent || DropdownBtn;
     const [baseClass, setClass] = useClassSetter("action-dropdown");
+    const [dropdownWidth, setDropdownWidth] = useState(0);
     const [isShown, setShown] = useState();
 
     const elementPosition = blockRef && blockRef.current ? blockRef.current.getBoundingClientRect() : {};
+
     const contentStyle = {
-        // width: elementPosition.width + 32,
         top: elementPosition.top - 14,
-        left: elementPosition.left - elementPosition.width - 23 - 15
+        left: elementPosition.left - dropdownWidth + 44
     };
 
     useEffect(() => {
         setTimeout(() => {
-            setShown(true);
+            setDropdownWidth(DropdownRef.current.offsetWidth);
         }, 0);
+        setTimeout(() => {
+            setShown(true);
+        }, 150);
     }, []);
 
     const closeDropdown = () => {
@@ -38,7 +43,7 @@ const OpenedDropdown = ({blockRef, btnLabel, btnContent, btnComponent, dropdownL
 
     return(
         <div className={clsx(baseClass, isShown && "shown")}>
-            <div className={setClass("content")} style={contentStyle}>
+            <div ref={DropdownRef} className={setClass("content")} style={contentStyle}>
                 <div className={setClass("btn")}>
                     <Btn btnContent={btnContent} btnLabel={btnLabel} toggleOpenState={closeDropdown} />
                 </div>

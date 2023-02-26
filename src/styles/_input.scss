@@ -8,6 +8,14 @@
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  border: 0px;
+  -webkit-box-shadow: 0 0 0px 1000px var(--white) inset;
+}
+
 .field{
   --l: 1.6rem;
 
@@ -17,72 +25,90 @@
   margin-bottom: .6rem;
   padding-bottom: 1.6rem;
   position: relative;
-  &__input{
+  &__body{
     width: 100%;
     height: 100%;
+
     position: relative;
-    padding: 1.2rem 4.4rem 1.2rem 1.6rem;
+
+    &:focus-within{
+      .field {
+        &__bg-layer{
+          background: var(--white) !important;
+          border-width: 2px;
+          border-color: var(--brand) !important;;
+        }
+        &__label {
+          --l: 1.5rem;
+
+          font-size: 1.2rem;
+          top: -.6rem;
+          background: var(--white);
+          color: var(--brand) !important;
+          transform: none;
+          z-index: 10;
+        }
+      }
+    }
+  }
+  &__bg-layer{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--bg-secondary);
+    border: 1px solid transparent;
+    border-radius: .8rem;
+    box-sizing: border-box;
+    transition: var(--qSpeed);
+    z-index: 5;
+  }
+  &__input{
+    width: calc(100% - .4rem);
+    height: calc(100% - .4rem);
+    position: relative;
+    margin: .2rem;
+    padding: 1.2rem 4.4rem 1.2rem 1.8rem;
     box-sizing: border-box;
     background: transparent;
     font-family: var(--ff);
     font-size: 1.6rem;
     font-weight: bold;
-    color: var(--font-primary);
-    background: var(--bg-secondary);
-    border: 1px solid transparent;
+    border: 0;
     border-radius: .8rem;
+    color: var(--font-primary);
     transition: var(--qSpeed);
-    z-index: 5;
-    &:focus, &:active, &:not(:placeholder-shown), &:-webkit-autofill {
-      background: var(--white);
-      ~ .field{
-        &__label{
-          --l: 1.6rem;
-
-          font-size: 1.2rem;
-          top: -.5rem;
-          background: var(--white);
-          color: var(--font-disabled);
-        }
-      }
-    }
-    &:not(:placeholder-shown), &:-webkit-autofill {
-      border-color: var(--font-disabled);
-    }
+    z-index: 9;
     &:focus, &:active{
       outline: none;
-      border-width: 2px;
-      border-color: var(--brand);
-      padding-left: 1.5rem;
-      ~ .field{
-        &__label{
-          color: var(--brand);
-        }
-      }
     }
   }
   &__label{
     padding: 0 .4rem;
     position: absolute;
-    top: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
     left: var(--l);
     line-height: 1;
     transition: var(--qSpeed);
     z-index: 6;
   }
-  &__icon-left, &__icon-right, &__asset, &__prefix{
+  &__icon-left, &__icon-right, &__asset{
     position: absolute;
-    top: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
   }
-  &__icon-left, &__prefix{
+  &__icon-left, &__icon-right{
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  &__icon-left{
     left: 1.6rem;
   }
   &__icon-right, &__asset{
     right: 1.6rem;
-  }
-  &__asset, &__prefix{
-    top: 1.4rem;
   }
   &__message{
     width: 100%;
@@ -115,9 +141,31 @@
     z-index: 0;
   }
 
+  &:hover{
+    cursor: text;
+  }
+
+  &.hasValue .field{
+    &__label {
+      --l: 1.5rem;
+
+      font-size: 1.2rem;
+      top: -.6rem;
+      background: var(--white);
+      color: var(--font-disabled);
+      transform: none;
+      z-index: 10;
+    }
+    &__bg-layer {
+      background: var(--white);
+      border-color: var(--font-disabled);
+    }
+  }
+
   &.success .field{
-    &__input{
+    &__bg-layer{
       border-color: var(--success);
+      background: var(--white);
     }
     &__label, &__message span{
       color: var(--success);
@@ -127,7 +175,7 @@
     }
   }
   &.warning .field{
-    &__input{
+    &__bg-layer{
       border-color: var(--warning);
     }
     &__label, &__message{
@@ -138,7 +186,7 @@
     }
   }
   &.error .field{
-    &__input{
+    &__bg-layer{
       border-color: var(--error);
     }
     &__label, &__message span{
@@ -147,44 +195,37 @@
     &__message{
       background: var(--error-light);
     }
-    &__icon-left, &__icon-right{
-      svg{
-        fill: var(--error);
-      }
-    }
   }
   &.disabled{
     opacity: .95;
+
+    &:hover{
+      cursor: default;
+    }
+
+    &.hasValue .field{
+      &__label{
+        font-size: 1.2rem;
+        top: -.6rem;
+        background: var(--white);
+      }
+      &__bg-layer{
+        border-color: var(--font-disabled);
+        background: var(--bg-secondary);
+      }
+    }
+
     .field{
+      &__bg-layer{
+        border-color: transparent;
+        background: var(--bg-secondary);
+      }
       &__input{
         color: var(--font-disabled);
-        &:focus, &:active{
-          background: var(--bg-secondary);
-          ~ .field{
-            &__label{
-              font-size: inherit;
-              top: 1.6rem;
-              left: 1.6rem;
-              background: transparent;
-            }
-          }
-          &:not(:placeholder-shown), &:-webkit-autofill{
-            background: var(--white);
-            ~ .field{
-              &__label{
-                font-size: 1.2rem;
-                top: -.5rem;
-                left: 1.6rem;
-                background: var(--white);
-              }
-            }
-          }
-        }
-        &:focus, &:active, &:not(:placeholder-shown), &:-webkit-autofill {
-          border-color: var(--font-disabled);
-        }
       }
       &__label{
+        font-size: inherit;
+        background: transparent;
         color: var(--font-disabled);
       }
       &__icon-left, &__icon-right{
@@ -199,9 +240,6 @@
 .field--hasLeftIcon .field{
   &__input{
     padding-left: 4.4rem;
-    &:focus, &:active{
-      padding-left: 4.3rem;
-    }
   }
   &__label{
     --l: 4.4rem;
@@ -214,9 +252,6 @@
     &:focus, &:active{
       padding-left: var(--l);
     }
-  }
-  &__label{
-    //--l: 4.4rem;
   }
 }
 
